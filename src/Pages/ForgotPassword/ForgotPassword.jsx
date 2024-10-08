@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 function ForgotPassword() {
   return (
     <div class="login-container-outer">
-      <div class="login-container-inner">
+      <div class="forgotPassword-container-inner">
         <form class="forgotPassword-form">
           <Link to="/">
             <FontAwesomeIcon icon={faArrowLeftLong} className="back-icon" />
