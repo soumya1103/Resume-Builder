@@ -23,7 +23,7 @@ function Login() {
               Don't have an account?
             </Link>
             {" | "}
-            <Link to="" className="login-link">
+            <Link to="/forgotPassword" className="login-link">
               Forgot password?
             </Link>
           </p>

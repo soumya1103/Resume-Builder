@@ -86,13 +86,12 @@
 
 @media only screen and (max-width: 1024px) {
   .login-container-inner {
-    display: block;
+    grid-template-columns: auto;
     width: 60%;
     height: 45vh;
   }
 
   .login-form img {
-    margin-top: 13%;
     width: 65%;
   }
 
@@ -112,13 +111,11 @@
 
 @media only screen and (max-width: 600px) {
   .login-container-inner {
-    display: block;
     width: 80%;
     height: 45vh;
   }
 
   .login-form img {
-    margin-top: 13%;
     width: 65%;
   }
 
