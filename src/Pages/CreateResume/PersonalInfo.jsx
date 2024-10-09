@@ -25,7 +25,7 @@ function PersonalInfo() {
       <div className="grid-container-1-col">
         <Input label="Objective" name="objective" type="textarea" className="resume-form-input-field" />
       </div>
-      <Button className="resume-form-btn" onClick={handleNextClick}>
+      <Button className="resume-form-btn-single" onClick={handleNextClick}>
         Next
       </Button>
     </div>
