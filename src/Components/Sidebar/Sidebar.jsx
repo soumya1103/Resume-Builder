@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import "./Sidebar.css";
 
 function Sidebar(props) {
@@ -24,7 +24,7 @@ function Sidebar(props) {
         <div className="sidebar-container">
             <div className="sidebar-inner-container">
                 <Link
-                    to="/dashboard"
+                    to="/personalInfo"
                     className={`sidebar-icon ${
                         location.pathname === "/personalInfo" ? "active" : ""
                     }`}

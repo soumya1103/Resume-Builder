@@ -1,0 +1,21 @@
+.hoc-container {
+    display: grid;
+    grid-template-columns: 17% 83%;
+}
+
+.hoc-right-container {
+    background-color: #fcfaf6;
+}
+
+/* Portrait Tablet */
+@media (max-width: 1024px) {
+    .hoc-container {
+        grid-template-columns: 25% 75%;
+    }
+}
+
+@media (max-width: 1420px) and (min-width: 1025px) {
+    .hoc-container {
+        grid-template-columns: 20% 80%;
+    }
+}
