@@ -1,0 +1,41 @@
+.resume-form {
+  padding: 2% 5%;
+  width: 84%;
+  background-color: #fff;
+  border-radius: 5px;
+  height: 79.5vh;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.resume-form-title {
+  text-align: left;
+  color: #e74860;
+  font-family: "Roboto Slab", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1.5rem;
+}
+
+.grid-container-2-col {
+  display: grid;
+  grid-template-columns: 43% 43%;
+  text-align: center;
+  align-items: center;
+  grid-column-gap: 10%;
+  margin-bottom: 1%;
+}
+
+.grid-container-1-col {
+  display: grid;
+  grid-template-columns: 93.5%;
+}
+
+.resume-form-input-field {
+  width: 100%;
+}
+
+.resume-form-btn {
+  margin-top: 5%;
+  display: grid;
+}

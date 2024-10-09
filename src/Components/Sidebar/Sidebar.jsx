@@ -2,88 +2,66 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 import "./Sidebar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList, faCertificate } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar(props) {
-    const location = useLocation();
-    // const dispatch = useDispatch();
-    // const navigate = useNavigate();
-    // const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const location = useLocation();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
-    // const handleLogoutIcon = () => {
-    //     setShowConfirmationModal(true);
-    // };
+  // const handleLogoutIcon = () => {
+  //     setShowConfirmationModal(true);
+  // };
 
-    // const handleLogout = () => {
-    //     logout();
-    //     dispatch(logoutUser());
-    //     setShowConfirmationModal(false);
-    //     navigate("/login");
-    // };
+  // const handleLogout = () => {
+  //     logout();
+  //     dispatch(logoutUser());
+  //     setShowConfirmationModal(false);
+  //     navigate("/login");
+  // };
 
-    return (
-        <div className="sidebar-container">
-            <div className="sidebar-inner-container">
-                <Link
-                    to="/personalInfo"
-                    className={`sidebar-icon ${
-                        location.pathname === "/personalInfo" ? "active" : ""
-                    }`}
-                >
-                    {/* <img src={dashboard} alt="dashboard" width="12%" /> */}
-                    <h3>Personal Information</h3>
-                </Link>
-                <Link
-                    to="/education"
-                    className={`sidebar-icon ${
-                        location.pathname === "/education" ? "active" : ""
-                    }`}
-                >
-                    {/* <img src={categories} alt="categories" width="12%" /> */}
-                    <h3>Education</h3>
-                </Link>
-                <Link
-                    to="/professionalExperience"
-                    className={`sidebar-icon ${
-                        location.pathname === "/professionalExperience"
-                            ? "active"
-                            : ""
-                    }`}
-                >
-                    {/* <img src={books} alt="books" width="12%" /> */}
-                    <h3>Professional Experience</h3>
-                </Link>
-                <Link
-                    to="/skills"
-                    className={`sidebar-icon ${
-                        location.pathname === "/skills" ? "active" : ""
-                    }`}
-                >
-                    {/* <img src={users} alt="users" width="12%" /> */}
-                    <h3>Skills</h3>
-                </Link>
-                <Link
-                    to="/awardCerts"
-                    className={`sidebar-icon ${
-                        location.pathname === "/awardCerts" ? "active" : ""
-                    }`}
-                >
-                    {/* <img src={issuances} alt="issuances" width="12%" /> */}
-                    <h3>Award / Certification</h3>
-                </Link>
-                <Link
-                    to="/professionalSummary"
-                    className={`sidebar-icon ${
-                        location.pathname === "/professionalSummary"
-                            ? "active"
-                            : ""
-                    }`}
-                >
-                    {/* <img src={issuances} alt="issuances" width="12%" /> */}
-                    <h3>Professional Summary</h3>
-                </Link>
-            </div>
-        </div>
-    );
+  return (
+    <div className="sidebar-container">
+      <button className="sidebar">
+        <Link to="/personalInfo" className={`sidebar-link ${location.pathname === "/personalInfo" ? "active" : ""}`}>
+          <FontAwesomeIcon icon={faCircleInfo} className="sidebar-icon" />
+          <h3 className="sidebar-heading">Personal Information</h3>
+        </Link>
+      </button>
+      <button className="sidebar">
+        <Link to="/education" className={`sidebar-link ${location.pathname === "/education" ? "active" : ""}`}>
+          <FontAwesomeIcon icon={faUserGraduate} className="sidebar-icon" />
+          <h3 className="sidebar-heading">Education</h3>
+        </Link>
+      </button>
+      <button className="sidebar">
+        <Link to="/professionalExperience" className={`sidebar-link${location.pathname === "/professionalExperience" ? "active" : ""}`}>
+          <FontAwesomeIcon icon={faWindowRestore} className="sidebar-icon" />
+          <h3 className="sidebar-heading">Professional Experience</h3>
+        </Link>
+      </button>
+      <button className="sidebar">
+        <Link to="/skills" className={`sidebar-link${location.pathname === "/skills" ? "active" : ""}`}>
+          <FontAwesomeIcon icon={faList} className="sidebar-icon" />
+          <h3 className="sidebar-heading">Skills</h3>
+        </Link>
+      </button>
+      <button className="sidebar">
+        <Link to="/awardCerts" className={`sidebar-link${location.pathname === "/awardCerts" ? "active" : ""}`}>
+          <FontAwesomeIcon icon={faCertificate} className="sidebar-icon" />
+          <h3 className="sidebar-heading">Award / Certification</h3>
+        </Link>
+      </button>
+      <button className="sidebar">
+        <Link to="/professionalSummary" className={`sidebar-link ${location.pathname === "/professionalSummary" ? "active" : ""}`}>
+          <FontAwesomeIcon icon={faUserTie} className="sidebar-icon" />
+          <h3 className="sidebar-heading">Professional Summary</h3>
+        </Link>
+      </button>
+    </div>
+  );
 }
 
 export default Sidebar;
