@@ -23,7 +23,7 @@ function PersonalInfo() {
         <Input label="Phone Number" name="phoneNumber" type="tel" className="resume-form-input-field" />
       </div>
       <div className="grid-container-1-col">
-        <Input label="Objective" name="objective" type="textarea" className="resume-form-input-field" />
+        <Input label="Objective" name="objective" type="textarea" className="resume-form-input-field" margin="1%" />
       </div>
       <Button className="resume-form-btn-single" onClick={handleNextClick}>
         Next

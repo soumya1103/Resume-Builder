@@ -37,13 +37,13 @@ function Sidebar(props) {
         </Link>
       </button>
       <button className="sidebar">
-        <Link to="/professionalExperience" className={`sidebar-link${location.pathname === "/professionalExperience" ? "active" : ""}`}>
+        <Link to="/professionalExperience" className={`sidebar-link ${location.pathname === "/professionalExperience" ? "active" : ""}`}>
           <FontAwesomeIcon icon={faWindowRestore} className="sidebar-icon" />
           <h3 className="sidebar-heading">Professional Experience</h3>
         </Link>
       </button>
       <button className="sidebar">
-        <Link to="/skills" className={`sidebar-link${location.pathname === "/skills" ? "active" : ""}`}>
+        <Link to="/skills" className={`sidebar-link ${location.pathname === "/skills" ? "active" : ""}`}>
           <FontAwesomeIcon icon={faList} className="sidebar-icon" />
           <h3 className="sidebar-heading">Skills</h3>
         </Link>
