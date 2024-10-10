@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function ProfessionalSummary() {
-  const [certs, setCerts] = useState([{ certification: "", collapsed: false }]);
+  const [certification, setCertification] = useState([{ certification: "", collapsed: false }]);
 
   const navigate = useNavigate();
 
@@ -16,18 +16,18 @@ function ProfessionalSummary() {
   };
 
   const handlePlusClick = () => {
-    const updatedFields = certs.map((field, index) => (index === 0 ? { ...field, collapsed: true } : field));
-    setCerts([{ certification: "", collapsed: false }, ...updatedFields]);
+    const updatedFields = certification.map((field, index) => (index === 0 ? { ...field, collapsed: true } : field));
+    setCertification([{ certification: "", collapsed: false }, ...updatedFields]);
   };
 
   const handleDeleteClick = (index) => {
-    const updatedFields = certs.filter((_, i) => i !== index);
-    setCerts(updatedFields);
+    const updatedFields = certification.filter((_, i) => i !== index);
+    setCertification(updatedFields);
   };
 
   const handleFieldChange = (index, fieldName, value) => {
-    const updatedFields = certs.map((field, i) => (i === index ? { ...field, [fieldName]: value } : field));
-    setCerts(updatedFields);
+    const updatedFields = certification.map((field, i) => (i === index ? { ...field, [fieldName]: value } : field));
+    setCertification(updatedFields);
   };
 
   return (
@@ -44,7 +44,7 @@ function ProfessionalSummary() {
         </div>
 
         <div className="resume-entry">
-          {!certs[0].collapsed && (
+          {!certification[0].collapsed && (
             <>
               <div className="grid-container-1-col">
                 <Input
@@ -52,8 +52,8 @@ function ProfessionalSummary() {
                   name="certification"
                   type="text"
                   className="resume-form-input-field"
-                  value={certs[0].institutionName}
-                  onChange={(e) => handleFieldChange(0, "certs", e.target.value)}
+                  value={certification[0].certification}
+                  onChange={(e) => handleFieldChange(0, "certification", e.target.value)}
                   margin="1%"
                 />
               </div>
@@ -61,7 +61,7 @@ function ProfessionalSummary() {
           )}
         </div>
 
-        {certs.slice(1).map((field, index) => (
+        {certification.slice(1).map((field, index) => (
           <div key={index + 1} className="resume-entry">
             <div className="resume-form-header">
               <Input
@@ -69,8 +69,8 @@ function ProfessionalSummary() {
                 name={`certification-${index + 1}`}
                 type="text"
                 className="resume-form-input-field"
-                value={field.institutionName}
-                onChange={(e) => handleFieldChange(index + 1, "certs", e.target.value)}
+                value={field.certification}
+                onChange={(e) => handleFieldChange(index + 1, "certification", e.target.value)}
               />
               <FontAwesomeIcon icon={faTrash} className="resume-delete-icon" onClick={() => handleDeleteClick(index + 1)} />
             </div>
