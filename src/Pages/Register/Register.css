@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,300;1,400&display=swap");
+
+.register-container-outer {
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: #243c76;
+  display: flex;
+  justify-content: center;
+  background-color: #f2f2ee;
+  align-items: center;
+}
+
+.register-container-inner {
+  background-color: #f5f5f7;
+  display: grid;
+  /* grid-template-columns: 50% 50%; */
+  align-items: center;
+  width: 36%;
+  border-radius: 9px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.register-form h1 {
+    font-size: 1.7rem;
+    color: #e74860;
+    margin-top: 0;
+    font-family: "Roboto Slab", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    margin-bottom: 1%;
+    margin-top: 8%;
+  }
+  
+  
+.register-input {
+    width: 70%;
+  }
+  
+  
+.register-input input {
+    color: #243c76;
+  }
+  
+  .register-input label {
+    color: #686d76;
+  }
+  
+  .register-input label.Mui-focused {
+    color: #243c76;
+    font-size: 1.2rem;
+  }
+  
+  .register-input .MuiInput-underline:after {
+    border-bottom-color: #243c76;
+  }
+  
+  .register-input .MuiInput-underline:before {
+    border-bottom-color: #ccc;
+  }
+  
+  .register-input:hover .MuiInput-underline:before {
+    border-bottom-color: #243c76;
+  }
+  
+  .register-btn {
+    margin: 4% 0 2% 0;
+  }
+
+
+  
+@media only screen and (max-width: 1024px) {
+    .register-container-inner {
+      grid-template-columns: auto;
+      width: 60%;
+      height: 45vh;
+    }
+  
+    .login-form img {
+      width: 65%;
+    }
+  
+    .register-form h1 {
+      margin-top: 6%;
+      font-size: 1.7rem;
+    }
+  
+  
+    .register-input {
+      width: 66%;
+    }
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .register-container-inner {
+      width: 80%;
+      height: 45vh;
+    }
+  
+    .register-input {
+      width: 66%;
+    }
+  }
+  
+  @media only screen and (max-width: 389px) {
+    .register-container-inner {
+      height: 58vh;
+    }
+  
+    .register-form h1 {
+      font-size: 1.5rem;
+    }
+  
+    .register-input {
+      width: 66%;
+    }
+  }
+  
