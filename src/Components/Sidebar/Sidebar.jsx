@@ -1,26 +1,11 @@
-import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList, faCertificate } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar(props) {
   const location = useLocation();
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-
-  // const handleLogoutIcon = () => {
-  //     setShowConfirmationModal(true);
-  // };
-
-  // const handleLogout = () => {
-  //     logout();
-  //     dispatch(logoutUser());
-  //     setShowConfirmationModal(false);
-  //     navigate("/login");
-  // };
 
   return (
     <div className="sidebar-container">
