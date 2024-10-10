@@ -41,102 +41,105 @@ function ProfessionalExperience() {
 
   return (
     <div className="resume-form">
-      <h1 className="resume-form-title">Professional Experience</h1>
-      <div className="resume-form-header">
-        <FontAwesomeIcon icon={faPlus} className="resume-plus-icon" onClick={handlePlusClick} />
-      </div>
+      <div className="resume-professional-experience">
+        <h1 className="resume-form-title">Professional Experience</h1>
+        <div className="resume-form-header">
+          <FontAwesomeIcon icon={faPlus} className="resume-plus-icon" onClick={handlePlusClick} />
+        </div>
 
-      <div className="resume-entry">
-        {!experienceFields[0].collapsed && (
-          <>
-            <div className="grid-container-2-col">
+        <div className="resume-entry">
+          {!experienceFields[0].collapsed && (
+            <>
+              <div className="grid-container-2-col">
+                <Input
+                  label="Job Title"
+                  name="jobTitle"
+                  type="text"
+                  className="resume-form-input-field"
+                  value={experienceFields[0].jobTitle}
+                  onChange={(e) => handleFieldChange(0, "jobTitle", e.target.value)}
+                />
+                <Input
+                  label="Company Name"
+                  name="companyName"
+                  type="text"
+                  className="resume-form-input-field"
+                  value={experienceFields[0].companyName}
+                  onChange={(e) => handleFieldChange(0, "companyName", e.target.value)}
+                />
+              </div>
+              <div className="grid-container-1-col">
+                <Input
+                  label="Project Name"
+                  name="projectName"
+                  type="text"
+                  className="resume-form-input-field"
+                  value={experienceFields[0].projectName}
+                  onChange={(e) => handleFieldChange(0, "projectName", e.target.value)}
+                  margin="1%"
+                />
+              </div>
+              <div className="grid-container-2-col">
+                <Input
+                  label="Start Date"
+                  name="startDate"
+                  type="date"
+                  className="resume-form-input-field"
+                  value={experienceFields[0].startDate}
+                  onChange={(e) => handleFieldChange(0, "startDate", e.target.value)}
+                />
+                <Input
+                  label="End Date"
+                  name="endDate"
+                  type="date"
+                  className="resume-form-input-field"
+                  value={experienceFields[0].endDate}
+                  onChange={(e) => handleFieldChange(0, "endDate", e.target.value)}
+                />
+              </div>
+              <div className="grid-container-1-col">
+                <Input
+                  label="Tech Stack"
+                  name="techStack"
+                  type="text"
+                  className="resume-form-input-field"
+                  value={experienceFields[0].techStack}
+                  onChange={(e) => handleFieldChange(0, "techStack", e.target.value)}
+                  margin="1%"
+                />
+              </div>
+              <div className="grid-container-1-col">
+                <Input
+                  label="Details"
+                  name="details"
+                  type="textarea"
+                  className="resume-form-input-field"
+                  value={experienceFields[0].details}
+                  onChange={(e) => handleFieldChange(0, "details", e.target.value)}
+                  margin="1%"
+                />
+              </div>
+            </>
+          )}
+        </div>
+
+        {experienceFields.slice(1).map((field, index) => (
+          <div key={index + 1} className="resume-entry">
+            <div className="resume-form-header">
               <Input
                 label="Job Title"
-                name="jobTitle"
+                name={`jobTitle-${index + 1}`}
                 type="text"
                 className="resume-form-input-field"
-                value={experienceFields[0].jobTitle}
-                onChange={(e) => handleFieldChange(0, "jobTitle", e.target.value)}
-              />
-              <Input
-                label="Company Name"
-                name="companyName"
-                type="text"
-                className="resume-form-input-field"
-                value={experienceFields[0].companyName}
-                onChange={(e) => handleFieldChange(0, "companyName", e.target.value)}
-              />
-            </div>
-            <div className="grid-container-1-col">
-              <Input
-                label="Project Name"
-                name="projectName"
-                type="text"
-                className="resume-form-input-field"
-                value={experienceFields[0].projectName}
-                onChange={(e) => handleFieldChange(0, "projectName", e.target.value)}
+                value={field.jobTitle}
+                onChange={(e) => handleFieldChange(index + 1, "jobTitle", e.target.value)}
                 margin="1%"
               />
+              <FontAwesomeIcon icon={faTrash} className="resume-delete-icon" onClick={() => handleDeleteClick(index + 1)} />
             </div>
-            <div className="grid-container-2-col">
-              <Input
-                label="Start Date"
-                name="startDate"
-                type="date"
-                className="resume-form-input-field"
-                value={experienceFields[0].startDate}
-                onChange={(e) => handleFieldChange(0, "startDate", e.target.value)}
-              />
-              <Input
-                label="End Date"
-                name="endDate"
-                type="date"
-                className="resume-form-input-field"
-                value={experienceFields[0].endDate}
-                onChange={(e) => handleFieldChange(0, "endDate", e.target.value)}
-              />
-            </div>
-            <div className="grid-container-1-col">
-              <Input
-                label="Tech Stack"
-                name="techStack"
-                type="text"
-                className="resume-form-input-field"
-                value={experienceFields[0].techStack}
-                onChange={(e) => handleFieldChange(0, "techStack", e.target.value)}
-                margin="1%"
-              />
-            </div>
-            <div className="grid-container-1-col">
-              <Input
-                label="Details"
-                name="details"
-                type="textarea"
-                className="resume-form-input-field"
-                value={experienceFields[0].details}
-                onChange={(e) => handleFieldChange(0, "details", e.target.value)}
-                margin="1%"
-              />
-            </div>
-          </>
-        )}
-      </div>
-
-      {experienceFields.slice(1).map((field, index) => (
-        <div key={index + 1} className="resume-entry">
-          <div className="resume-form-header">
-            <Input
-              label="Job Title"
-              name={`jobTitle-${index + 1}`}
-              type="text"
-              className="resume-form-input-field"
-              value={field.jobTitle}
-              onChange={(e) => handleFieldChange(index + 1, "jobTitle", e.target.value)}
-            />
-            <FontAwesomeIcon icon={faTrash} className="resume-delete-icon" onClick={() => handleDeleteClick(index + 1)} />
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <div className="resume-form-btn">
         <Button onClick={handlePrevClick}>Previous</Button>

@@ -78,3 +78,12 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.resume-professional-experience {
+  height: 69vh;
+  overflow-y: scroll;
+}
+
+.resume-professional-experience::-webkit-scrollbar {
+  display: none;
+}

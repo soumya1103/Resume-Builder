@@ -6,7 +6,6 @@ import PersonalInfo from "./Pages/CreateResume/PersonalInfo";
 import Education from "./Pages/CreateResume/Education";
 import ProfessionalExperience from "./Pages/CreateResume/ProfessionalExperience";
 import Skills from "./Pages/CreateResume/Skills";
-import AwardCertification from "./Pages/CreateResume/AwardCertification";
 import ProfessionalSummary from "./Pages/CreateResume/ProfessionalSummary";
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
           <Route path="/education" element={<Education />} />
           <Route path="/professionalExperience" element={<ProfessionalExperience />} />
           <Route path="/skills" element={<Skills />} />
-          <Route path="/awardCerts" element={<AwardCertification />} />
           <Route path="/professionalSummary" element={<ProfessionalSummary />} />
         </Routes>
       </BrowserRouter>

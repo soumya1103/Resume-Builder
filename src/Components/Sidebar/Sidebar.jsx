@@ -49,12 +49,6 @@ function Sidebar(props) {
         </Link>
       </button>
       <button className="sidebar">
-        <Link to="/awardCerts" className={`sidebar-link${location.pathname === "/awardCerts" ? "active" : ""}`}>
-          <FontAwesomeIcon icon={faCertificate} className="sidebar-icon" />
-          <h3 className="sidebar-heading">Award / Certification</h3>
-        </Link>
-      </button>
-      <button className="sidebar">
         <Link to="/professionalSummary" className={`sidebar-link ${location.pathname === "/professionalSummary" ? "active" : ""}`}>
           <FontAwesomeIcon icon={faUserTie} className="sidebar-icon" />
           <h3 className="sidebar-heading">Professional Summary</h3>

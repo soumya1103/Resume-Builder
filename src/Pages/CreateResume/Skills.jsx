@@ -12,7 +12,7 @@ function Skills() {
   };
 
   const handleNextClick = () => {
-    navigate("/awardCerts");
+    navigate("/professionalSummary");
   };
 
   const [technology, setTechnology] = useState([]);
