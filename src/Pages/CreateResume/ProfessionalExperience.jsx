@@ -22,7 +22,6 @@ function ProfessionalExperience() {
   };
 
   const handlePlusClick = () => {
-    // Collapse the current set of fields and add a new empty field at the top
     const updatedFields = experienceFields.map((field, index) => (index === 0 ? { ...field, collapsed: true } : field));
     setExperienceFields([
       { jobTitle: "", companyName: "", projectName: "", startDate: "", endDate: "", techStack: "", details: "", collapsed: false },
@@ -47,7 +46,6 @@ function ProfessionalExperience() {
         <FontAwesomeIcon icon={faPlus} className="resume-plus-icon" onClick={handlePlusClick} />
       </div>
 
-      {/* Render new fields first */}
       <div className="resume-entry">
         {!experienceFields[0].collapsed && (
           <>
@@ -124,7 +122,6 @@ function ProfessionalExperience() {
         )}
       </div>
 
-      {/* Render collapsed fields at the bottom */}
       {experienceFields.slice(1).map((field, index) => (
         <div key={index + 1} className="resume-entry">
           <div className="resume-form-header">
