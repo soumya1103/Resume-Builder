@@ -2,13 +2,18 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-function Sidebar(props) {
+function Sidebar() {
   const location = useLocation();
 
   return (
     <div className="sidebar-container">
+      <button className="sidebar">
+        <Link to="/dashboard" className={`sidebar-link ${location.pathname === "/personalInfo" ? "active" : ""}`}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Link>
+      </button>
       <button className="sidebar">
         <Link to="/personalInfo" className={`sidebar-link ${location.pathname === "/personalInfo" ? "active" : ""}`}>
           <FontAwesomeIcon icon={faCircleInfo} className="sidebar-icon" />
