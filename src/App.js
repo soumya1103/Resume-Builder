@@ -11,16 +11,14 @@ import ProfessionalSummary from "./Pages/CreateResume/ProfessionalSummary";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/personalInfo" element={<PersonalInfo />} />
-          <Route path="/education" element={<Education />} />
-          <Route path="/professionalExperience" element={<ProfessionalExperience />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/professionalSummary" element={<ProfessionalSummary />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/personalInfo" element={<PersonalInfo />} />
+        <Route path="/education" element={<Education />} />
+        <Route path="/professionalExperience" element={<ProfessionalExperience />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/professionalSummary" element={<ProfessionalSummary />} />
+      </Routes>
     </div>
   );
 }
