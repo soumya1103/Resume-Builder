@@ -1,4 +1,3 @@
-
 import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Login from "./Pages/Login/Login";
@@ -16,6 +15,13 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/personalInfo" element={<PersonalInfo />} />
+        <Route path="/education" element={<Education />} />
+        <Route path="/professionalExperience" element={<ProfessionalExperience />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/professionalSummary" element={<ProfessionalSummary />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );
