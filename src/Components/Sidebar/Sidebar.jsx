@@ -11,7 +11,7 @@ function Sidebar() {
     <div className="sidebar-container">
       <button className="sidebar">
         <Link to="/dashboard" className={`sidebar-link ${location.pathname === "/personalInfo" ? "active" : ""}`}>
-          <FontAwesomeIcon icon={faArrowLeft} />
+          <FontAwesomeIcon icon={faArrowLeft} className="sidebar-back-icon" />
         </Link>
       </button>
       <button className="sidebar">
