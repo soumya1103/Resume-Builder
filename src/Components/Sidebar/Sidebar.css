@@ -54,3 +54,13 @@
     color: #e74860;
   }
 }
+
+.sidebar-back-icon {
+  color: #243c76;
+  font-size: 1.4rem;
+}
+
+.sidebar-back-icon:hover {
+  color: #e74860;
+  transition: all 0.3s;
+}
