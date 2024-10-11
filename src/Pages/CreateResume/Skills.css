@@ -1,0 +1,78 @@
+.skills-container {
+  width: 97%;
+  padding: 10px;
+  border: 2px solid #243d7634;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.skills-list li {
+  background-color: #243c76;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.skills-list li .remove-skill {
+  margin-left: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.skill-input {
+  flex: 1;
+  border: none;
+  padding: 1.5% 0;
+  font-size: 1rem;
+  outline: none;
+  background: none;
+  font-size: 0.9rem;
+  background-color: white;
+  color: #243c76;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  border-radius: 5px;
+}
+
+.skill-input::placeholder {
+  color: #aaa;
+}
+
+.skill-input::placeholder {
+  color: #243d76a9;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.9rem;
+}
+
+.skills-label {
+  display: block;
+  text-align: left;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #243c76;
+  font-style: normal;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  margin-top: 3%;
+}

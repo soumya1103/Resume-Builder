@@ -19,10 +19,6 @@ function Login() {
           <br />
           <Button className="login-btn">Login</Button>
           <p>
-            <Link to="" className="login-link">
-              Don't have an account?
-            </Link>
-            {" | "}
             <Link to="/forgotPassword" className="login-link">
               Forgot password?
             </Link>
