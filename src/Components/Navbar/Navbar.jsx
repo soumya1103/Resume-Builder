@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import "../Navbar/Navbar.css";
 import NT from "../../Images/NucleusTeq Logo.png";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../Api/apiService";
+import { logoutUser } from "../../Redux/Authentication/AuthenticationAction";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    dispatch(logoutUser());
-    navigate("/");
   };
 
   const closeDropdown = () => {
@@ -37,8 +32,8 @@ function Navbar() {
         <img src={NT} alt="Logo" />
       </div>
       <h2 className="heading">Welcome User</h2>
-      <div className="navbar-button">
-        <button className="btn" onClick={toggleDropdown}>
+      <div className="navbar-button" onMouseLeave={closeDropdown}>
+        <button className="btn" onMouseEnter={toggleDropdown}>
           T
         </button>
         {isDropdownOpen && (
