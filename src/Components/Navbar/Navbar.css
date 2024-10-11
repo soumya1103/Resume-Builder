@@ -3,8 +3,8 @@
     grid-template-columns: auto 1fr auto; 
     align-items: center;
     background-color: #ffffff;
-    padding: 10px 30px;
-    height: 65px;
+    padding: 0 30px;
+    /* height: 65px; */
     margin-bottom: 5%;
     color: white;
   }

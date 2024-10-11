@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import '../Navbar/Navbar.css';
 import NT from '../../Images/NucleusTeq Logo.png';
