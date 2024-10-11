@@ -4,7 +4,7 @@ function Card({ icon, label }) {
   return (
     <div className="dashboard-card">
       <div className="dashboard-icons">{icon}</div>
-      <h2 className='card-label'>{label}</h2>
+      <div className='card-label'>{label}</div>
     </div>
   );
 }

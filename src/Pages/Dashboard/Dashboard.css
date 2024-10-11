@@ -6,7 +6,7 @@
     display: grid;
     justify-content: center;
     grid-template-columns: 25% 28.5%;
-    row-gap: 15%;
+    row-gap: 18%;
     column-gap: 10%;
 }
 .dashboard-card {
@@ -29,6 +29,12 @@
 .dashboard-icons {
     color: #e74860; 
     font-size: 45px; 
+}
+
+.card-label {
+  font-size: 1.5rem;
+  padding-top: 20px;
+  font-weight: 500;
 }
   
   @media only screen and (max-width: 768px) {
@@ -61,14 +67,14 @@
     }
   }
 
-  @media only screen and (max-width: 389px) {
+  @media only screen and (max-width: 412px) {
      
     .dashboard-container {
         grid-template-columns: 50%; 
-        row-gap: 5%;
+        row-gap: 6%;
       }
       .dashboard-card {
-          width: 180px;
+          width: 220px;
           height: 150px;
       }
       .dashboard-icons {

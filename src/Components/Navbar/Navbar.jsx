@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../Navbar/Navbar.css'
+import '../Navbar/Navbar.css';
 import NT from '../../Images/NucleusTeq Logo.png';
 
 function Navbar() {
@@ -9,14 +9,21 @@ function Navbar() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const closeDropdown = () => {
+    setIsDropdownOpen(false);
+  };
+
   return (
     <div className='navbar'>
       <div className='navbar-logo'>
         <img src={NT} alt='Logo' />
       </div>
       <h2 className='heading'>Welcome User</h2>
-      <div className='navbar-button'>
-        <button className='btn' onClick={toggleDropdown}>T</button>
+      <div 
+        className='navbar-button' 
+        onMouseLeave={closeDropdown} 
+      >
+        <button className='btn' onMouseEnter={toggleDropdown}>T</button>
         {isDropdownOpen && (
           <div className='dropdown-menu'>
             <button className='dropdown-item'>Profile</button>
