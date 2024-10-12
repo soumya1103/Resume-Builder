@@ -5,8 +5,8 @@ import Button from "../../Components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { PROFESSIONAL_EXPERIENCE } from "../../Redux/ResumeReducer/ResumeTypes";
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
+import { saveProfessionalExperience } from "../../Redux/ResumeReducer/ResumeAction";
 
 function ProfessionalExperience() {
   const dispatch = useDispatch();
@@ -37,12 +37,8 @@ function ProfessionalExperience() {
 
     const allExperienceData = isCurrentFormDataEmpty ? tableData : [currentFormData, ...tableData];
 
-    // Save the data to Redux
     if (allExperienceData.length > 0) {
-      dispatch({
-        type: PROFESSIONAL_EXPERIENCE,
-        payload: allExperienceData,
-      });
+      dispatch(saveProfessionalExperience(allExperienceData));
     }
 
     navigate("/skills");

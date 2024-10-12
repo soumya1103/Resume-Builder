@@ -1,26 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { SKILLS } from "../../Redux/ResumeReducer/ResumeTypes";
 import "./Skills.css";
 
 function Skills() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Fetch skills data from Redux
+  const { technicalSkills } = useSelector((state) => state.resume.profileData);
+
+  const [technology, setTechnology] = useState(technicalSkills.technology || []);
+  const [programmingLanguage, setProgrammingLanguage] = useState(technicalSkills.programming || []);
+  const [tools, setTools] = useState(technicalSkills.tools || []);
+
+  const [inputTechnologyValue, setInputTechnologyValue] = useState("");
+  const [inputProgrammingLanguageValue, setInputProgrammingLanguageValue] = useState("");
+  const [inputToolsValue, setInputToolsValue] = useState("");
+
+  useEffect(() => {
+    // Update local state if Redux store has data
+    if (technicalSkills) {
+      setTechnology(technicalSkills.technology || []);
+      setProgrammingLanguage(technicalSkills.programming || []);
+      setTools(technicalSkills.tools || []);
+    }
+  }, [technicalSkills]);
 
   const handlePrevClick = () => {
     navigate("/professionalExperience");
   };
 
   const handleNextClick = () => {
+    // Dispatch the skills data to Redux
+    dispatch({
+      type: SKILLS,
+      payload: {
+        technology,
+        programming: programmingLanguage,
+        tools,
+      },
+    });
     navigate("/professionalSummary");
   };
-
-  const [technology, setTechnology] = useState([]);
-  const [programmingLanguage, setProgrammingLanguage] = useState([]);
-  const [tools, setTools] = useState([]);
-  const [inputTechnologyValue, setInputTechnologyValue] = useState("");
-  const [inputProgrammingLanguageValue, setInputProgrammingLanguageValue] = useState("");
-  const [inputToolsValue, setInputToolsValue] = useState("");
 
   const handleKeyDown = (e, type) => {
     if (e.key === "Enter") {
