@@ -1,25 +1,41 @@
-// import { LOGIN, LOGOUT } from "./AuthenticationTypes";
+import { EDUCATION, PERSONAL_INFO } from "./ResumeTypes";
 
-// const initialState = {
-//   userId: "",
-//   userName: "",
-//   userCredential: "",
-//   password: "",
-//   role: "",
-//   token: "",
-// };
+const initialState = {
+  contactNo: "",
+  objective: "",
+  profileData: {
+    professionalSummary: [],
+    certificates: [],
+    technicalSkills: {
+      technology: [],
+      programming: [],
+      tools: [],
+    },
+    professionalExperience: [],
+    education: [],
+  },
+};
 
-// const authReducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case LOGIN:
-//       return action.payload;
+const resumeReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case PERSONAL_INFO:
+      return {
+        ...state,
+        ...action.payload,
+      };
 
-//     case LOGOUT:
-//       return initialState;
+    case EDUCATION:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          education: action.payload,
+        },
+      };
 
-//     default:
-//       return state;
-//   }
-// };
+    default:
+      return state;
+  }
+};
 
-// export default authReducer;
+export default resumeReducer;
