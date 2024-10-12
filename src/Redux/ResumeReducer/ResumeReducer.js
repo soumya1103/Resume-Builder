@@ -1,4 +1,4 @@
-import { EDUCATION, PERSONAL_INFO } from "./ResumeTypes";
+import { CERTIFICATES, EDUCATION, PERSONAL_INFO, PROFESSIONAL_EXPERIENCE, PROFESSIONAL_SUMMARY, SKILLS } from "./ResumeTypes";
 
 const initialState = {
   contactNo: "",
@@ -30,6 +30,42 @@ const resumeReducer = (state = initialState, action) => {
         profileData: {
           ...state.profileData,
           education: action.payload,
+        },
+      };
+
+    case PROFESSIONAL_EXPERIENCE:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          professionalExperience: action.payload,
+        },
+      };
+
+    case SKILLS:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          technicalSkills: action.payload,
+        },
+      };
+
+    case PROFESSIONAL_SUMMARY:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          professionalSummary: action.payload,
+        },
+      };
+
+    case CERTIFICATES:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          certificates: action.payload,
         },
       };
 

@@ -1,4 +1,4 @@
-import { EDUCATION, PERSONAL_INFO } from "./ResumeTypes";
+import { CERTIFICATES, EDUCATION, PERSONAL_INFO, PROFESSIONAL_EXPERIENCE, PROFESSIONAL_SUMMARY, SKILLS } from "./ResumeTypes";
 
 export const savePersonalInfo = (personalInfo) => {
   return {
@@ -14,8 +14,30 @@ export const saveEducation = (personalInfo) => {
   };
 };
 
-// export const logoutUser = () => {
-//   return {
-//     type: LOGOUT,
-//   };
-// };
+export const saveProfessionalExperience = (personalInfo) => {
+  return {
+    type: PROFESSIONAL_EXPERIENCE,
+    payload: personalInfo,
+  };
+};
+
+export const saveSkills = (personalInfo) => {
+  return {
+    type: SKILLS,
+    payload: personalInfo,
+  };
+};
+
+export const saveProfessionalSummary = (personalInfo) => {
+  return {
+    type: PROFESSIONAL_SUMMARY,
+    payload: personalInfo,
+  };
+};
+
+export const saveCertificates = (personalInfo) => {
+  return {
+    type: CERTIFICATES,
+    payload: personalInfo,
+  };
+};
