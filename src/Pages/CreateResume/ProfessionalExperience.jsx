@@ -96,6 +96,7 @@ function ProfessionalExperience() {
               className="resume-form-input-field"
               value={experienceFields[0].projectName}
               onChange={(e) => handleFieldChange(0, "projectName", e.target.value)}
+              margin="0.5%"
             />
           </div>
           <div className="grid-container-2-col">
@@ -124,6 +125,7 @@ function ProfessionalExperience() {
               className="resume-form-input-field"
               value={experienceFields[0].techStack}
               onChange={(e) => handleFieldChange(0, "techStack", e.target.value)}
+              margin="0.5%"
             />
           </div>
           <div className="grid-container-1-col">
@@ -134,6 +136,7 @@ function ProfessionalExperience() {
               className="resume-form-input-field"
               value={experienceFields[0].details}
               onChange={(e) => handleFieldChange(0, "details", e.target.value)}
+              margin="1%"
             />
           </div>
         </div>

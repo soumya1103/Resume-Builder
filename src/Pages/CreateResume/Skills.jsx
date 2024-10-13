@@ -10,7 +10,6 @@ function Skills() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Fetch skills data from Redux
   const { technicalSkills } = useSelector((state) => state.resume.profileData);
 
   const [technology, setTechnology] = useState(technicalSkills.technology || []);
@@ -22,7 +21,6 @@ function Skills() {
   const [inputToolsValue, setInputToolsValue] = useState("");
 
   useEffect(() => {
-    // Update local state if Redux store has data
     if (technicalSkills) {
       setTechnology(technicalSkills.technology || []);
       setProgrammingLanguage(technicalSkills.programming || []);
@@ -35,7 +33,6 @@ function Skills() {
   };
 
   const handleNextClick = () => {
-    // Dispatch the skills data to Redux
     dispatch({
       type: SKILLS,
       payload: {
