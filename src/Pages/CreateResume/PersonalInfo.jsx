@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
 import Input from "../../Components/Input/Input";
 import "./CreateResume.css";
@@ -6,6 +6,7 @@ import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { savePersonalInfo } from "../../Redux/ResumeReducer/ResumeAction";
+import { getUserById } from "../../Api/apiService";
 
 function PersonalInfo() {
   const resume = useSelector((state) => state.resume);
@@ -30,6 +31,14 @@ function PersonalInfo() {
     navigate("/education");
   };
 
+  // const user = useSelector((state) => state.auth);
+
+  // setEmail(user.email);
+  // const name = user.name.split(" ");
+
+  // setFirstName(name[0]);
+  // setLastName(name[1]);
+
   return (
     <div className="resume-form">
       <h1 className="resume-form-title">Personal Information</h1>
@@ -41,6 +50,7 @@ function PersonalInfo() {
           type="text"
           className="resume-form-input-field"
           onChange={(e) => setFirstName(e.target.value)}
+          disabled="true"
         />
         <Input
           label="Last Name"
@@ -49,10 +59,19 @@ function PersonalInfo() {
           type="text"
           className="resume-form-input-field"
           onChange={(e) => setLastName(e.target.value)}
+          disabled="true"
         />
       </div>
       <div className="grid-container-2-col">
-        <Input label="Email" value={email} name="email" type="email" className="resume-form-input-field" onChange={(e) => setEmail(e.target.value)} />
+        <Input
+          label="Email"
+          value={email}
+          name="email"
+          type="email"
+          className="resume-form-input-field"
+          disabled="true"
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <Input
           label="Phone Number"
           value={contactNo}

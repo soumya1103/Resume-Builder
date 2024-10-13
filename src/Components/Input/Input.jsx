@@ -23,6 +23,7 @@ function Input({ label, name, min, max, type, value, onChange, className, maxLen
           maxLength={maxLength}
           readOnly={readOnly}
           rows={label === "Objective" ? 11 : label === "Summary" ? 5 : 1}
+          disabled={disabled}
         />
       ) : (
         <input
@@ -38,6 +39,7 @@ function Input({ label, name, min, max, type, value, onChange, className, maxLen
           placeholder={label}
           maxLength={maxLength}
           readOnly={readOnly}
+          disabled={disabled}
         />
       )}
     </div>
