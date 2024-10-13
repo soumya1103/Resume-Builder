@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList, faArrowLeft, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar() {
   const location = useLocation();
@@ -42,6 +42,12 @@ function Sidebar() {
         <Link to="/professionalSummary" className={`sidebar-link ${location.pathname === "/professionalSummary" ? "active" : ""}`}>
           <FontAwesomeIcon icon={faUserTie} className="sidebar-icon" />
           <h3 className="sidebar-heading">Professional Summary</h3>
+        </Link>
+      </button>
+      <button className="sidebar">
+        <Link to="" className={`sidebar-link ${location.pathname === "/professionalSummary" ? "active" : ""}`}>
+          <FontAwesomeIcon icon={faFloppyDisk} className="save-btn" />
+          <h3 className="sidebar-save-heading">Save</h3>
         </Link>
       </button>
     </div>

@@ -43,14 +43,14 @@ function Login() {
     const isPasswordValid = validatePassword();
     if (selectedRole === "ROLE_EMPLOYEE" && isCredentialEmailValid && isPasswordValid) {
       try {
-        // const encodedPassword = btoa(password);
-        const encodedPassword = password;
+        const encodedPassword = btoa(password);
         const response = await login(email, encodedPassword);
         // if (response?.status === 200 || response?.status === 201) {
         //   setToastMessage("Logged in successfully!");
         //   setShowToast(true);
         //   setToastType("success");
         // }
+
         dispatch(loginUser(response.data));
         window.localStorage.setItem("authtoken", response.data.token);
       } catch (error) {

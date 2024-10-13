@@ -1,25 +1,77 @@
-// import { LOGIN, LOGOUT } from "./AuthenticationTypes";
+import { CERTIFICATES, EDUCATION, PERSONAL_INFO, PROFESSIONAL_EXPERIENCE, PROFESSIONAL_SUMMARY, SKILLS } from "./ResumeTypes";
 
-// const initialState = {
-//   userId: "",
-//   userName: "",
-//   userCredential: "",
-//   password: "",
-//   role: "",
-//   token: "",
-// };
+const initialState = {
+  contactNo: "",
+  objective: "",
+  profileData: {
+    professionalSummary: [],
+    certificates: [],
+    technicalSkills: {
+      technology: [],
+      programming: [],
+      tools: [],
+    },
+    professionalExperience: [],
+    education: [],
+  },
+};
 
-// const authReducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case LOGIN:
-//       return action.payload;
+const resumeReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case PERSONAL_INFO:
+      return {
+        ...state,
+        ...action.payload,
+      };
 
-//     case LOGOUT:
-//       return initialState;
+    case EDUCATION:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          education: action.payload,
+        },
+      };
 
-//     default:
-//       return state;
-//   }
-// };
+    case PROFESSIONAL_EXPERIENCE:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          professionalExperience: action.payload,
+        },
+      };
 
-// export default authReducer;
+    case SKILLS:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          technicalSkills: action.payload,
+        },
+      };
+
+    case PROFESSIONAL_SUMMARY:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          professionalSummary: action.payload,
+        },
+      };
+
+    case CERTIFICATES:
+      return {
+        ...state,
+        profileData: {
+          ...state.profileData,
+          certificates: action.payload,
+        },
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default resumeReducer;
