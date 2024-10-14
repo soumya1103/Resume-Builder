@@ -3,11 +3,26 @@ import '../Navbar/Navbar.css';
 import NT from '../../Images/NucleusTeq Logo.png';
 import { logout } from "../../Api/apiService";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../Redux/Authentication/AuthenticationAction";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.auth); 
+  const { name } = user;
+
+  
+  const getInitials = (name) => {
+    if (!name) return ""; 
+    const nameParts = name.split(' ');
+    const initials = nameParts[0][0]; 
+    return initials.toUpperCase(); 
+  };
+  
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -17,28 +32,25 @@ function Navbar() {
     setIsDropdownOpen(false);
   };
 
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const handleLogout = () => {
     logout();
     dispatch(logoutUser());
     navigate("/");
   };
 
-
   return (
     <div className="navbar">
       <div className="navbar-logo">
         <img src={NT} alt="Logo" />
       </div>
-      <h2 className='heading'>Welcome User</h2>
+      <h2 className='heading'>Welcome {name}</h2>
       <div 
         className='navbar-button' 
         onMouseLeave={closeDropdown} 
       >
-        <button className='btn' onMouseEnter={toggleDropdown}>T</button>
+        <button className='btn' onMouseEnter={toggleDropdown}>
+          {getInitials(name)}
+        </button>
         {isDropdownOpen && (
           <div className="dropdown-menu">
             <button className="dropdown-item">Profile</button>
@@ -53,3 +65,4 @@ function Navbar() {
 }
 
 export default Navbar;
+

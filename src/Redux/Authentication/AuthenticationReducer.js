@@ -5,6 +5,7 @@ const initialState = {
   email: "",
   role: "",
   token: "",
+  userId: "",
 };
 
 const authReducer = (state = initialState, action) => {
