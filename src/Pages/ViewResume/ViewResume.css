@@ -1,0 +1,86 @@
+/* General Layout */
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Resume Header */
+  .header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #333;
+  }
+  
+  .header h1 {
+    font-size: 36px;
+    margin: 0;
+  }
+  
+  .header p {
+    font-size: 18px;
+    color: #666;
+  }
+  
+  /* Section Titles */
+  .section-title {
+    font-size: 24px;
+    color: #333;
+    border-bottom: 2px solid #333;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+  }
+  
+  /* Bullet Styling for Summaries and Experiences */
+  .bullet-section {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .bullet-section li::before {
+    content: '•';
+    color: #333;
+    font-size: 18px;
+    padding-right: 10px;
+  }
+  
+  .bullet-section li {
+    margin-bottom: 10px;
+    text-align: justify;
+  }
+  
+  /* Ensure new bullet point starts after each full stop */
+  .bullet-section p::after {
+    content: '\A';
+    white-space: pre; /* Add line break after each sentence */
+  }
+  
+  /* Professional Experience */
+  .professional-experience {
+    margin-top: 10px;
+  }
+  
+  .professional-experience h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  /* Education */
+  .education {
+    margin-top: 10px;
+  }
+  
+  .education p {
+    margin: 5px 0;
+  }
+  
+  .education .institution {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
