@@ -31,13 +31,14 @@ function PersonalInfo() {
     navigate("/education");
   };
 
-  // const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth);
 
-  // setEmail(user.email);
-  // const name = user.name.split(" ");
-
-  // setFirstName(name[0]);
-  // setLastName(name[1]);
+  useEffect(() => {
+    setEmail(user.email);
+    const name = user.name.split(" ");
+    setFirstName(name[0]);
+    setLastName(name[1]);
+  }, []);
 
   return (
     <div className="resume-form">

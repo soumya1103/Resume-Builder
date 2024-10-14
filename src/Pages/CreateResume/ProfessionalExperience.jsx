@@ -6,13 +6,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
-import { saveProfessionalExperience } from "../../Redux/ResumeReducer/ResumeAction";
+import { saveIdAndName, saveProfessionalExperience } from "../../Redux/ResumeReducer/ResumeAction";
 
 function ProfessionalExperience() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const professionalExperience = useSelector((state) => state.resume.profileData.professionalExperience || []);
+
+  const user = useSelector((state) => state.auth);
+
+  const userData = {
+    userId: user.userId,
+    profileName: user.name,
+  };
+
+  dispatch(saveIdAndName(userData));
 
   const [experienceFields, setExperienceFields] = useState([
     { jobTitle: "", companyName: "", projectName: "", startDate: "", endDate: "", techStack: "", details: "" },

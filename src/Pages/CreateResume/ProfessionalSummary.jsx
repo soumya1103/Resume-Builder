@@ -7,11 +7,15 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { saveProfessionalSummary, saveCertificates } from "../../Redux/ResumeReducer/ResumeAction";
+import { addUser } from "../../Api/apiService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ProfessionalSummary() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const userData = useSelector((state) => state.resume);
   const { professionalSummary, certificates } = useSelector((state) => state.resume.profileData);
 
   const [summary, setSummary] = useState(professionalSummary || "");
@@ -29,14 +33,26 @@ function ProfessionalSummary() {
     navigate("/skills");
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     const filteredCertifications = certification
       .filter((certField) => certField.certification.trim() !== "")
       .map((certField) => certField.certification);
 
     dispatch(saveProfessionalSummary(summary));
     dispatch(saveCertificates(filteredCertifications));
+    try {
+      const response = await addUser(userData);
+      if (response.status === 200 || response.status === 201) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.data.message);
+    }
   };
+
+  useEffect(() => {
+    console.log("Updated userData:", userData);
+  }, [userData]);
 
   const handlePlusClick = () => {
     const updatedFields = certification.map((field, index) => (index === 0 ? { ...field, collapsed: true } : field));
@@ -111,6 +127,7 @@ function ProfessionalSummary() {
         <Button onClick={handlePrevClick}>Previous</Button>
         <Button onClick={handleSaveClick}>Save</Button>
       </div>
+      <ToastContainer />
     </div>
   );
 }
