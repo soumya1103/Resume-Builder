@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { view_resume } from '../../Api/apiService';
-import './ViewResume.css'; // Make sure to create and link the CSS file
+import './ViewResume.css'; 
+import Logo from '../../Images/NucleusTeq Logo.png';
 
 const ViewResume = ({ userId }) => {  
   const [profile, setProfile] = useState(null);
@@ -23,24 +24,30 @@ const ViewResume = ({ userId }) => {
   if (!profile) return <div>Loading...</div>;
 
   return (
-    <div className="container">
-      {/* Header Section */}
-      <div className="header">
+    <div className="resume-container">
+      <div className="logo-container">
+        <img src={Logo} alt="logo" className='logo' />
+      </div>
+      <div className="personal-info">
         <h1>{profile.profileName}</h1>
-        <p>Contact: {profile.contactNo}</p>
-        <p>Objective: {profile.objective}</p>
+        <div className='contact'>📞 {profile.contactNo}</div>
+        <div className='contact'>✉️ {profile.email}</div>
       </div>
 
+      
+      <heading className="section-title">Objective</heading>
+      <p>{profile.objective}</p>
+
       {/* Professional Summary */}
-      <h2 className="section-title">Professional Summary</h2>
+      <heading className="section-title">Professional Summary</heading>
       <ul className="bullet-section professional-summary">
         {profile.profileData.professionalSummary.map((summary, index) => (
-          <li key={index}><p>{summary}</p></li>
+          <li key={index}>{summary}</li>
         ))}
       </ul>
 
       {/* Technical Skills */}
-      <h2 className="section-title">Technical Skills</h2>
+      <heading className="section-title">Technical Skills</heading>
       <ul className="bullet-section">
         {profile.profileData.technicalSkills.technology.map((tech, index) => (
           <li key={index}>{tech}</li>
@@ -48,20 +55,20 @@ const ViewResume = ({ userId }) => {
       </ul>
 
       {/* Professional Experience */}
-      <h2 className="section-title">Professional Experience</h2>
+      <heading className="section-title">Professional Experience</heading>
       {profile.profileData.professionalExperience.map((experience, index) => (
         <div key={index} className="professional-experience">
-          <h4>{experience.jobTitle} at {experience.companyName}</h4>
+          <heading className= "experience-heading">{experience.jobTitle} at {experience.companyName}</heading>
           <ul className="bullet-section">
             {experience.details.map((detail, idx) => (
-              <li key={idx}><p>{detail}</p></li>
+              <li key={idx}>{detail}</li>
             ))}
           </ul>
         </div>
       ))}
 
       {/* Education Section */}
-      <h2 className="section-title">Education</h2>
+      <heading className="section-title">Education</heading>
       {profile.profileData.education.map((education, index) => (
         <div key={index} className="education">
           <p className="institution">{education.course} from {education.collegeName}</p>

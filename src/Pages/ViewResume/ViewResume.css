@@ -1,86 +1,76 @@
-/* General Layout */
-.container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.resume-container {
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    background-color: #f9f9f9; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
   }
   
-  /* Resume Header */
-  .header {
+  .logo-container {
+    display: flex; 
+    justify-content: flex-start; 
+    margin-bottom: 20px; 
+  } 
+  
+  .logo {
+    width: 150px; 
+  }
+  
+  .personal-info {
     text-align: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #333;
+    margin-bottom: 20px; 
   }
   
-  .header h1 {
-    font-size: 36px;
-    margin: 0;
+  .contact {
+    text-align: center;
   }
   
-  .header p {
-    font-size: 18px;
-    color: #666;
-  }
-  
-  /* Section Titles */
   .section-title {
-    font-size: 24px;
-    color: #333;
-    border-bottom: 2px solid #333;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
+    text-align: left; 
+    margin-top: 20px;
+    margin-bottom: 10px; 
+    border-bottom: 2px solid #a5a5a5; 
+    padding-bottom: 5px; 
+    font-size: 1.1rem; 
   }
   
-  /* Bullet Styling for Summaries and Experiences */
   .bullet-section {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    list-style-type: disc; 
+    padding-left: 20px; 
+    text-align: left; 
   }
   
-  .bullet-section li::before {
-    content: '•';
-    color: #333;
-    font-size: 18px;
-    padding-right: 10px;
-  }
-  
-  .bullet-section li {
-    margin-bottom: 10px;
-    text-align: justify;
-  }
-  
-  /* Ensure new bullet point starts after each full stop */
-  .bullet-section p::after {
-    content: '\A';
-    white-space: pre; /* Add line break after each sentence */
-  }
-  
-  /* Professional Experience */
-  .professional-experience {
-    margin-top: 10px;
+  .professional-summary {
+    margin-bottom: 20px; 
   }
   
   .professional-experience h4 {
-    margin: 0;
-    font-size: 18px;
-    color: #333;
+    margin: 10px 0; 
+    text-align: left;
   }
   
-  /* Education */
   .education {
-    margin-top: 10px;
+    margin-bottom: 15px; 
   }
   
-  .education p {
-    margin: 5px 0;
+  p {
+    text-align: left;
   }
+
+ 
+  @media (max-width: 768px) {
+    .resume-container {
+      padding: 15px; 
+    }
   
-  .education .institution {
-    font-weight: bold;
-    font-size: 16px;
+    .section-title {
+      font-size: 1.3em; 
+    }
+  
+    .logo {
+      width: 120px; 
+    }
   }
   
