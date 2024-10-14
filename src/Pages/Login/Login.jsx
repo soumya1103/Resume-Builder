@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { login } from "../../Api/apiService";
 import { validationPatterns, validTLDs } from "../../Validation/constant";
+import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
   const [selectedRole, setSelectedRole] = useState("ROLE_EMPLOYEE");
@@ -27,7 +28,9 @@ function Login() {
   useEffect(() => {
     if (auth && auth.token) {
       if (auth.role === "ROLE_EMPLOYEE") {
-        navigate("/dashboard");
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 5000);
       }
     }
   }, [auth]);
@@ -45,18 +48,14 @@ function Login() {
       try {
         const encodedPassword = btoa(password);
         const response = await login(email, encodedPassword);
-        // if (response?.status === 200 || response?.status === 201) {
-        //   setToastMessage("Logged in successfully!");
-        //   setShowToast(true);
-        //   setToastType("success");
-        // }
+        if (response?.status === 200 || response?.status === 201) {
+          toast.success(response?.data?.message || "Login successful.");
+        }
 
         dispatch(loginUser(response.data));
         window.localStorage.setItem("authtoken", response.data.token);
       } catch (error) {
-        // setToastMessage(error.response.data.message);
-        // setShowToast(true);
-        // setToastType("error");
+        toast.error(error?.data?.message || "Something went wrong.");
       }
     }
   };
@@ -130,6 +129,7 @@ function Login() {
         </form>
         <img src={loginImg} alt="login-image" className="login-img" />
       </div>
+      <ToastContainer />
     </div>
   );
 }
