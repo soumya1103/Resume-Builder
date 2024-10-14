@@ -8,6 +8,7 @@
     grid-template-columns: 25% 28.5%;
     row-gap: 18%;
     column-gap: 10%;
+    margin-top: 5%;
 }
 .dashboard-card {
     background-color: white;
