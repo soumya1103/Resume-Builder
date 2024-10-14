@@ -1,0 +1,66 @@
+.sidebar-container {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+  padding: 2% 5% 2% 10%;
+  height: 84vh;
+  border-right: 0.5px solid #a4755116;
+  display: grid;
+}
+
+.sidebar {
+  border: none;
+  background: none;
+  padding: 0;
+  text-align: left;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: 20% auto;
+  align-items: center;
+}
+
+.sidebar-icon {
+  font-size: 1.4rem;
+  color: #243c76;
+  text-align: right;
+  justify-content: right;
+  margin-right: 5%;
+}
+
+.sidebar-heading {
+  color: #243c76;
+  font-family: "Roboto Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1.2rem;
+}
+
+.sidebar:hover {
+  .sidebar-icon,
+  .sidebar-heading {
+    color: #e74860;
+    transform: scale(1.1);
+    transition: 0.2s;
+  }
+}
+.sidebar-link.active {
+  .sidebar-icon,
+  .sidebar-heading {
+    color: #e74860;
+  }
+}
+
+.sidebar-back-icon {
+  color: #243c76;
+  font-size: 1.4rem;
+}
+
+.sidebar-back-icon:hover {
+  color: #e74860;
+  transition: all 0.3s;
+}
