@@ -43,10 +43,14 @@ function ProfessionalSummary() {
     try {
       const response = await addUser(userData);
       if (response.status === 200 || response.status === 201) {
-        toast.success(response?.data?.message);
+        toast.success(response?.data?.message, {
+          autoClose: 3000,
+        });
       }
     } catch (error) {
-      toast.error(error?.data?.message || "Something went wrong.");
+      toast.error(error?.data?.message || "Something went wrong.", {
+        autoClose: 3000,
+      });
     }
   };
 
