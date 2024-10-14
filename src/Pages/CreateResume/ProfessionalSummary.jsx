@@ -43,16 +43,12 @@ function ProfessionalSummary() {
     try {
       const response = await addUser(userData);
       if (response.status === 200 || response.status === 201) {
-        toast.success(response.data.message);
+        toast.success(response?.data?.message);
       }
     } catch (error) {
-      toast.error(error.data.message);
+      toast.error(error?.data?.message || "Something went wrong.");
     }
   };
-
-  useEffect(() => {
-    console.log("Updated userData:", userData);
-  }, [userData]);
 
   const handlePlusClick = () => {
     const updatedFields = certification.map((field, index) => (index === 0 ? { ...field, collapsed: true } : field));
