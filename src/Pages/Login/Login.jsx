@@ -30,7 +30,7 @@ function Login() {
       if (auth.role === "ROLE_EMPLOYEE") {
         setTimeout(() => {
           navigate("/dashboard");
-        }, 5000);
+        }, 3000);
       }
     }
   }, [auth]);
@@ -49,13 +49,17 @@ function Login() {
         const encodedPassword = btoa(password);
         const response = await login(email, encodedPassword);
         if (response?.status === 200 || response?.status === 201) {
-          toast.success(response?.data?.message || "Login successful.");
+          toast.success(response?.data?.message || "Login successful.", {
+            autoClose: 3000,
+          });
         }
 
         dispatch(loginUser(response.data));
         window.localStorage.setItem("authtoken", response.data.token);
       } catch (error) {
-        toast.error(error?.data?.message || "Something went wrong.");
+        toast.error(error?.data?.message || "Something went wrong.", {
+          autoClose: 3000,
+        });
       }
     }
   };
