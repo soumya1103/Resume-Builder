@@ -16,4 +16,9 @@ import {  VIEW_RESUME } from "./apiConstants";
 
 export const view_resume = async (userId) => {
     return await app.get(VIEW_RESUME(userId));
-  };
+  };import app from "./apiClient";
+import { LOGIN } from "./apiConstants";
+
+export const login = async (email, password) => {
+  return await app.post(LOGIN, { email, password });
+};
