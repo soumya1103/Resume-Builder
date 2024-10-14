@@ -5,6 +5,7 @@ import { logout } from "../../Api/apiService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../Redux/Authentication/AuthenticationAction";
+import { toast, ToastContainer } from "react-toastify";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -31,9 +32,14 @@ function Navbar() {
   };
 
   const handleLogout = () => {
-    logout();
-    dispatch(logoutUser());
-    navigate("/");
+    toast.success("Logged out successfully.", {
+      autoClose: 3000,
+    });
+    setTimeout(() => {
+      logout();
+      dispatch(logoutUser());
+      navigate("/");
+    }, 3000);
   };
 
   return (
@@ -55,6 +61,7 @@ function Navbar() {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }
