@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import '../Navbar/Navbar.css';
-import NT from '../../Images/NucleusTeq Logo.png';
+import React, { useState } from "react";
+import "../Navbar/Navbar.css";
+import NT from "../../Images/NucleusTeq Logo.png";
 import { logout } from "../../Api/apiService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../Redux/Authentication/AuthenticationAction";
+import { toast, ToastContainer } from "react-toastify";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -12,17 +13,15 @@ function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.auth); 
+  const user = useSelector((state) => state.auth);
   const { name } = user;
 
-  
   const getInitials = (name) => {
-    if (!name) return ""; 
-    const nameParts = name.split(' ');
-    const initials = nameParts[0][0]; 
-    return initials.toUpperCase(); 
+    if (!name) return "";
+    const nameParts = name.split(" ");
+    const initials = nameParts[0][0];
+    return initials.toUpperCase();
   };
-  
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -33,9 +32,14 @@ function Navbar() {
   };
 
   const handleLogout = () => {
-    logout();
-    dispatch(logoutUser());
-    navigate("/");
+    toast.success("Logged out successfully.", {
+      autoClose: 3000,
+    });
+    setTimeout(() => {
+      logout();
+      dispatch(logoutUser());
+      navigate("/");
+    }, 3000);
   };
 
   return (
@@ -43,12 +47,9 @@ function Navbar() {
       <div className="navbar-logo">
         <img src={NT} alt="Logo" />
       </div>
-      <h2 className='heading'>Welcome {name}</h2>
-      <div 
-        className='navbar-button' 
-        onMouseLeave={closeDropdown} 
-      >
-        <button className='btn' onMouseEnter={toggleDropdown}>
+      <h2 className="heading">Welcome {name}</h2>
+      <div className="navbar-button" onMouseLeave={closeDropdown}>
+        <button className="btn" onMouseEnter={toggleDropdown}>
           {getInitials(name)}
         </button>
         {isDropdownOpen && (
@@ -60,9 +61,9 @@ function Navbar() {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }
 
 export default Navbar;
-
