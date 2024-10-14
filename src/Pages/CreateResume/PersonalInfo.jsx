@@ -6,7 +6,6 @@ import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { savePersonalInfo } from "../../Redux/ResumeReducer/ResumeAction";
-import { getUserById } from "../../Api/apiService";
 
 function PersonalInfo() {
   const resume = useSelector((state) => state.resume);
@@ -20,9 +19,13 @@ function PersonalInfo() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const user = JSON.parse(localStorage.getItem("auth")) || { name: "", email: "", userId: "" };
+
   const handleNextClick = () => {
     const obj = {
       ...resume,
+      userId: user.userId,
+      profileName: user.name,
       contactNo: contactNo,
       objective: objective,
     };
@@ -31,14 +34,17 @@ function PersonalInfo() {
     navigate("/education");
   };
 
-  const user = useSelector((state) => state.auth);
-
   useEffect(() => {
-    setEmail(user.email);
+    if (user.email) setEmail(user.email);
     const name = user.name.split(" ");
-    setFirstName(name[0]);
-    setLastName(name[1]);
-  }, []);
+    if (name.length > 1) {
+      setFirstName(name[0]);
+      setLastName(name[1]);
+    } else {
+      setFirstName(name[0]);
+      setLastName(""); // If there is no last name
+    }
+  }, [user]);
 
   return (
     <div className="resume-form">

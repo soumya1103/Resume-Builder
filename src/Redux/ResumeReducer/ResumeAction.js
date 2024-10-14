@@ -1,12 +1,5 @@
 import { CERTIFICATES, EDUCATION, ID_AND_NAME, PERSONAL_INFO, PROFESSIONAL_EXPERIENCE, PROFESSIONAL_SUMMARY, SKILLS } from "./ResumeTypes";
 
-export const saveIdAndName = (idAndName) => {
-  return {
-    type: ID_AND_NAME,
-    payload: idAndName,
-  };
-};
-
 export const savePersonalInfo = (personalInfo) => {
   return {
     type: PERSONAL_INFO,
