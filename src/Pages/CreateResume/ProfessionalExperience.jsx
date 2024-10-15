@@ -103,7 +103,7 @@ function ProfessionalExperience() {
             <Input
               label="Start Date"
               name="startDate"
-              type="date"
+              type="month"
               className="resume-form-input-field"
               value={experienceFields[0].startDate}
               onChange={(e) => handleFieldChange(0, "startDate", e.target.value)}
@@ -111,7 +111,7 @@ function ProfessionalExperience() {
             <Input
               label="End Date"
               name="endDate"
-              type="date"
+              type="month"
               className="resume-form-input-field"
               value={experienceFields[0].endDate}
               onChange={(e) => handleFieldChange(0, "endDate", e.target.value)}
@@ -177,7 +177,7 @@ function ProfessionalExperience() {
 
       <div className="resume-form-btn">
         <Button onClick={handlePrevClick}>Previous</Button>
-        <Button onClick={handleNextClick}>Next</Button>
+        <Button onClick={handleNextClick}>Save</Button>
       </div>
     </div>
   );

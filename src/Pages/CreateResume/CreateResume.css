@@ -3,7 +3,7 @@
   width: 86%;
   background-color: #fff;
   border-radius: 10px;
-  height: 77.5vh;
+  height: 77.9vh;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
@@ -41,13 +41,13 @@
 }
 
 .resume-form-btn-single {
-  margin-top: 5%;
+  margin-top: 5.7%;
   display: grid;
 }
 
 .resume-form-btn {
   position: fixed;
-  bottom: 10%;
+  bottom: 8.5%;
   left: 27%;
   right: 1.8%;
   display: flex;

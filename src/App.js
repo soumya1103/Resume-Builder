@@ -1,6 +1,6 @@
 import "./App.css";
 import Login from "./Pages/Login/Login";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import PersonalInfo from "./Pages/CreateResume/PersonalInfo";
 import Education from "./Pages/CreateResume/Education";

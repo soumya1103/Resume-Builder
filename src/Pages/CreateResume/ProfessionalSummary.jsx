@@ -46,9 +46,6 @@ function ProfessionalSummary() {
         toast.success(response?.data?.message, {
           autoClose: 3000,
         });
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 3000);
       }
     } catch (error) {
       toast.error(error?.data?.message || "Something went wrong.", {
@@ -128,7 +125,7 @@ function ProfessionalSummary() {
 
       <div className="resume-form-btn">
         <Button onClick={handlePrevClick}>Previous</Button>
-        <Button onClick={handleSaveClick}>Save</Button>
+        <Button onClick={handleSaveClick}>Submit</Button>
       </div>
       <ToastContainer />
     </div>

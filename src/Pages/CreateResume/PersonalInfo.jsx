@@ -100,7 +100,7 @@ function PersonalInfo() {
         />
       </div>
       <Button className="resume-form-btn-single" onClick={handleNextClick}>
-        Next
+        Save
       </Button>
     </div>
   );
