@@ -125,7 +125,7 @@ function ProfessionalSummary() {
 
       <div className="resume-form-btn">
         <Button onClick={handlePrevClick}>Previous</Button>
-        <Button onClick={handleSaveClick}>Save</Button>
+        <Button onClick={handleSaveClick}>Submit</Button>
       </div>
       <ToastContainer />
     </div>

@@ -151,7 +151,7 @@ function Skills() {
 
       <div className="resume-form-btn">
         <Button onClick={handlePrevClick}>Previous</Button>
-        <Button onClick={handleNextClick}>Next</Button>
+        <Button onClick={handleNextClick}>Save</Button>
       </div>
     </div>
   );
