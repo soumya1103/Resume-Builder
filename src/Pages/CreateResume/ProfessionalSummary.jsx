@@ -7,9 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { saveProfessionalSummary, saveCertificates } from "../../Redux/ResumeReducer/ResumeAction";
-import { addUser } from "../../Api/apiService";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function ProfessionalSummary() {
   const dispatch = useDispatch();
@@ -114,7 +111,6 @@ function ProfessionalSummary() {
         <Button onClick={handlePrevClick}>Previous</Button>
         <Button onClick={handleSaveClick}>Save</Button>
       </div>
-      <ToastContainer />
     </div>
   );
 }
