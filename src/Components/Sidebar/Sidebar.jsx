@@ -4,9 +4,29 @@ import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button/Button";
+import { addUser } from "../../Api/apiService";
+import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function Sidebar() {
   const location = useLocation();
+
+  const userData = useSelector((state) => state.resume);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await addUser(userData);
+      if (response.status === 200 || response.status === 201) {
+        toast.success(response?.data?.message, {
+          autoClose: 3000,
+        });
+      }
+    } catch (error) {
+      toast.error(error?.data?.message || "Something went wrong.", {
+        autoClose: 3000,
+      });
+    }
+  };
 
   return (
     <div className="sidebar-container">
@@ -50,10 +70,11 @@ function Sidebar() {
             </button>
           </div>
         </div>
-        <Button className="sidebar-submit-btn">
+        <Button className="sidebar-submit-btn" onClick={handleSubmit}>
           <h4>Submit</h4>
         </Button>
       </div>
+      <ToastContainer />
     </div>
   );
 }
