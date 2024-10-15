@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux'; // Import useSelector hook
 import { view_resume } from '../../Api/apiService';
 import './ViewResume.css'; 
 import Logo from '../../Images/NucleusTeq Logo.png';
 
-const ViewResume = ({ userId }) => {  
+const ViewResume = () => {  
   const [profile, setProfile] = useState(null);
+
+  // Get userId from Redux store
+  const userId = useSelector((state) => state.auth.userId); 
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -34,12 +38,11 @@ const ViewResume = ({ userId }) => {
         <div className='contact'>✉️ {profile.email}</div>
       </div>
 
-      
-      <heading className="section-title">Objective</heading>
+      <h2 className="section-title">Objective</h2>
       <p>{profile.objective}</p>
 
       {/* Professional Summary */}
-      <heading className="section-title">Professional Summary</heading>
+      <h2 className="section-title">Professional Summary</h2>
       <ul className="bullet-section professional-summary">
         {profile.profileData.professionalSummary.map((summary, index) => (
           <li key={index}>{summary}</li>
@@ -47,7 +50,7 @@ const ViewResume = ({ userId }) => {
       </ul>
 
       {/* Technical Skills */}
-      <heading className="section-title">Technical Skills</heading>
+      <h2 className="section-title">Technical Skills</h2>
       <ul className="bullet-section">
         {profile.profileData.technicalSkills.technology.map((tech, index) => (
           <li key={index}>{tech}</li>
@@ -55,10 +58,10 @@ const ViewResume = ({ userId }) => {
       </ul>
 
       {/* Professional Experience */}
-      <heading className="section-title">Professional Experience</heading>
+      <h2 className="section-title">Professional Experience</h2>
       {profile.profileData.professionalExperience.map((experience, index) => (
         <div key={index} className="professional-experience">
-          <heading className= "experience-heading">{experience.jobTitle} at {experience.companyName}</heading>
+          <h3 className="experience-heading">{experience.jobTitle} at {experience.companyName}</h3>
           <ul className="bullet-section">
             {experience.details.map((detail, idx) => (
               <li key={idx}>{detail}</li>
@@ -68,7 +71,7 @@ const ViewResume = ({ userId }) => {
       ))}
 
       {/* Education Section */}
-      <heading className="section-title">Education</heading>
+      <h2 className="section-title">Education</h2>
       {profile.profileData.education.map((education, index) => (
         <div key={index} className="education">
           <p className="institution">{education.course} from {education.collegeName}</p>

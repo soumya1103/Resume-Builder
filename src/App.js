@@ -12,7 +12,7 @@ import Skills from "./Pages/CreateResume/Skills";
 import ProfessionalSummary from "./Pages/CreateResume/ProfessionalSummary";
 
 function App() {
-  const userId = 3; 
+   
   return (
     <div className="App">
       <Routes>
@@ -24,7 +24,7 @@ function App() {
         <Route path="/professionalSummary" element={<ProfessionalSummary />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path= "/viewResume" element={<ViewResume userId={userId}/>}/>
+        <Route path= "/viewResume" element={<ViewResume/>}/>
       </Routes>
     </div>
   );
