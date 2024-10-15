@@ -15,7 +15,6 @@ function ProfessionalSummary() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userData = useSelector((state) => state.resume);
   const { professionalSummary, certificates } = useSelector((state) => state.resume.profileData);
 
   const [summary, setSummary] = useState(professionalSummary || "");
@@ -40,18 +39,6 @@ function ProfessionalSummary() {
 
     dispatch(saveProfessionalSummary(summary));
     dispatch(saveCertificates(filteredCertifications));
-    try {
-      const response = await addUser(userData);
-      if (response.status === 200 || response.status === 201) {
-        toast.success(response?.data?.message, {
-          autoClose: 3000,
-        });
-      }
-    } catch (error) {
-      toast.error(error?.data?.message || "Something went wrong.", {
-        autoClose: 3000,
-      });
-    }
   };
 
   const handlePlusClick = () => {
@@ -125,7 +112,7 @@ function ProfessionalSummary() {
 
       <div className="resume-form-btn">
         <Button onClick={handlePrevClick}>Previous</Button>
-        <Button onClick={handleSaveClick}>Submit</Button>
+        <Button onClick={handleSaveClick}>Save</Button>
       </div>
       <ToastContainer />
     </div>
