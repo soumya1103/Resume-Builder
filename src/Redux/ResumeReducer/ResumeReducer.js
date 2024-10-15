@@ -1,4 +1,4 @@
-import { CERTIFICATES, EDUCATION, ID_AND_NAME, PERSONAL_INFO, PROFESSIONAL_EXPERIENCE, PROFESSIONAL_SUMMARY, SKILLS } from "./ResumeTypes";
+import { CERTIFICATES, EDUCATION, PERSONAL_INFO, PROFESSIONAL_EXPERIENCE, PROFESSIONAL_SUMMARY, SKILLS } from "./ResumeTypes";
 
 const initialState = {
   userId: "",
@@ -6,7 +6,7 @@ const initialState = {
   contactNo: "",
   objective: "",
   profileData: {
-    professionalSummary: [],
+    professionalSummary: "",
     certificates: [],
     technicalSkills: {
       technology: [],
