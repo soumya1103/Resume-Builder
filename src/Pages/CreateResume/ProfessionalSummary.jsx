@@ -46,6 +46,9 @@ function ProfessionalSummary() {
         toast.success(response?.data?.message, {
           autoClose: 3000,
         });
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 3000);
       }
     } catch (error) {
       toast.error(error?.data?.message || "Something went wrong.", {
