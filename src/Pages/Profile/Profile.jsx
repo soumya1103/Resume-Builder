@@ -39,7 +39,13 @@ function Profile() {
         )}
       </div>
       <div>
-        <Input />
+        <div className="grid-container-2-col" style={{ alignItems: "baseline" }}>
+          <Input label="First Name" margin="4%" className="profile-input-field" />
+          <Input label="Last Name" margin="4%" className="profile-input-field" />
+        </div>
+        <div className="grid-container-1-col">
+          <Input label="Email" margin="1.5%" className="profile-input-field" />
+        </div>
       </div>
     </div>
   );
