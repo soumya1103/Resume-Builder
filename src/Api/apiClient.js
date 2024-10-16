@@ -6,17 +6,17 @@ const app = axios.create({
   baseURL: baseUrl,
 });
 
-// app.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response && error.response.status === 401) {
-//       if (error?.config?.url !== "/lms/login" && error?.config?.url !== "/lms/current-user") {
-//         window.location.href = "/login";
-//       }
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+app.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      if (error?.config?.url !== "/") {
+        window.location.href = "/";
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default app;
 
