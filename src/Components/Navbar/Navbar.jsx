@@ -43,6 +43,10 @@ function Navbar() {
     }, 3000);
   };
 
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-logo">
@@ -55,7 +59,9 @@ function Navbar() {
         </button>
         {isDropdownOpen && (
           <div className="dropdown-menu">
-            <button className="dropdown-item">Profile</button>
+            <button className="dropdown-item" onClick={handleProfile}>
+              Profile
+            </button>
             <button className="dropdown-item" onClick={handleLogout}>
               Logout
             </button>

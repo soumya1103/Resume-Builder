@@ -13,6 +13,10 @@ function Dashboard() {
     navigate("/personalInfo");
   };
 
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
   return (
     <div className="dashboard-container-outer">
       <Navbar />
@@ -20,7 +24,7 @@ function Dashboard() {
         <Card icon={<FontAwesomeIcon icon={faFile} />} label="Create Resume" onClick={handleResumeClick} />
         <Card icon={<FontAwesomeIcon icon={faEye} />} label="View Resume" />
         <Card icon={<FontAwesomeIcon icon={faHistory} />} label="History" />
-        <Card icon={<FontAwesomeIcon icon={faUser} />} label="Profile" />
+        <Card icon={<FontAwesomeIcon icon={faUser} />} label="Profile" onClick={handleProfile} />
       </div>
     </div>
   );
