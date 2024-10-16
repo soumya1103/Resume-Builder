@@ -39,6 +39,7 @@ function Navbar() {
       logout();
       dispatch(logoutUser());
       navigate("/");
+      window.location.reload();
     }, 3000);
   };
 
