@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 function Sidebar() {
   const location = useLocation();
 
+  const navigate = useNavigate();
+
   const userData = useSelector((state) => state.resume);
 
   const handleSubmit = async () => {
@@ -21,6 +23,9 @@ function Sidebar() {
           autoClose: 3000,
         });
       }
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 3000);
     } catch (error) {
       toast.error(error?.data?.message || "Something went wrong.", {
         autoClose: 3000,

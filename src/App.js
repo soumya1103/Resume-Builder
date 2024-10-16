@@ -9,6 +9,7 @@ import Education from "./Pages/CreateResume/Education";
 import ProfessionalExperience from "./Pages/CreateResume/ProfessionalExperience";
 import Skills from "./Pages/CreateResume/Skills";
 import ProfessionalSummary from "./Pages/CreateResume/ProfessionalSummary";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
