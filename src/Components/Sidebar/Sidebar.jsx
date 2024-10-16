@@ -27,7 +27,7 @@ function Sidebar() {
         navigate("/dashboard");
       }, 3000);
     } catch (error) {
-      toast.error(error?.data?.message || "Something went wrong.", {
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
         autoClose: 3000,
       });
     }

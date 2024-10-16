@@ -53,11 +53,10 @@ function Login() {
             autoClose: 3000,
           });
         }
-
         dispatch(loginUser(response.data));
         window.localStorage.setItem("authtoken", response.data.token);
       } catch (error) {
-        toast.error(error?.data?.message || "Something went wrong.", {
+        toast.error(error?.response.data?.message || "Something went wrong.", {
           autoClose: 3000,
         });
       }
