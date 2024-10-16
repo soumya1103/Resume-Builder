@@ -1,0 +1,7 @@
+.hoc-container {
+  display: grid;
+  grid-template-columns: 23% 76%;
+  grid-column-gap: 4%;
+  padding: 2% 3%;
+  background-color: #f5f5f7;
+}
