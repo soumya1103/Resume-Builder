@@ -1,10 +1,10 @@
 .profile-container {
   display: grid;
-  grid-template-columns: 15% 80%;
-  grid-column-gap: 5%;
-  height: 77.9vh;
+  grid-template-columns: 15% 75%;
+  grid-column-gap: 10%;
+  height: 50.9vh;
   padding: 2%;
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
   margin-top: 2%;
   background-color: #fff;
@@ -25,8 +25,8 @@
   font-size: 1.2rem;
   cursor: pointer;
   position: absolute;
-  top: 27%;
-  left: 23.5%;
+  top: 26%;
+  left: 28%;
 }
 
 .resume-form {
