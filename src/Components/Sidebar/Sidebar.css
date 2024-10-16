@@ -1,12 +1,16 @@
 .sidebar-container {
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-
-  padding: 2% 5% 2% 10%;
-  height: 84vh;
+  padding: 7%;
+  height: 77.5vh;
   border-right: 0.5px solid #a4755116;
+}
+
+.sidebar-inner-container {
   display: grid;
+  grid-template-rows: 92% 7.5%;
+  height: 77vh;
 }
 
 .sidebar {
@@ -14,12 +18,13 @@
   background: none;
   padding: 0;
   text-align: left;
+  width: 100%;
 }
 
 .sidebar-link {
   text-decoration: none;
   display: grid;
-  grid-template-columns: 20% auto;
+  grid-template-columns: 13% 87%;
   align-items: center;
 }
 
@@ -28,13 +33,19 @@
   color: #243c76;
   text-align: right;
   justify-content: right;
-  margin-right: 5%;
+}
+
+.sidebar-back-heading {
+  color: #243c76;
+  font-family: "Roboto Slab", serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1.2rem;
 }
 
 .sidebar-heading {
   color: #243c76;
   font-family: "Roboto Slab", serif;
-  font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
   font-size: 1.2rem;
@@ -43,11 +54,11 @@
 .sidebar:hover {
   .sidebar-icon,
   .sidebar-heading {
+    transition: 0.4s;
     color: #e74860;
-    transform: scale(1.1);
-    transition: 0.2s;
   }
 }
+
 .sidebar-link.active {
   .sidebar-icon,
   .sidebar-heading {
@@ -63,4 +74,25 @@
 .sidebar-back-icon:hover {
   color: #e74860;
   transition: all 0.3s;
+}
+
+.save-btn {
+  color: #e74860;
+  font-size: 1.4rem;
+  padding: 0 8%;
+  margin: 0 auto;
+}
+
+.sidebar-save-heading {
+  color: #e74860;
+  font-family: "Roboto Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1.2rem;
+}
+
+.sidebar-submit-btn {
+  width: 50%;
+  margin: 0 auto;
 }
