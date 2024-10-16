@@ -22,7 +22,7 @@ function Input({ label, name, min, max, type, value, onChange, className, maxLen
           placeholder={label}
           maxLength={maxLength}
           readOnly={readOnly}
-          rows={label === "Objective" ? 11 : label === "Summary" ? 5 : 1}
+          rows={label === "Objective" ? 11 : label === "Summary" ? 5 : label === "Bio" ? 5 : 1}
           disabled={disabled}
         />
       ) : (
