@@ -61,6 +61,10 @@
   width: 100%;
 }
 
+.profile-input-field-password {
+  width: 85%;
+}
+
 .profile-form-btn {
   position: fixed;
   bottom: 9.5%;
@@ -79,4 +83,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.change-btn {
+  margin-top: 5%;
 }
