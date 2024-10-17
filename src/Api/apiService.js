@@ -12,3 +12,12 @@ export const getUserById = async (userId) => {
 export const addUser = async (userData) => {
   return await app.post(CREATE_USER, userData);
 };
+
+export const logout = () => {
+  window.localStorage.removeItem("authtoken");
+};
+
+
+export const view_resume = async (userId) => {
+  return await app.get(VIEW_RESUME(userId));
+};

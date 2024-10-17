@@ -1,7 +1,7 @@
 import { CERTIFICATES, EDUCATION, PERSONAL_INFO, PROFESSIONAL_EXPERIENCE, PROFESSIONAL_SUMMARY, SKILLS } from "./ResumeTypes";
 
 const initialState = {
-  userId: "",
+  userId: null,
   profileName: "",
   contactNo: "",
   objective: "",
