@@ -104,7 +104,6 @@ function Login() {
               <p className="login-error-text">{credentialEmailError}</p>
             </div>
           )}
-          <br />
           <TextField
             label="Password"
             type="password"
