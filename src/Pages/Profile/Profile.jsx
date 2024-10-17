@@ -3,16 +3,17 @@ import "./Profile.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../Components/Input/Input";
-import Navbar from "../../Components/Navbar/Navbar";
+// import Navbar from "../../Components/Navbar/Navbar";
 import Button from "../../Components/Button/Button";
 import { Link } from "react-router-dom";
+import Modal from "../../Components/Modal/Modal";
 
 function Profile() {
   const [profileImage, setProfileImage] = useState(null);
-  const [selectedGender, setSelectedGender] = useState(""); // State to store selected gender
+  const [selectedGender, setSelectedGender] = useState("");
   const fileInputRef = useRef(null);
+  const [showModal, setShowModal] = useState(false);
 
-  // Function to handle changes in the dropdown
   const handleGenderChange = (event) => {
     setSelectedGender(event.target.value);
   };
@@ -34,9 +35,17 @@ function Profile() {
     fileInputRef.current.click();
   };
 
+  const onCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleChangePassword = () => {
+    setShowModal(true);
+  };
+
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="profile-container">
         <button className="sidebar">
           <Link to="/dashboard" className={`sidebar-link`}>
@@ -86,10 +95,14 @@ function Profile() {
           <Input type="textarea" label="Bio" className="profile-input-field" margin="1%" />
         </div>
         <div className="profile-form-btn">
-          <Button>Change Password</Button>
+          <Button onClick={handleChangePassword}>Change Password</Button>
           <Button>Save</Button>
         </div>
       </div>
+      <Modal show={showModal} onClose={onCloseModal} height="100px" width="300px">
+        <Input className="profile-input-field-password" type="text" label="Enter new password" />
+        <Button className="change-btn">Change</Button>
+      </Modal>
     </>
   );
 }
