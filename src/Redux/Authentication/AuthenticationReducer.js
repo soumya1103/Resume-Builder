@@ -1,16 +1,14 @@
 import { LOGIN, LOGOUT } from "./AuthenticationTypes";
 
-const persistedState = localStorage.getItem("auth")
-  ? JSON.parse(localStorage.getItem("auth"))
-  : {
-      name: "",
-      email: "",
-      role: "",
-      token: "",
-      userId: "",
-    };
+const persistedAuth = JSON.parse(localStorage.getItem("auth")) || {
+  name: "",
+  email: "",
+  role: "",
+  token: "",
+  userId: null,
+};
 
-const initialState = persistedState;
+const initialState = persistedAuth;
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {

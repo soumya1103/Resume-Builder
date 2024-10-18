@@ -1,6 +1,6 @@
 .resume-container {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 2% auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -66,9 +66,9 @@ p {
 }
 
 .experience-heading {
-  padding-top: 2%;
   text-align: left;
-  font-weight: bold; 
+  font-weight: bold;
+  font-size: 1rem; 
 }
 
 @media (max-width: 768px) {
