@@ -1,6 +1,5 @@
 import app from "./apiClient";
-import { CREATE_USER, GET_USER_BY_ID, LOGIN } from "./apiConstants";
-import { VIEW_RESUME } from "./apiConstants";
+import { CREATE_USER, GET_USER_BY_ID, LOGIN, VIEW_RESUME } from "./apiConstants";
 
 export const login = async (email, password) => {
   return await app.post(LOGIN, { email, password });

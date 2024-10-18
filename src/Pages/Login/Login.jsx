@@ -1,3 +1,5 @@
+// 
+
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -10,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { login } from "../../Api/apiService";
 import { validationPatterns, validTLDs } from "../../Validation/constant";
-import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
   const [selectedRole, setSelectedRole] = useState("ROLE_EMPLOYEE");
@@ -28,9 +29,7 @@ function Login() {
   useEffect(() => {
     if (auth && auth.token) {
       if (auth.role === "ROLE_EMPLOYEE") {
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 3000);
+        navigate("/dashboard");
       }
     }
   }, [auth]);
@@ -46,19 +45,20 @@ function Login() {
     const isPasswordValid = validatePassword();
     if (selectedRole === "ROLE_EMPLOYEE" && isCredentialEmailValid && isPasswordValid) {
       try {
-        const encodedPassword = btoa(password);
+        // const encodedPassword = btoa(password);
+        const encodedPassword = password;
         const response = await login(email, encodedPassword);
-        if (response?.status === 200 || response?.status === 201) {
-          toast.success(response?.data?.message || "Login successful.", {
-            autoClose: 3000,
-          });
-        }
+        // if (response?.status === 200 || response?.status === 201) {
+        //   setToastMessage("Logged in successfully!");
+        //   setShowToast(true);
+        //   setToastType("success");
+        // }
         dispatch(loginUser(response.data));
         window.localStorage.setItem("authtoken", response.data.token);
       } catch (error) {
-        toast.error(error?.response.data?.message || "Something went wrong.", {
-          autoClose: 3000,
-        });
+        // setToastMessage(error.response.data.message);
+        // setShowToast(true);
+        // setToastType("error");
       }
     }
   };
@@ -131,7 +131,6 @@ function Login() {
         </form>
         <img src={loginImg} alt="login-image" className="login-img" />
       </div>
-      <ToastContainer />
     </div>
   );
 }
