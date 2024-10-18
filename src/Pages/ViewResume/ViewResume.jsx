@@ -1,34 +1,42 @@
-
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';  
 import { view_resume } from '../../Api/apiService';
 import './ViewResume.css'; 
 import Logo from '../../Images/NucleusTeq Logo.png';
 
-const ViewResume = () => {  
-  const { userId } = useParams();  
+const ViewResume = () => {
+  const { userId } = useParams();
+  const location = useLocation();  
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);  
-  const [error, setError] = useState(null);  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const queryParams = new URLSearchParams(location.search);
+  const profileIndex = queryParams.get('index');  
 
   useEffect(() => {
     const fetchProfile = async () => {
       setLoading(true);
       try {
-        const response = await view_resume(userId);  
-        setProfile(response.data[0]);  
+        const response = await view_resume(userId);
+
+       
+        if (response.data[profileIndex]) {
+          setProfile(response.data[profileIndex]);  
+        } else {
+          setError("Profile not found");
+        }
         setLoading(false);
-        console.log(response.data);
       } catch (error) {
         setError("Error fetching profile data.");
         setLoading(false);
       }
     };
 
-    if (userId) {
+    if (userId && profileIndex !== null) {  
       fetchProfile();
     }
-  }, [userId]);
+  }, [userId, profileIndex]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
