@@ -1,5 +1,6 @@
 import "./App.css";
 import ViewResume from "./Pages/ViewResume/ViewResume";
+import ResumesList from "./Components/ResumeList/ResumeList";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
@@ -27,6 +28,9 @@ function App() {
         <Route path="/professionalSummary" element={<ProfessionalSummary />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        
+        <Route path="/resumes" element={<ResumesList />} />
+        <Route path="/viewResume/:userId" element={<ViewResume />} />
       </Routes>
     </div>
   );

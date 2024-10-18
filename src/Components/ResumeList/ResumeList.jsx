@@ -19,6 +19,7 @@ const ResumesList = ({ isOpen, onClose }) => {
         const response = await view_resume(userId); 
         setProfiles(response.data);  
         setLoading(false);
+        console.log(response.data)
       } catch (error) {
         setError('Error fetching profiles');
         setLoading(false);

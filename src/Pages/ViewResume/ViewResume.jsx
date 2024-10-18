@@ -18,6 +18,7 @@ const ViewResume = () => {
         const response = await view_resume(userId);  
         setProfile(response.data[0]);  
         setLoading(false);
+        console.log(response.data);
       } catch (error) {
         setError("Error fetching profile data.");
         setLoading(false);
