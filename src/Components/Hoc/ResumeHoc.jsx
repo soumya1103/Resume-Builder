@@ -1,12 +1,13 @@
 import React from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import "./ResumeHoc.css";
+import Navbar from "../Navbar/Navbar";
 
 const ResumeHoc = (Component) =>
   function HOC() {
     return (
       <>
-        {/* <Navigation /> */}
+        <Navbar />
         <div className="hoc-container">
           <Sidebar />
           <div className="hoc-right-container">
