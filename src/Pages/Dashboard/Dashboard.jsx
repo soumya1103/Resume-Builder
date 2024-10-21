@@ -33,7 +33,7 @@ function Dashboard() {
       <div className="dashboard-container">
         <Card icon={<FontAwesomeIcon icon={faFile} />} label="Create Resume" onClick={handleResumeClick} />
         <Card icon={<FontAwesomeIcon icon={faEye} />} label="View Resume" onClick={handleViewResume} />
-        <Card icon={<FontAwesomeIcon icon={faHistory} />} label="History" />
+        <Card icon={<FontAwesomeIcon icon={faHistory} />} label="ATS" />
         <Card icon={<FontAwesomeIcon icon={faUser} />} label="Profile" onClick={handleProfile} />
       </div>
       <ResumesList isOpen={isModalOpen} onClose={closeModal} />

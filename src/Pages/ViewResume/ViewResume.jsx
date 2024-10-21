@@ -44,6 +44,7 @@ const ViewResume = () => {
 
   return (
     <div className="resume-container">
+    
       <div className="logo-container">
         <img src={Logo} alt="logo" className='logo' />
       </div>
