@@ -3,7 +3,7 @@ import "./Profile.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../Components/Input/Input";
-// import Navbar from "../../Components/Navbar/Navbar";
+import Navbar from "../../Components/Navbar/Navbar";
 import Button from "../../Components/Button/Button";
 import { Link } from "react-router-dom";
 import Modal from "../../Components/Modal/Modal";
@@ -45,7 +45,7 @@ function Profile() {
 
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className="profile-container">
         <button className="sidebar">
           <Link to="/dashboard" className={`sidebar-link`}>

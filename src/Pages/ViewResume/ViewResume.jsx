@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';  
+import { useParams, useLocation, Link } from 'react-router-dom'; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { view_resume } from '../../Api/apiService';
 import './ViewResume.css'; 
 import Logo from '../../Images/NucleusTeq Logo.png';
@@ -43,6 +45,12 @@ const ViewResume = () => {
   if (!profile) return <div>No profile data available</div>;
 
   return (
+    <>
+     <button className="sidebar">
+            <Link to="/dashboard" className={`sidebar-link ${location.pathname === "/personalInfo" ? "active" : ""}`}>
+              <FontAwesomeIcon icon={faArrowLeft} className="back-button" />
+            </Link>
+          </button>
     <div className="resume-container">
     
       <div className="logo-container">
@@ -84,11 +92,12 @@ const ViewResume = () => {
       <h2 className="section-title">Education</h2>
       {profile.profileData?.education?.map((education, index) => (
         <div key={index} className="education">
-          <p className="institution">{education.course} from {education.collegeName}</p>
+          <h3 className="experience-heading">{education.course} from {education.collegeName}</h3>
           <p>Duration: {education.duration}</p>
         </div>
       ))}
     </div>
+    </>
   );
 };
 

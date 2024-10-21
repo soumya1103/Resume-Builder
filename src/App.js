@@ -15,7 +15,6 @@ import ProfessionalSummary from "./Pages/CreateResume/ProfessionalSummary";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-   
   return (
     <div className="App">
       <Routes>
@@ -28,13 +27,12 @@ function App() {
         <Route path="/professionalSummary" element={<ProfessionalSummary />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        
+
         <Route path="/resumes" element={<ResumesList />} />
         <Route path="/viewResume/:userId" element={<ViewResume />} />
       </Routes>
     </div>
   );
 }
-
 
 export default App;

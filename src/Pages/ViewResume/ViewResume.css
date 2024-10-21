@@ -1,6 +1,6 @@
 .resume-container {
   max-width: 800px;
-  margin: 2% auto;
+  margin: 0.5% auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -17,6 +17,20 @@
 .logo {
   width: 150px;
 }
+
+.back-button {
+  color: #243c76;
+  font-size: 1.4rem;
+  position: absolute;
+  top: 4%;
+  left: 18%;
+}
+
+.back-button:hover {
+  color: #e74860;
+  transition: all 0.3s;
+}
+
 
 .personal-info {
   text-align: center;

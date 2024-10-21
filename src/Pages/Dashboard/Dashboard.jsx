@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile, faHistory, faUser, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faFile, faUser, faEye, faChartColumn } from "@fortawesome/free-solid-svg-icons";
+
 import "./Dashboard.css";
 import Card from "../../Components/Cards/Card";
 import Navbar from "../../Components/Navbar/Navbar.jsx";
@@ -33,7 +34,7 @@ function Dashboard() {
       <div className="dashboard-container">
         <Card icon={<FontAwesomeIcon icon={faFile} />} label="Create Resume" onClick={handleResumeClick} />
         <Card icon={<FontAwesomeIcon icon={faEye} />} label="View Resume" onClick={handleViewResume} />
-        <Card icon={<FontAwesomeIcon icon={faHistory} />} label="ATS" />
+        <Card icon={<FontAwesomeIcon icon={faChartColumn} />} label="ATS" />
         <Card icon={<FontAwesomeIcon icon={faUser} />} label="Profile" onClick={handleProfile} />
       </div>
       <ResumesList isOpen={isModalOpen} onClose={closeModal} />
