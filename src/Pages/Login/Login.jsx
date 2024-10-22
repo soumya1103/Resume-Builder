@@ -1,4 +1,4 @@
-// 
+//
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import Button from "../../Components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { login } from "../../Api/apiService";
+import { ToastContainer, toast } from "react-toastify";
 import { validationPatterns, validTLDs } from "../../Validation/constant";
 
 function Login() {
@@ -29,7 +30,9 @@ function Login() {
   useEffect(() => {
     if (auth && auth.token) {
       if (auth.role === "ROLE_EMPLOYEE") {
-        navigate("/dashboard");
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 3000);
       }
     }
   }, [auth]);
@@ -45,20 +48,19 @@ function Login() {
     const isPasswordValid = validatePassword();
     if (selectedRole === "ROLE_EMPLOYEE" && isCredentialEmailValid && isPasswordValid) {
       try {
-        // const encodedPassword = btoa(password);
-        const encodedPassword = password;
+        const encodedPassword = btoa(password);
         const response = await login(email, encodedPassword);
-        // if (response?.status === 200 || response?.status === 201) {
-        //   setToastMessage("Logged in successfully!");
-        //   setShowToast(true);
-        //   setToastType("success");
-        // }
+        if (response?.status === 200 || response?.status === 201) {
+          toast.success(response?.data?.message || "Login successful.", {
+            autoClose: 3000,
+          });
+        }
         dispatch(loginUser(response.data));
         window.localStorage.setItem("authtoken", response.data.token);
       } catch (error) {
-        // setToastMessage(error.response.data.message);
-        // setShowToast(true);
-        // setToastType("error");
+        toast.error(error?.response?.data?.message || "Something went wrong.", {
+          autoClose: 3000,
+        });
       }
     }
   };
@@ -131,6 +133,7 @@ function Login() {
         </form>
         <img src={loginImg} alt="login-image" className="login-img" />
       </div>
+      <ToastContainer />
     </div>
   );
 }
