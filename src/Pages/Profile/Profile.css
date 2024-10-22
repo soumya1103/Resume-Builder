@@ -9,42 +9,12 @@
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
-.profile-inner-container {
-  grid-column-gap: 10%;
-  grid-template-columns: 15% 75%;
-  display: grid;
-  margin-top: 1%;
-}
-
-.profile-picture-container {
-  background-color: #cccccc58;
-  border-radius: 50%;
-  height: 18vh;
-}
-
-.picture-btn {
-  background: none;
-  border: none;
-  color: #e74860;
-  font-size: 1.2rem;
-  cursor: pointer;
-  position: absolute;
-  top: 37%;
-  left: 29%;
-}
-
-.picture-btn:hover {
-  color: #243c76;
-  transition: all 0.3s;
-}
-
 .grid-container-2-col {
   display: grid;
   grid-template-columns: 44% 43%;
   text-align: center;
   align-items: center;
   grid-column-gap: 10%;
-  margin-bottom: 1%;
 }
 
 .grid-container-1-col {
@@ -67,7 +37,7 @@
 
 .profile-form-btn {
   position: fixed;
-  bottom: 9.5%;
+  bottom: 10%;
   left: 15.5%;
   right: 15.5%;
   display: flex;
