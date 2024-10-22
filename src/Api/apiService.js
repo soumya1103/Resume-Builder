@@ -1,5 +1,5 @@
 import app from "./apiClient";
-import { CREATE_USER, GET_USER_BY_ID, LOGIN } from "./apiConstants";
+import { CREATE_USER, GET_USER_BY_ID, LOGIN, UPDATE_PROFILE } from "./apiConstants";
 import { VIEW_RESUME } from "./apiConstants";
 
 export const login = async (email, password) => {
@@ -20,4 +20,8 @@ export const addUser = async (userData) => {
 
 export const view_resume = async (userId) => {
   return await app.get(VIEW_RESUME(userId));
+};
+
+export const updateProfile = async (userId, data) => {
+  return await app.put(`${UPDATE_PROFILE}/${userId}`, data);
 };
