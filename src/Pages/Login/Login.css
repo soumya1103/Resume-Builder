@@ -8,6 +8,7 @@
   color: #243c76;
   display: flex;
   justify-content: center;
+  text-align: center;
   background-color: #f2f2ee;
   align-items: center;
 }
@@ -19,6 +20,7 @@
   align-items: center;
   width: 60%;
   border-radius: 9px;
+  text-align: center;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
@@ -39,6 +41,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .login-form img {
@@ -89,6 +92,7 @@
   border: none;
   font-size: 1rem;
   cursor: pointer;
+  text-align: center;
 }
 
 .login-link:hover {

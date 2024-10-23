@@ -98,7 +98,8 @@ function Login() {
 
   const submitChangePassword = async () => {
     try {
-      const response = await resetPassword(emailForgetPassword, otp, newPassword);
+      const encodedPassword = btoa(newPassword);
+      const response = await resetPassword(emailForgetPassword, otp, encodedPassword);
       if (response?.status === 200 || response?.status === 201) {
         toast.success(response?.data?.message || "Password reset successfully.", {
           autoClose: 3000,
