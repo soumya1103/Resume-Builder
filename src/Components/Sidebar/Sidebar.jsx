@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -11,20 +11,20 @@ import { useSelector } from "react-redux";
 function Sidebar() {
   const location = useLocation();
 
-  const navigate = useNavigate();
-
   const userData = useSelector((state) => state.resume);
+
+  const profileId = JSON.parse(localStorage.getItem("profileId"));
 
   const handleSubmit = async () => {
     try {
-      const response = await addUser(userData);
+      const response = await addUser(profileId, userData);
       if (response.status === 200 || response.status === 201) {
         toast.success(response?.data?.message, {
           autoClose: 3000,
         });
       }
       setTimeout(() => {
-        navigate("/dashboard");
+        window.location.href = "/dashboard";
       }, 3000);
       setTimeout(() => {
         window.location.reload();
@@ -40,10 +40,8 @@ function Sidebar() {
     <div className="sidebar-container">
       <div className="sidebar-inner-container">
         <div style={{ marginLeft: "3%" }}>
-          <button className="sidebar">
-            <Link to="/dashboard" className={`sidebar-link ${location.pathname === "/personalInfo" ? "active" : ""}`}>
-              <FontAwesomeIcon icon={faArrowLeft} className="sidebar-back-icon" />
-            </Link>
+          <button className="sidebar" onClick={() => (window.location.href = "/dashboard")}>
+            <FontAwesomeIcon icon={faArrowLeft} className="sidebar-back-icon" />
           </button>
           <div style={{ marginTop: "11%" }}>
             <button className="sidebar">

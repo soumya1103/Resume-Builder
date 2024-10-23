@@ -11,3 +11,5 @@ export const UPDATE_PROFILE = "/users/update";
 export const SEND_OTP = "/users/forgot-password";
 
 export const RESET_PASSWORD = "/users/reset-password";
+
+export const RESUME_TITLE = "api/user-profiles/createJobTitle";
