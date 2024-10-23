@@ -85,6 +85,10 @@
 .login-link {
   text-decoration: none;
   color: #243c76;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .login-link:hover {

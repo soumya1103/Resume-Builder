@@ -1,7 +1,5 @@
-//
-
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import loginImg from "../../Images/login-img.jpeg";
 import logo from "../../Images/NucleusTeq Logo.png";
@@ -10,8 +8,10 @@ import { loginUser } from "../../Redux/Authentication/AuthenticationAction";
 import Button from "../../Components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { login } from "../../Api/apiService";
+import { login, resetPassword, sendOtp } from "../../Api/apiService";
 import { ToastContainer, toast } from "react-toastify";
+import Modal from "../../Components/Modal/Modal";
+import Input from "../../Components/Input/Input";
 import { validationPatterns, validTLDs } from "../../Validation/constant";
 
 function Login() {
@@ -22,6 +22,12 @@ function Login() {
 
   const [credentialEmailError, setCredentialEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+  const [emailForgetPassword, setEmailForgetPassword] = useState("");
+  const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -90,6 +96,55 @@ function Login() {
     return true;
   };
 
+  const submitChangePassword = async () => {
+    try {
+      const response = await resetPassword(emailForgetPassword, otp, newPassword);
+      if (response?.status === 200 || response?.status === 201) {
+        toast.success(response?.data?.message || "Password reset successfully.", {
+          autoClose: 3000,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const handleSendOtp = async () => {
+    try {
+      const response = await sendOtp(emailForgetPassword);
+      if (response?.status === 200 || response?.status === 201) {
+        toast.success(response?.data?.message || "Otp sent successfully.", {
+          autoClose: 3000,
+        });
+        setTimeout(() => {
+          setShowEmailModal(false);
+          setShowChangePasswordModal(true);
+        }, 3000);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const onCloseEmailModal = () => {
+    setShowEmailModal(false);
+  };
+
+  const onCloseChangePasswordModal = () => {
+    setShowChangePasswordModal(false);
+  };
+
+  const handleForgetPassword = () => {
+    setShowEmailModal(true);
+  };
+
   return (
     <div class="login-container-outer">
       <div class="login-container-inner">
@@ -126,13 +181,45 @@ function Login() {
             Login
           </Button>
           <p>
-            <Link to="/forgotPassword" className="login-link">
+            <button onClick={handleForgetPassword} className="login-link">
               Forgot password?
-            </Link>
+            </button>
           </p>
         </form>
         <img src={loginImg} alt="login-image" className="login-img" />
       </div>
+      <Modal show={showEmailModal} onClose={onCloseEmailModal} height="110px" width="300px">
+        <Input
+          className="profile-input-field-password"
+          type="email"
+          label="Enter Email"
+          value={emailForgetPassword}
+          onChange={(e) => setEmailForgetPassword(e.target.value)}
+        />
+        <Button className="change-btn" onClick={handleSendOtp}>
+          Send Otp
+        </Button>
+      </Modal>
+      <Modal show={showChangePasswordModal} onClose={onCloseChangePasswordModal} height="240px" width="310px">
+        <Input
+          className="profile-input-field-password"
+          type="email"
+          label="Enter Email"
+          value={emailForgetPassword}
+          onChange={(e) => setEmailForgetPassword(e.target.value)}
+        />
+        <Input className="profile-input-field-password" type="text" label="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} />
+        <Input
+          className="profile-input-field-password"
+          type="password"
+          label="Enter New Password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <Button className="change-btn" onClick={submitChangePassword}>
+          Submit
+        </Button>
+      </Modal>
       <ToastContainer />
     </div>
   );
