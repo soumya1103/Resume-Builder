@@ -11,7 +11,9 @@ import { ToastContainer, toast } from "react-toastify";
 import { updateProfile } from "../../Api/apiService";
 
 function Profile() {
-  const [showModal, setShowModal] = useState(false);
+  const user = JSON.parse(localStorage.getItem("auth"));
+
+  const [password, setPassword] = useState("");
 
   var profileData = {
     phone: "",
@@ -21,12 +23,12 @@ function Profile() {
     bio: "",
   };
 
-  const onCloseModal = () => {
-    setShowModal(false);
+  const handlePassword = () => {
+    // setShowEmailModal(true);
   };
 
-  const handleChangePassword = () => {
-    setShowModal(true);
+  const handleChangePassword = async () => {
+    const encodedPassword = btoa(password);
   };
 
   const handleNumberChange = (e) => {
@@ -44,9 +46,12 @@ function Profile() {
   };
 
   const handleDobChange = (e) => {
+    const dateParts = e.target.value.split("-");
+    const formattedDate = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`;
+
     profileData = {
       ...profileData,
-      dob: e.target.value,
+      dob: formattedDate,
     };
   };
 
@@ -64,7 +69,6 @@ function Profile() {
     };
   };
 
-  const user = JSON.parse(localStorage.getItem("auth"));
   const name = user.name.split(" ");
   const firstName = name[0];
   const lastName = name[1];
@@ -114,9 +118,9 @@ function Profile() {
             <label className="form-field-label">Gender</label>
             <select onChange={handleGenderChange} className="form-field-input profile-input-field">
               <option value="">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="OTHER">Other</option>
             </select>
           </div>
         </div>
@@ -124,14 +128,11 @@ function Profile() {
           <Input type="textarea" label="Bio" onChange={handleBioChange} className="profile-input-field" margin="1%" />
         </div>
         <div className="profile-form-btn">
-          <Button onClick={handleChangePassword}>Change Password</Button>
+          <Button onClick={handlePassword}>Change Password</Button>
           <Button onClick={handleSaveProfile}>Save</Button>
         </div>
       </div>
-      <Modal show={showModal} onClose={onCloseModal} height="100px" width="300px">
-        <Input className="profile-input-field-password" type="text" label="Enter new password" />
-        <Button className="change-btn">Change</Button>
-      </Modal>
+
       <ToastContainer />
     </>
   );
