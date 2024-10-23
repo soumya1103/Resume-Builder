@@ -1,5 +1,5 @@
 import app from "./apiClient";
-import { CREATE_USER, GET_USER_BY_ID, LOGIN, UPDATE_PROFILE } from "./apiConstants";
+import { CREATE_USER, GET_USER_BY_ID, LOGIN, RESET_PASSWORD, SEND_OTP, UPDATE_PROFILE } from "./apiConstants";
 import { VIEW_RESUME } from "./apiConstants";
 
 export const login = async (email, password) => {
@@ -24,4 +24,12 @@ export const view_resume = async (userId) => {
 
 export const updateProfile = async (userId, data) => {
   return await app.put(`${UPDATE_PROFILE}/${userId}`, data);
+};
+
+export const sendOtp = async (email) => {
+  return await app.post(`${SEND_OTP}?email=${email}`);
+};
+
+export const resetPassword = async (email, otp, password) => {
+  return await app.post(`${RESET_PASSWORD}?email=${email}&otp=${otp}&newPassword=${password}`);
 };
