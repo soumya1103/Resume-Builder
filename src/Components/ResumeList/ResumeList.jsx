@@ -20,7 +20,7 @@ const ResumesList = ({ isOpen, onClose }) => {
         setLoading(false);
         console.log(response.data);
       } catch (error) {
-        setError("Error fetching profiles");
+        // setError("Error fetching profiles");
         setLoading(false);
       }
     };
@@ -55,7 +55,7 @@ const ResumesList = ({ isOpen, onClose }) => {
       className="resume-item"
       onClick={() => handleProfileClick(profile, index)} 
     >
-      {profile.jobTitle}
+       {profile.profileName}-{profile.jobTitle}
     </li>
   ))}
 </ul>
