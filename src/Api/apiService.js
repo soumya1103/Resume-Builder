@@ -34,6 +34,6 @@ export const resetPassword = async (email, otp, password) => {
   return await app.post(`${RESET_PASSWORD}?email=${email}&otp=${otp}&newPassword=${password}`);
 };
 
-export const saveResumeTitle = async (id) => {
-  return await app.post(RESUME_TITLE, { id });
+export const saveResumeTitle = async (title) => {
+  return await app.post(RESUME_TITLE, { title });
 };

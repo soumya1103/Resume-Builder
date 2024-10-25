@@ -40,6 +40,8 @@ function Dashboard() {
 
   const handleTitleSave = async () => {
     try {
+      console.log(resumeTitle);
+
       const response = await saveResumeTitle(resumeTitle);
       if (response?.status === 200 || response?.status === 201) {
         toast.success(response?.data?.message || "Resume Title Saved", {
@@ -85,4 +87,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
