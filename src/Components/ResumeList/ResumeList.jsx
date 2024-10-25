@@ -55,7 +55,7 @@ const ResumesList = ({ isOpen, onClose }) => {
       className="resume-item"
       onClick={() => handleProfileClick(profile, index)} 
     >
-      {profile.profileName}
+      {profile.jobTitle}
     </li>
   ))}
 </ul>
