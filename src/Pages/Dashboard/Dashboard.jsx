@@ -43,3 +43,42 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+
+// import React from "react";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faFile, faUser, faEye, faChartColumn } from "@fortawesome/free-solid-svg-icons";
+// import "./Dashboard.css";
+// import Card from "../../Components/Cards/Card";
+// import Navbar from "../../Components/Navbar/Navbar.jsx";
+// import { useNavigate } from "react-router-dom";
+
+// function Dashboard() {
+//   const navigate = useNavigate();
+
+//   const handleResumeClick = () => {
+//     navigate("/personalInfo");
+//   };
+
+//   const handleProfile = () => {
+//     navigate("/profile");
+//   };
+
+//   const handleViewResume = () => {
+//     navigate("/resumes");  // Redirect to the resumes page
+//   };
+
+//   return (
+//     <div className="dashboard-container-outer">
+//       <Navbar />
+//       <div className="dashboard-container">
+//         <Card icon={<FontAwesomeIcon icon={faFile} />} label="Create Resume" onClick={handleResumeClick} />
+//         <Card icon={<FontAwesomeIcon icon={faEye} />} label="View Resume" onClick={handleViewResume} />
+//         <Card icon={<FontAwesomeIcon icon={faChartColumn} />} label="ATS" />
+//         <Card icon={<FontAwesomeIcon icon={faUser} />} label="Profile" onClick={handleProfile} />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Dashboard;
