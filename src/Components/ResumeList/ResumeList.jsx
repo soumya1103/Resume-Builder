@@ -44,7 +44,7 @@ const ResumesList = ({ isOpen, onClose }) => {
       {isOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>Select a Resume</h2>
+            <h2 className="modal-heading">Select a Resume</h2>
             <button className="close-modal-btn" onClick={onClose}>
               X
             </button>
