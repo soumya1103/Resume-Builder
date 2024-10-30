@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile, faUser, faEye, faChartColumn } from "@fortawesome/free-solid-svg-icons";
+import { faFile, faUser, faEye, faChartColumn} from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../Components/Modal/Modal.jsx";
 import Input from "../../Components/Input/Input.jsx";
 import { ToastContainer, toast } from "react-toastify";

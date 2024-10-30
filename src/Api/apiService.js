@@ -1,6 +1,6 @@
 import app from "./apiClient";
 import { CREATE_USER, GET_USER_BY_ID, LOGIN, RESET_PASSWORD, RESUME_TITLE, SEND_OTP, UPDATE_PROFILE } from "./apiConstants";
-import { VIEW_RESUME } from "./apiConstants";
+import { VIEW_RESUME, DELETE_RESUME } from "./apiConstants";
 
 export const login = async (email, password) => {
   return await app.post(LOGIN, { email, password });
@@ -37,3 +37,7 @@ export const resetPassword = async (email, otp, password) => {
 export const saveResumeTitle = async (title) => {
   return await app.post(RESUME_TITLE, { title });
 };
+
+export const delete_resume = async (resumeId) => {
+  return await app.put(DELETE_RESUME(resumeId));
+}
