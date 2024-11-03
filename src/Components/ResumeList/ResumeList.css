@@ -34,7 +34,7 @@
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 300px;
+    width: 350px;
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
@@ -67,15 +67,68 @@
   }
   
   .resume-item {
-  
+    display: flex;
+    gap: 10%;
     color:#243c76;
     padding: 10px;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
-    
+    align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space between name and icons */
+ 
   }
   
   .resume-item:hover {
     background-color: #f1f1f1;
   }
   
+  .modal-buttons{
+    display: flex;
+    gap: 15%;
+    padding: 5% 5%;
+    justify-content: center;
+  }
+  .resume-item span {
+    flex: 1; /* Allow name to take up remaining space */
+    cursor: pointer;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.resume-actions {
+  display: flex;
+  align-items: center; /* Keep icons centered vertically */
+}
+
+.icon-button {
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s;
+  margin: 0; /* Removes all default margins */
+  padding: 0; /* Removes any default padding */
+}
+
+.icon-button + .icon-button {
+  margin-left: 14px; /* Adds a small space only between icons */
+}
+
+.edit-icon {
+  color: #e74860;
+}
+
+.delete-icon{
+  color: #e74860;
+}
+ 
+.edit-icon:hover{
+  color: #243c76;
+}
+
+.delete-icon:hover{
+  color: #243c76;
+}
+
+.resumes-available{
+ padding-left: 0.6rem;
+ color: rgb(101, 101, 101);
+}
