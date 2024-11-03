@@ -83,19 +83,21 @@ const ResumesList = ({ isOpen, onClose }) => {
   const userId = useSelector((state) => state.auth.userId);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchProfiles = async () => {
-      setLoading(true);
-      try {
-        const response = await view_resume(userId);
-        setProfiles(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError("Error fetching profiles");
-        setLoading(false);
-      }
-    };
+  const fetchProfiles = async () => {
+    setLoading(true);
+    try {
+      const response = await view_resume(userId);
+      // Filter profiles where isDeleted is false
+      const activeProfiles = response.data.filter(profile => !profile.isDeleted);
+      setProfiles(activeProfiles);
+      setLoading(false);
+    } catch (error) {
+      setError("Error fetching profiles");
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     if (userId) {
       fetchProfiles();
     } else {
@@ -109,14 +111,16 @@ const ResumesList = ({ isOpen, onClose }) => {
   };
 
   const handleEdit = (profile) => {
-    // Redirect to edit page or open edit modal
     navigate(`/editResume/${profile.id}`);
   };
 
   const handleDelete = async (resumeId) => {
     try {
-      await delete_resume(resumeId); 
-      setProfiles(profiles.filter((profile) => profile.id !== resumeId)); 
+      const deleteResponse = await delete_resume(resumeId);
+      if (deleteResponse.data.isDeleted) {
+        // Re-fetch profiles after deletion to get the latest list
+        fetchProfiles();
+      }
     } catch (error) {
       setError("Failed to delete resume");
     }
