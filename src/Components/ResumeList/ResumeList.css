@@ -73,8 +73,8 @@
     padding: 10px;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
-    align-items: center; /* Center items vertically */
-  justify-content: space-between; /* Space between name and icons */
+    align-items: center; 
+  justify-content: space-between; 
  
   }
   
@@ -89,14 +89,14 @@
     justify-content: center;
   }
   .resume-item span {
-    flex: 1; /* Allow name to take up remaining space */
+    flex: 1;
     cursor: pointer;
-  white-space: nowrap; /* Prevents text from wrapping */
+  white-space: nowrap; 
 }
 
 .resume-actions {
   display: flex;
-  align-items: center; /* Keep icons centered vertically */
+  align-items: center; 
 }
 
 .icon-button {
@@ -104,12 +104,12 @@
   color: #666;
   cursor: pointer;
   transition: color 0.2s;
-  margin: 0; /* Removes all default margins */
-  padding: 0; /* Removes any default padding */
+  margin: 0; 
+  padding: 0; 
 }
 
 .icon-button + .icon-button {
-  margin-left: 14px; /* Adds a small space only between icons */
+  margin-left: 14px;
 }
 
 .edit-icon {
