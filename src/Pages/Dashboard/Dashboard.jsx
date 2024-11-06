@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile, faUser, faEye, faChartColumn} from "@fortawesome/free-solid-svg-icons";
+import { faFile, faUpload, faEye, faChartColumn } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../Components/Modal/Modal.jsx";
 import Input from "../../Components/Input/Input.jsx";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,14 +16,28 @@ function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [titleModal, setTitleModal] = useState(false);
   const [resumeTitle, setResumeTitle] = useState("");
+  const [file, setFile] = useState(null);
   const navigate = useNavigate();
 
   const handleResumeClick = () => {
     setTitleModal(true);
   };
 
-  const handleProfile = () => {
-    navigate("/profile");
+  const handleUploadResume = (e) => {
+    e.preventDefault();
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile && selectedFile.type === "application/pdf") {
+      setFile(selectedFile);
+      toast.success("PDF Resume selected successfully!", {
+        autoClose: 3000,
+      });
+    } else {
+      setFile(null);
+      toast.error("Please select a valid PDF file.", {
+        autoClose: 3000,
+      });
+    }
   };
 
   const handleViewResume = () => {
@@ -66,8 +80,11 @@ function Dashboard() {
         <Card icon={<FontAwesomeIcon icon={faFile} />} label="Create Resume" onClick={handleResumeClick} />
         <Card icon={<FontAwesomeIcon icon={faEye} />} label="View Resume" onClick={handleViewResume} />
         <Card icon={<FontAwesomeIcon icon={faChartColumn} />} label="ATS" />
-        <Card icon={<FontAwesomeIcon icon={faUser} />} label="Profile" onClick={handleProfile} />
+        <Card icon={<FontAwesomeIcon icon={faUpload} />} label="Upload Resume" onClick={() => document.getElementById("file-input").click()} />
       </div>
+
+      <input id="file-input" type="file" accept="application/pdf" style={{ display: "none" }} onChange={handleUploadResume} />
+
       <ResumesList isOpen={isModalOpen} onClose={closeModal} />
       <Modal show={titleModal} onClose={onCloseTitleModal} height="100px" width="310px">
         <Input
