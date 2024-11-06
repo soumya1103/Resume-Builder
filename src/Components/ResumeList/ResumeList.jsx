@@ -39,10 +39,11 @@ const ResumesList = ({ isOpen, onClose }) => {
     }
   }, [userId]);
 
-  const handleProfileClick = (profile, index) => {
+  const handleProfileClick = (profile) => {
     onClose();
-    navigate(`/viewResume/${userId}?index=${index}`);
+    navigate(`/viewResume/${userId}?profileId=${profile.id}`);
   };
+  
 
   const handleEdit = (profile) => {
     navigate(`/editResume/${profile.id}`);
