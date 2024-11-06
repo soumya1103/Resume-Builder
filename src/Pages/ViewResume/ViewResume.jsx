@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +14,6 @@ const ViewResume = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
   const queryParams = new URLSearchParams(location.search);
   const profileId = queryParams.get('profileId');
 
@@ -23,10 +21,7 @@ const ViewResume = () => {
     const fetchProfile = async () => {
       setLoading(true);
       try {
-    
         const response = await view_resume(userId);
-
-  
         const selectedProfile = response.data.find(profile => profile.id === parseInt(profileId));
 
         if (selectedProfile) {
@@ -57,6 +52,12 @@ const ViewResume = () => {
     };
 
     html2pdf().set(opt).from(element).save();
+  };
+
+  const formatExperienceDetails = (details) => {
+    return details.split('. ').map((sentence, index) => (
+      <li key={index}>{sentence.trim()}{sentence.trim().endsWith('.') ? '' : '.'}</li>
+    ));
   };
 
   if (loading) return <div>Loading...</div>;
@@ -91,23 +92,50 @@ const ViewResume = () => {
         <p>{profile.profileData?.professionalSummary}</p>
 
         <h2 className="section-title">Technical Skills</h2>
-        <ul className="bullet-section">
-          {profile.profileData?.technicalSkills?.technology?.map((tech, index) => (
-            <li key={index}>{tech}</li>
-          ))}
-          {profile.profileData?.technicalSkills?.programming?.map((prog, index) => (
-            <li key={index}>{prog}</li>
-          ))}
-          {profile.profileData?.technicalSkills?.tools?.map((tool, index) => (
-            <li key={index}>{tool}</li>
-          ))}
-        </ul>
+        
+        {profile.profileData?.technicalSkills?.technology?.length > 0 && (
+          <>
+            <h3 className="sub-section-title">Technology</h3>
+            <ul className="bullet-section">
+              {profile.profileData.technicalSkills.technology.map((tech, index) => (
+                <li key={index}>{tech}</li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {profile.profileData?.technicalSkills?.programming?.length > 0 && (
+          <>
+            <h3 className="sub-section-title">Programming</h3>
+            <ul className="bullet-section">
+              {profile.profileData.technicalSkills.programming.map((prog, index) => (
+                <li key={index}>{prog}</li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {profile.profileData?.technicalSkills?.tools?.length > 0 && (
+          <>
+            <h3 className="sub-section-title">Tools</h3>
+            <ul className="bullet-section">
+              {profile.profileData.technicalSkills.tools.map((tool, index) => (
+                <li key={index}>{tool}</li>
+              ))}
+            </ul>
+          </>
+        )}
 
         <h2 className="section-title">Professional Experience</h2>
         {profile.profileData?.professionalExperience?.map((experience, index) => (
           <div key={index} className="professional-experience">
-            <h3 className="experience-heading">{experience.jobTitle} at {experience.companyName}</h3>
-            <p>{experience.details}</p>
+            <h3 className="experience-heading">
+              {experience.jobTitle} at {experience.companyName} 
+              <span className="experience-dates">({experience.startDate} - {experience.endDate})</span>
+            </h3>
+            <ul className="bullet-section">
+              {formatExperienceDetails(experience.details)}
+            </ul>
           </div>
         ))}
 
