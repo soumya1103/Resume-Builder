@@ -38,6 +38,6 @@ export const saveResumeTitle = async (title) => {
   return await app.post(RESUME_TITLE, { title });
 };
 
-export const delete_resume = async (resumeId) => {
+export const deleteResume = async (resumeId) => {
   return await app.put(DELETE_RESUME(resumeId));
-}
+};

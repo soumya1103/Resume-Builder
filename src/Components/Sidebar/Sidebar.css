@@ -69,6 +69,7 @@
 .sidebar-back-icon {
   color: #243c76;
   font-size: 1.4rem;
+  cursor: pointer;
 }
 
 .sidebar-back-icon:hover {

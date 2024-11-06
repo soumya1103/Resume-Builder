@@ -26,9 +26,6 @@ function Sidebar() {
       setTimeout(() => {
         window.location.href = "/dashboard";
       }, 3000);
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
         autoClose: 3000,
