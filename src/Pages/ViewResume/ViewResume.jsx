@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,31 +15,36 @@ const ViewResume = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
   const queryParams = new URLSearchParams(location.search);
-  const profileIndex = queryParams.get('index');
+  const profileId = queryParams.get('profileId');
 
   useEffect(() => {
     const fetchProfile = async () => {
       setLoading(true);
       try {
+    
         const response = await view_resume(userId);
 
-        if (response.data[profileIndex]) {
-          setProfile(response.data[profileIndex]);
+  
+        const selectedProfile = response.data.find(profile => profile.id === parseInt(profileId));
+
+        if (selectedProfile) {
+          setProfile(selectedProfile);
         } else {
           setError("Profile not found");
         }
-        setLoading(false);
       } catch (error) {
         setError("Error fetching profile data.");
+      } finally {
         setLoading(false);
       }
     };
 
-    if (userId && profileIndex !== null) {
+    if (userId && profileId) {
       fetchProfile();
     }
-  }, [userId, profileIndex]);
+  }, [userId, profileId]);
 
   const downloadPDF = () => {
     const element = document.getElementById('resume-content');
