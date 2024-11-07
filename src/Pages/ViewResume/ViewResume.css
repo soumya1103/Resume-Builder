@@ -2,10 +2,10 @@
   max-width: 800px;
   margin: 0.5% auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  /* border: 1px solid #ccc; */
+  /* border-radius: 8px; */
+  /* background-color: #f9f9f9; */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
 }
 
 .btn-container {
@@ -109,5 +109,12 @@ p {
 
   .logo {
     width: 120px;
+  }
+}
+
+@media print {
+  .resume-container {
+    padding: 0;
+    margin: 1px;
   }
 }
