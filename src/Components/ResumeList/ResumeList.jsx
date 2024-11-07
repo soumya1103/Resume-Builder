@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { view_resume, deleteResume } from "../../Api/apiService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 import "./ResumeList.css";
@@ -60,6 +61,7 @@ const ResumesList = ({ isOpen, onClose }) => {
       if (deleteResponse.data.isDeleted) {
         setShowDeleteModal(false);
         fetchProfiles();
+        toast.success("Resume deleted successfully!");
       }
     } catch (error) {
       setError("Failed to delete resume");
