@@ -94,6 +94,7 @@ function ProfessionalSummary() {
           <div key={index + 1} className="resume-entry">
             <div className="resume-form-header">
               <Input
+                margin="2%"
                 label="Certification"
                 name={`certification-${index + 1}`}
                 type="text"
@@ -106,10 +107,11 @@ function ProfessionalSummary() {
           </div>
         ))}
       </div>
-
-      <div className="resume-form-btn">
-        <Button onClick={handlePrevClick}>Previous</Button>
-        <Button onClick={handleSaveClick}>Save</Button>
+      <div className="professional-summary-container">
+        <div className="resume-form-btn">
+          <Button onClick={handlePrevClick}>Previous</Button>
+          <Button onClick={handleSaveClick}>Save</Button>
+        </div>
       </div>
     </div>
   );

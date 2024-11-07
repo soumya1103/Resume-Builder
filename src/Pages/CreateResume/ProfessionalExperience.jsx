@@ -63,118 +63,119 @@ function ProfessionalExperience() {
 
   return (
     <div className="resume-form">
-      <h1 className="resume-form-title">Professional Experience</h1>
-      <div className="resume-professional-experience">
-        <div className="resume-form-header">
-          <FontAwesomeIcon icon={faPlus} className="resume-plus-icon" onClick={handlePlusClick} />
-        </div>
+      <div>
+        <h1 className="resume-form-title">Professional Experience</h1>
+        <div className="resume-professional-experience">
+          <div className="resume-form-header">
+            <FontAwesomeIcon icon={faPlus} className="resume-plus-icon" onClick={handlePlusClick} />
+          </div>
 
-        <div className="resume-entry">
-          <div className="grid-container-2-col">
-            <Input
-              label="Job Title"
-              name="jobTitle"
-              type="text"
-              className="resume-form-input-field"
-              value={experienceFields[0].jobTitle}
-              onChange={(e) => handleFieldChange(0, "jobTitle", e.target.value)}
-            />
-            <Input
-              label="Company Name"
-              name="companyName"
-              type="text"
-              className="resume-form-input-field"
-              value={experienceFields[0].companyName}
-              onChange={(e) => handleFieldChange(0, "companyName", e.target.value)}
-            />
+          <div className="resume-entry">
+            <div className="grid-container-2-col">
+              <Input
+                label="Job Title"
+                name="jobTitle"
+                type="text"
+                className="resume-form-input-field"
+                value={experienceFields[0].jobTitle}
+                onChange={(e) => handleFieldChange(0, "jobTitle", e.target.value)}
+              />
+              <Input
+                label="Company Name"
+                name="companyName"
+                type="text"
+                className="resume-form-input-field"
+                value={experienceFields[0].companyName}
+                onChange={(e) => handleFieldChange(0, "companyName", e.target.value)}
+              />
+            </div>
+            <div className="grid-container-1-col">
+              <Input
+                label="Project Name"
+                name="projectName"
+                type="text"
+                className="resume-form-input-field"
+                value={experienceFields[0].projectName}
+                onChange={(e) => handleFieldChange(0, "projectName", e.target.value)}
+                margin="0.5%"
+              />
+            </div>
+            <div className="grid-container-2-col">
+              <Input
+                label="Start Date"
+                name="startDate"
+                type="month"
+                className="resume-form-input-field"
+                value={experienceFields[0].startDate}
+                onChange={(e) => handleFieldChange(0, "startDate", e.target.value)}
+              />
+              <Input
+                label="End Date"
+                name="endDate"
+                type="month"
+                className="resume-form-input-field"
+                value={experienceFields[0].endDate}
+                onChange={(e) => handleFieldChange(0, "endDate", e.target.value)}
+              />
+            </div>
+            <div className="grid-container-1-col">
+              <Input
+                label="Tech Stack"
+                name="techStack"
+                type="text"
+                className="resume-form-input-field"
+                value={experienceFields[0].techStack}
+                onChange={(e) => handleFieldChange(0, "techStack", e.target.value)}
+                margin="0.5%"
+              />
+            </div>
+            <div className="grid-container-1-col">
+              <Input
+                label="Details"
+                name="details"
+                type="textarea"
+                className="resume-form-input-field"
+                value={experienceFields[0].details}
+                onChange={(e) => handleFieldChange(0, "details", e.target.value)}
+                margin="1%"
+              />
+            </div>
           </div>
-          <div className="grid-container-1-col">
-            <Input
-              label="Project Name"
-              name="projectName"
-              type="text"
-              className="resume-form-input-field"
-              value={experienceFields[0].projectName}
-              onChange={(e) => handleFieldChange(0, "projectName", e.target.value)}
-              margin="0.5%"
-            />
-          </div>
-          <div className="grid-container-2-col">
-            <Input
-              label="Start Date"
-              name="startDate"
-              type="month"
-              className="resume-form-input-field"
-              value={experienceFields[0].startDate}
-              onChange={(e) => handleFieldChange(0, "startDate", e.target.value)}
-            />
-            <Input
-              label="End Date"
-              name="endDate"
-              type="month"
-              className="resume-form-input-field"
-              value={experienceFields[0].endDate}
-              onChange={(e) => handleFieldChange(0, "endDate", e.target.value)}
-            />
-          </div>
-          <div className="grid-container-1-col">
-            <Input
-              label="Tech Stack"
-              name="techStack"
-              type="text"
-              className="resume-form-input-field"
-              value={experienceFields[0].techStack}
-              onChange={(e) => handleFieldChange(0, "techStack", e.target.value)}
-              margin="0.5%"
-            />
-          </div>
-          <div className="grid-container-1-col">
-            <Input
-              label="Details"
-              name="details"
-              type="textarea"
-              className="resume-form-input-field"
-              value={experienceFields[0].details}
-              onChange={(e) => handleFieldChange(0, "details", e.target.value)}
-              margin="1%"
-            />
-          </div>
-        </div>
 
-        {experienceFields.length > 1 && (
-          <div className="education-table-container">
-            <table className="education-table">
-              <thead>
-                <tr>
-                  <th>Job Title</th>
-                  <th>Company Name</th>
-                  <th>Project Name</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Tech Stack</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {experienceFields.slice(1).map((field, index) => (
-                  <tr key={index + 1}>
-                    <td>{field.jobTitle}</td>
-                    <td>{field.companyName}</td>
-                    <td>{field.projectName}</td>
-                    <td>{field.startDate}</td>
-                    <td>{field.endDate}</td>
-                    <td>{field.techStack}</td>
-                    <td>
-                      <FontAwesomeIcon icon={faTrash} className="resume-delete-icon" onClick={() => handleDeleteClick(index + 1)} />
-                    </td>
+          {experienceFields.length > 1 && (
+            <div className="education-table-container professional-experience-container">
+              <table className="education-table">
+                <thead>
+                  <tr>
+                    <th>Job Title</th>
+                    <th>Company Name</th>
+                    <th>Project Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Tech Stack</th>
+                    <th>Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                </thead>
+                <tbody>
+                  {experienceFields.slice(1).map((field, index) => (
+                    <tr key={index + 1}>
+                      <td>{field.jobTitle}</td>
+                      <td>{field.companyName}</td>
+                      <td>{field.projectName}</td>
+                      <td>{field.startDate}</td>
+                      <td>{field.endDate}</td>
+                      <td>{field.techStack}</td>
+                      <td>
+                        <FontAwesomeIcon icon={faTrash} className="resume-delete-icon" onClick={() => handleDeleteClick(index + 1)} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
-
       <div className="resume-form-btn">
         <Button onClick={handlePrevClick}>Previous</Button>
         <Button onClick={handleNextClick}>Save</Button>

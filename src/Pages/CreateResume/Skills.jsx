@@ -81,74 +81,75 @@ function Skills() {
 
   return (
     <div className="resume-form">
-      <h1 className="resume-form-title">Skills</h1>
+      <div className="skills-container-outer">
+        <h1 className="resume-form-title">Skills</h1>
 
-      <label className="skills-label">Technology</label>
-      <div className="skills-container">
-        <div className="skills-list">
-          {technology.map((skill, index) => (
-            <li key={index}>
-              {skill}
-              <button className="remove-skill" onClick={() => removeSkill("technology", skill)}>
-                ✖
-              </button>
-            </li>
-          ))}
+        <label className="skills-label">Technology</label>
+        <div className="skills-container">
+          <div className="skills-list">
+            {technology.map((skill, index) => (
+              <li key={index}>
+                {skill}
+                <button className="remove-skill" onClick={() => removeSkill("technology", skill)}>
+                  ✖
+                </button>
+              </li>
+            ))}
+          </div>
+          <input
+            type="text"
+            className="skill-input"
+            placeholder={inputTechnologyValue === "" ? "Enter a technology and press Enter" : ""}
+            value={inputTechnologyValue}
+            onChange={(e) => setInputTechnologyValue(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, "technology")}
+          />
         </div>
-        <input
-          type="text"
-          className="skill-input"
-          placeholder={inputTechnologyValue === "" ? "Enter a technology and press Enter" : ""}
-          value={inputTechnologyValue}
-          onChange={(e) => setInputTechnologyValue(e.target.value)}
-          onKeyDown={(e) => handleKeyDown(e, "technology")}
-        />
-      </div>
 
-      <label className="skills-label">Programming Languages</label>
-      <div className="skills-container">
-        <div className="skills-list">
-          {programmingLanguage.map((skill, index) => (
-            <li key={index}>
-              {skill}
-              <button className="remove-skill" onClick={() => removeSkill("programmingLanguage", skill)}>
-                ✖
-              </button>
-            </li>
-          ))}
+        <label className="skills-label">Programming Languages</label>
+        <div className="skills-container">
+          <div className="skills-list">
+            {programmingLanguage.map((skill, index) => (
+              <li key={index}>
+                {skill}
+                <button className="remove-skill" onClick={() => removeSkill("programmingLanguage", skill)}>
+                  ✖
+                </button>
+              </li>
+            ))}
+          </div>
+          <input
+            type="text"
+            className="skill-input"
+            placeholder={inputProgrammingLanguageValue === "" ? "Enter a programming language and press Enter" : ""}
+            value={inputProgrammingLanguageValue}
+            onChange={(e) => setInputProgrammingLanguageValue(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, "programmingLanguage")}
+          />
         </div>
-        <input
-          type="text"
-          className="skill-input"
-          placeholder={inputProgrammingLanguageValue === "" ? "Enter a programming language and press Enter" : ""}
-          value={inputProgrammingLanguageValue}
-          onChange={(e) => setInputProgrammingLanguageValue(e.target.value)}
-          onKeyDown={(e) => handleKeyDown(e, "programmingLanguage")}
-        />
-      </div>
 
-      <label className="skills-label">Tools</label>
-      <div className="skills-container">
-        <div className="skills-list">
-          {tools.map((skill, index) => (
-            <li key={index}>
-              {skill}
-              <button className="remove-skill" onClick={() => removeSkill("tools", skill)}>
-                ✖
-              </button>
-            </li>
-          ))}
+        <label className="skills-label">Tools</label>
+        <div className="skills-container">
+          <div className="skills-list">
+            {tools.map((skill, index) => (
+              <li key={index}>
+                {skill}
+                <button className="remove-skill" onClick={() => removeSkill("tools", skill)}>
+                  ✖
+                </button>
+              </li>
+            ))}
+          </div>
+          <input
+            type="text"
+            className="skill-input"
+            placeholder={inputToolsValue === "" ? "Enter a tool and press Enter" : ""}
+            value={inputToolsValue}
+            onChange={(e) => setInputToolsValue(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, "tools")}
+          />
         </div>
-        <input
-          type="text"
-          className="skill-input"
-          placeholder={inputToolsValue === "" ? "Enter a tool and press Enter" : ""}
-          value={inputToolsValue}
-          onChange={(e) => setInputToolsValue(e.target.value)}
-          onKeyDown={(e) => handleKeyDown(e, "tools")}
-        />
       </div>
-
       <div className="resume-form-btn">
         <Button onClick={handlePrevClick}>Previous</Button>
         <Button onClick={handleNextClick}>Save</Button>

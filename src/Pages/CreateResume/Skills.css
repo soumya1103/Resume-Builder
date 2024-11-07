@@ -1,3 +1,7 @@
+.skills-container-outer {
+  height: 66vh;
+}
+
 .skills-container {
   width: 97%;
   padding: 10px;

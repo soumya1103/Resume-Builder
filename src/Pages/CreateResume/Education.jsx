@@ -82,85 +82,86 @@ function Education() {
 
   return (
     <div className="resume-form">
-      <h1 className="resume-form-title">Education</h1>
-      <div className="resume-professional-experience">
-        <div className="resume-form-header">
-          <FontAwesomeIcon icon={faPlus} className="resume-plus-icon" onClick={handlePlusClick} />
-        </div>
+      <div>
+        <h1 className="resume-form-title">Education</h1>
+        <div className="resume-professional-experience">
+          <div className="resume-form-header">
+            <FontAwesomeIcon icon={faPlus} className="resume-plus-icon" onClick={handlePlusClick} />
+          </div>
 
-        <div className="resume-entry">
-          {!educationFields[0].collapsed && (
-            <>
-              <div className="grid-container-2-col">
-                <Input
-                  label="Institution Name"
-                  name="institutionName"
-                  type="text"
-                  className="resume-form-input-field"
-                  value={educationFields[0].institutionName}
-                  onChange={(e) => handleFieldChange(0, "institutionName", e.target.value)}
-                />
-                <Input
-                  label="Course"
-                  name="course"
-                  type="text"
-                  className="resume-form-input-field"
-                  value={educationFields[0].course}
-                  onChange={(e) => handleFieldChange(0, "course", e.target.value)}
-                />
-              </div>
-              <div className="grid-container-2-col">
-                <Input
-                  label="Start Year"
-                  name="startYear"
-                  type="number"
-                  className="resume-form-input-field"
-                  value={educationFields[0].startDate}
-                  onChange={(e) => handleFieldChange(0, "startDate", e.target.value)}
-                />
-                <Input
-                  label="End Year"
-                  name="endYear"
-                  type="number"
-                  className="resume-form-input-field"
-                  value={educationFields[0].endDate}
-                  onChange={(e) => handleFieldChange(0, "endDate", e.target.value)}
-                />
-              </div>
-            </>
+          <div className="resume-entry">
+            {!educationFields[0].collapsed && (
+              <>
+                <div className="grid-container-2-col">
+                  <Input
+                    label="Institution Name"
+                    name="institutionName"
+                    type="text"
+                    className="resume-form-input-field"
+                    value={educationFields[0].institutionName}
+                    onChange={(e) => handleFieldChange(0, "institutionName", e.target.value)}
+                  />
+                  <Input
+                    label="Course"
+                    name="course"
+                    type="text"
+                    className="resume-form-input-field"
+                    value={educationFields[0].course}
+                    onChange={(e) => handleFieldChange(0, "course", e.target.value)}
+                  />
+                </div>
+                <div className="grid-container-2-col">
+                  <Input
+                    label="Start Year"
+                    name="startYear"
+                    type="number"
+                    className="resume-form-input-field"
+                    value={educationFields[0].startDate}
+                    onChange={(e) => handleFieldChange(0, "startDate", e.target.value)}
+                  />
+                  <Input
+                    label="End Year"
+                    name="endYear"
+                    type="number"
+                    className="resume-form-input-field"
+                    value={educationFields[0].endDate}
+                    onChange={(e) => handleFieldChange(0, "endDate", e.target.value)}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+
+          {educationFields.length > 1 && (
+            <div className="education-table-container">
+              <table className="education-table">
+                <thead>
+                  <tr>
+                    <th>Institution Name</th>
+                    <th>Course</th>
+                    <th>Start Year</th>
+                    <th>End Year</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {educationFields.slice(1).map((field, index) => (
+                    <tr key={index + 1}>
+                      <td>{field.institutionName}</td>
+                      <td>{field.course}</td>
+                      <td>{field.startDate}</td>
+                      <td>{field.endDate}</td>
+                      <td>
+                        <FontAwesomeIcon icon={faTrash} className="resume-delete-icon" onClick={() => handleDeleteClick(index + 1)} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
-
-        {educationFields.length > 1 && (
-          <div className="education-table-container">
-            <table className="education-table">
-              <thead>
-                <tr>
-                  <th>Institution Name</th>
-                  <th>Course</th>
-                  <th>Start Year</th>
-                  <th>End Year</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {educationFields.slice(1).map((field, index) => (
-                  <tr key={index + 1}>
-                    <td>{field.institutionName}</td>
-                    <td>{field.course}</td>
-                    <td>{field.startDate}</td>
-                    <td>{field.endDate}</td>
-                    <td>
-                      <FontAwesomeIcon icon={faTrash} className="resume-delete-icon" onClick={() => handleDeleteClick(index + 1)} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
       </div>
-
       <div className="resume-form-btn">
         <Button onClick={handlePrevClick}>Previous</Button>
         <Button onClick={handleNextClick}>Save</Button>
