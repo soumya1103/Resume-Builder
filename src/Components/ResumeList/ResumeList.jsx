@@ -75,8 +75,8 @@ const ResumesList = ({ isOpen, onClose }) => {
         <div className="modal-overlay">
           <div className="modal-content">
             <h2 className="modal-heading">Select a Resume</h2>
-            <button className="close-modal-btn" onClick={onClose}>
-              X
+            <button className="modal-close" onClick={onClose}>
+             &times;
             </button>
 
             {profiles.length === 0 ? (
