@@ -42,7 +42,6 @@ function Profile() {
 
   const handleSaveProfile = async () => {
     try {
-      console.log(profileData);
       const response = await updateProfile(user.userId, profileData);
       if (response?.status === 200 || response?.status === 201) {
         setProfileDetailsData(profileData);
