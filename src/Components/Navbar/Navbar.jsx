@@ -33,7 +33,7 @@ function Navbar() {
 
   const handleLogout = () => {
     toast.success("Logged out successfully.", {
-      autoClose: 3000,
+      autoClose: 2000,
     });
     setTimeout(() => {
       logout();

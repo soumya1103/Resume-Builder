@@ -48,12 +48,12 @@ function Profile() {
       if (response?.status === 200 || response?.status === 201) {
         setProfileDetailsData(profileData);
         toast.success(response?.data?.message || "Profile updated successfully.", {
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };
@@ -65,7 +65,7 @@ function Profile() {
       setProfileData(response.data);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };
@@ -93,7 +93,7 @@ function Profile() {
       const response = await changePassword(user.userId, passwordData);
       if (response?.status === 200 || response?.status === 201) {
         toast.success(response?.data?.message || "Password changed successfully.", {
-          autoClose: 3000,
+          autoClose: 2000,
         });
         setTimeout(() => {
           window.location.href = "/profile";
@@ -101,7 +101,7 @@ function Profile() {
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };

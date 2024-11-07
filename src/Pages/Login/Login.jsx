@@ -58,14 +58,14 @@ function Login() {
         const response = await login(email, encodedPassword);
         if (response?.status === 200 || response?.status === 201) {
           toast.success(response?.data?.message || "Login successful.", {
-            autoClose: 3000,
+            autoClose: 2000,
           });
         }
         dispatch(loginUser(response.data));
         window.localStorage.setItem("authtoken", response.data.token);
       } catch (error) {
         toast.error(error?.response?.data?.message || "Something went wrong.", {
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
     }
@@ -101,7 +101,7 @@ function Login() {
       const response = await resetPassword(emailForgetPassword, otp, btoa(newPassword));
       if (response?.status === 200 || response?.status === 201) {
         toast.success(response?.data?.message || "Password reset successfully.", {
-          autoClose: 3000,
+          autoClose: 2000,
         });
         setTimeout(() => {
           window.location.href = "/";
@@ -109,7 +109,7 @@ function Login() {
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };
@@ -119,7 +119,7 @@ function Login() {
       const response = await sendOtp(emailForgetPassword);
       if (response?.status === 200 || response?.status === 201) {
         toast.success(response?.data?.message || "Otp sent successfully.", {
-          autoClose: 3000,
+          autoClose: 2000,
         });
         setTimeout(() => {
           setShowEmailModal(false);
@@ -128,7 +128,7 @@ function Login() {
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };
