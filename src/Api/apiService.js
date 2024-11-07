@@ -1,5 +1,15 @@
 import app from "./apiClient";
-import { CREATE_USER, GET_PROFILE_DETAILS, GET_USER_BY_ID, LOGIN, RESET_PASSWORD, RESUME_TITLE, SEND_OTP, UPDATE_PROFILE } from "./apiConstants";
+import {
+  CHANGE_PASSWORD,
+  CREATE_USER,
+  GET_PROFILE_DETAILS,
+  GET_USER_BY_ID,
+  LOGIN,
+  RESET_PASSWORD,
+  RESUME_TITLE,
+  SEND_OTP,
+  UPDATE_PROFILE,
+} from "./apiConstants";
 import { VIEW_RESUME, DELETE_RESUME } from "./apiConstants";
 
 export const login = async (email, password) => {
@@ -44,4 +54,8 @@ export const deleteResume = async (resumeId) => {
 
 export const getUserProfile = async (profileId) => {
   return await app.get(`${GET_PROFILE_DETAILS}/${profileId}`);
+};
+
+export const changePassword = async (userId, data) => {
+  return await app.post(`${CHANGE_PASSWORD}/${userId}/change-password`, data);
 };
