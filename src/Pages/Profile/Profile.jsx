@@ -7,11 +7,11 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Button from "../../Components/Button/Button";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { getUserProfile, updateProfile } from "../../Api/apiService";
+import { changePassword, getUserProfile, updateProfile } from "../../Api/apiService";
+import Modal from "../../Components/Modal/Modal";
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem("auth"));
-  const [password, setPassword] = useState("");
   const [profileDetailsData, setProfileDetailsData] = useState({});
   const [profileData, setProfileData] = useState({
     phone: "",
@@ -21,12 +21,14 @@ function Profile() {
     bio: "",
   });
 
-  const handlePassword = () => {
-    // setShowEmailModal(true);
-  };
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+  });
 
-  const handleChangePassword = async () => {
-    const encodedPassword = btoa(password);
+  const handlePassword = () => {
+    setShowEmailModal(true);
   };
 
   const handleInputChange = (field) => (e) => {
@@ -42,7 +44,6 @@ function Profile() {
 
   const handleSaveProfile = async () => {
     try {
-      console.log(profileData);
       const response = await updateProfile(user.userId, profileData);
       if (response?.status === 200 || response?.status === 201) {
         setProfileDetailsData(profileData);
@@ -62,6 +63,42 @@ function Profile() {
       const response = await getUserProfile(profileId);
       setProfileDetailsData(response.data);
       setProfileData(response.data);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const onCloseEmailModal = () => {
+    setShowEmailModal(false);
+  };
+
+  const handleCurrentPassword = (e) => {
+    setPasswordData({
+      ...passwordData,
+      currentPassword: btoa(e.target.value),
+    });
+  };
+
+  const handleNewPassword = (e) => {
+    setPasswordData({
+      ...passwordData,
+      newPassword: btoa(e.target.value),
+    });
+  };
+
+  const submitChangePassword = async () => {
+    try {
+      const response = await changePassword(user.userId, passwordData);
+      if (response?.status === 200 || response?.status === 201) {
+        toast.success(response?.data?.message || "Password changed successfully.", {
+          autoClose: 3000,
+        });
+        setTimeout(() => {
+          window.location.href = "/profile";
+        }, 3000);
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
         autoClose: 3000,
@@ -134,6 +171,13 @@ function Profile() {
           <Button onClick={handleSaveProfile}>Save</Button>
         </div>
       </div>
+      <Modal show={showEmailModal} onClose={onCloseEmailModal} height="170px" width="310px">
+        <Input className="profile-input-field-password" type="password" label="Enter Current Password" onChange={(e) => handleCurrentPassword(e)} />
+        <Input className="profile-input-field-password" type="password" label="Enter New Password" onChange={(e) => handleNewPassword(e)} />
+        <Button className="change-btn" onClick={submitChangePassword}>
+          Change
+        </Button>
+      </Modal>
       <ToastContainer />
     </>
   );

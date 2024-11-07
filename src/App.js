@@ -2,7 +2,6 @@ import "./App.css";
 import ViewResume from "./Pages/ViewResume/ViewResume";
 import ResumesList from "./Components/ResumeList/ResumeList";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import { Routes, Route } from "react-router-dom";
@@ -19,7 +18,6 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/personalInfo" element={<PersonalInfo />} />

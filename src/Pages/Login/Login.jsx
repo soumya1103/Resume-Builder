@@ -98,13 +98,13 @@ function Login() {
 
   const submitChangePassword = async () => {
     try {
-      const response = await resetPassword(emailForgetPassword, otp, newPassword);
+      const response = await resetPassword(emailForgetPassword, otp, btoa(newPassword));
       if (response?.status === 200 || response?.status === 201) {
         toast.success(response?.data?.message || "Password reset successfully.", {
           autoClose: 3000,
         });
         setTimeout(() => {
-          navigate("/");
+          window.location.href = "/";
         }, 3000);
       }
     } catch (error) {
