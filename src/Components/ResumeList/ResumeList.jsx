@@ -61,7 +61,7 @@ const ResumesList = ({ isOpen, onClose }) => {
       if (deleteResponse.data.isDeleted) {
         setShowDeleteModal(false);
         fetchProfiles();
-        toast.success("Resume deleted successfully!");
+        toast.success("Resume deleted successfully!",{ autoClose: 1500, });
       }
     } catch (error) {
       setError("Failed to delete resume");
