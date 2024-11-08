@@ -30,12 +30,12 @@ function Dashboard() {
     if (selectedFile && selectedFile.type === "application/pdf") {
       setFile(selectedFile);
       toast.success("PDF Resume selected successfully!", {
-        autoClose: 3000,
+        autoClose: 2000,
       });
     } else {
       setFile(null);
       toast.error("Please select a valid PDF file.", {
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };
@@ -59,7 +59,7 @@ function Dashboard() {
       const response = await saveResumeTitle(resumeTitle);
       if (response?.status === 200 || response?.status === 201) {
         toast.success(response?.data?.message || "Resume Title Saved", {
-          autoClose: 3000,
+          autoClose: 2000,
         });
         setTimeout(() => {
           navigate("/personalInfo");
@@ -68,7 +68,7 @@ function Dashboard() {
       window.localStorage.setItem("profileId", response.data.id);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };

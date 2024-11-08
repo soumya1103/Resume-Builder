@@ -20,7 +20,7 @@ function Sidebar() {
       const response = await addUser(profileId, userData);
       if (response.status === 200 || response.status === 201) {
         toast.success(response?.data?.message, {
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
       setTimeout(() => {
@@ -28,7 +28,7 @@ function Sidebar() {
       }, 3000);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };
