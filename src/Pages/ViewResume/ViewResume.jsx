@@ -85,14 +85,14 @@ const ViewResume = () => {
   return (
     <>
       <div className="btn-container">
-        <Link to="/dashboard" className="icon-button">
+        <Link to="/dashboard" className="icon-button" title="back">
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
-        <button onClick={downloadPDF} className="icon-button">
+        <button onClick={downloadPDF} className="icon-button" title="download pdf">
           <FontAwesomeIcon icon={faDownload} />
         </button>
       </div>
-
+      <hr></hr>
       <div className="resume-container" id="resume-content">
         <div className="logo-container">
           <img src={Logo} alt="logo" className="logo" />
