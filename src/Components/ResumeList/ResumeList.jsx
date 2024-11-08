@@ -102,7 +102,7 @@ const ResumesList = ({ isOpen, onClose }) => {
         </div>
       )}
 
-      <Modal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} height="130px" width="347px">
+      <Modal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} height="150px" width="400px">
         <p className="modal-heading">Are you sure you want to delete this resume?</p>
         <div className="modal-buttons">
           <Button onClick={confirmDelete}>Yes</Button>
