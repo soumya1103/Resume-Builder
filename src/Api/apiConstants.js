@@ -19,3 +19,5 @@ export const RESUME_TITLE = "api/user-profiles/createJobTitle";
 export const DELETE_RESUME = (resumeId) => `api/user-profiles/${resumeId}/delete`;
 
 export const GET_PROFILE_DETAILS = "/users/profile";
+
+export const PY_INTERGRATION = "/upload";
