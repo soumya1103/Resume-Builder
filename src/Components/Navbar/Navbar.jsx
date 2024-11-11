@@ -52,7 +52,7 @@ function Navbar() {
       <div className="navbar-logo">
         <img src={NT} alt="Logo" />
       </div>
-      <h2 className="heading">Welcome {name}</h2>
+      <h2 className="heading">Welcome {name} !</h2>
       <div className="navbar-button" onMouseLeave={closeDropdown}>
         <button className="btn" onMouseEnter={toggleDropdown}>
           {getInitials(name)}
