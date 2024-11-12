@@ -46,7 +46,7 @@ const ResumesList = ({ isOpen, onClose }) => {
   
 
   const handleEdit = (profile) => {
-    navigate(`/personalInfo`);
+    navigate(`/personalInfo/?profileId=${profile.id}`);
   };
 
   const openDeleteModal = (resumeId) => {

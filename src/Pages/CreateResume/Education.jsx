@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { EDUCATION } from "../../Redux/ResumeReducer/ResumeTypes";
 import { useDispatch, useSelector } from "react-redux";
+import { view_resume, updateResume } from "../../Api/apiService";
 
 function Education() {
   const dispatch = useDispatch();

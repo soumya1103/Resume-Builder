@@ -10,6 +10,7 @@ import {
   RESUME_TITLE,
   SEND_OTP,
   UPDATE_PROFILE,
+  UPDATE_RESUME
 } from "./apiConstants";
 import { VIEW_RESUME, DELETE_RESUME } from "./apiConstants";
 
@@ -68,3 +69,7 @@ export const uploadResume = (formData) => {
     },
   });
 };
+
+export const updateResume = async (profileId, updatedProfile) => {
+  return await app.put(`${UPDATE_RESUME}/${profileId}`, updatedProfile);
+}
