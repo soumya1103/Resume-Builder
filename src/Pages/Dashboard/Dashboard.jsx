@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile, faUpload, faEye, faChartColumn } from "@fortawesome/free-solid-svg-icons";
+import { faFile, faUser, faEye, faChartColumn } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../Components/Modal/Modal.jsx";
 import Input from "../../Components/Input/Input.jsx";
 import { ToastContainer, toast } from "react-toastify";
@@ -96,7 +96,7 @@ function Dashboard() {
         <Card icon={<FontAwesomeIcon icon={faFile} />} label="Create Resume" onClick={handleResumeClick} />
         <Card icon={<FontAwesomeIcon icon={faEye} />} label="View Resume" onClick={handleViewResume} />
         <Card icon={<FontAwesomeIcon icon={faChartColumn} />} label="ATS" />
-        <Card icon={<FontAwesomeIcon icon={faUpload} />} label="Profile" onClick={handleProfile} />
+        <Card icon={<FontAwesomeIcon icon={faUser} />} label="Profile" onClick={handleProfile} />
       </div>
 
       <input id="resume" type="file" accept="application/pdf" style={{ display: "none" }} onChange={handleUploadResume} />
