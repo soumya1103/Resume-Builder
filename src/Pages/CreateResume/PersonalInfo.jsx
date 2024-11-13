@@ -19,12 +19,11 @@ function PersonalInfo() {
   const [firstName, setFirstName] = useState(resume.firstName || user.name.split(" ")[0] || "");
   const [lastName, setLastName] = useState(resume.lastName || user.name.split(" ")[1] || "");
   const [email, setEmail] = useState(resume.email || user.email || "");
-  
+
   const [contactNo, setContactNo] = useState(resume.contactNo || "");
   const [objective, setObjective] = useState(resume.objective || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -32,10 +31,10 @@ function PersonalInfo() {
       try {
         const response = await view_resume(user.userId);
         const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
-  
+
         if (selectedProfile) {
           const [first, last] = (selectedProfile.profileName || "").split(" ");
-          
+
           // Set state only if not already set (to prevent overwriting)
           setFirstName((prev) => prev || first || "");
           setLastName((prev) => prev || last || "");
@@ -51,12 +50,11 @@ function PersonalInfo() {
         setLoading(false);
       }
     };
-  
+
     if (profileId) fetchProfile();
   }, [profileId]);
-  
+
   const handleNextClick = () => {
-    
     const updatedProfile = {
       userId: user.userId,
       profileId,
@@ -64,33 +62,36 @@ function PersonalInfo() {
       contactNo,
       objective,
     };
-  
 
     dispatch(savePersonalInfo(updatedProfile));
-  
+
     if (!profileId) {
-      navigate('/education');
+      navigate("/education");
     } else {
       navigate(`/education/?profileId=${updatedProfile.profileId}`);
     }
   };
-  
 
   return (
     <div className="resume-form">
       <h1 className="resume-form-title">Personal Information</h1>
       <div className="grid-container-2-col">
-        <Input label="First Name" value={firstName} name="firstName" onChange={(e) => setFirstName(e.target.value)} disabled/>
-        <Input label="Last Name" value={lastName} name="lastName" onChange={(e) => setLastName(e.target.value)}disabled />
+        <Input label="First Name" value={firstName} name="firstName" onChange={(e) => setFirstName(e.target.value)} className="resume-form-input-field"
+ disabled />
+        <Input label="Last Name" value={lastName} name="lastName" onChange={(e) => setLastName(e.target.value)} className="resume-form-input-field"
+ disabled />
       </div>
       <div className="grid-container-2-col">
-        <Input label="Email" value={email} name="email" disabled />
-        <Input label="Phone Number" value={contactNo} name="phoneNumber" onChange={(e) => setContactNo(e.target.value)} />
+        <Input label="Email" value={email} name="email" className="resume-form-input-field"
+ disabled />
+        <Input label="Phone Number" value={contactNo} name="phoneNumber" onChange={(e) => setContactNo(e.target.value)}           className="resume-form-input-field"
+ />
       </div>
       <div className="grid-container-1-col">
-        <Input label="Objective" value={objective} name="objective" type="textarea" onChange={(e) => setObjective(e.target.value)} />
+        <Input label="Objective" value={objective} name="objective" type="textarea" onChange={(e) => setObjective(e.target.value)}          className="resume-form-input-field"
+ />
       </div>
-      <Button onClick={handleNextClick}>Save</Button>
+      <Button onClick={handleNextClick}className="resume-form-btn-single">Save</Button>
     </div>
   );
 }
