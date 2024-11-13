@@ -68,8 +68,13 @@ function Education() {
   
   
   const handlePrevClick = () => {
-    navigate("/personalInfo");
+    if (!profileId) {
+      navigate("/personalInfo");
+    } else {
+      navigate(`/personalInfo?profileId=${profileId}`);
+    }
   };
+  
 
   const handleNextClick = () => {
     const currentFormData = {
