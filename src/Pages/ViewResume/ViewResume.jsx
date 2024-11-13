@@ -76,9 +76,11 @@ const ViewResume = () => {
   if (error) return <div>{error}</div>;
   if (!profile) return <div>No profile data available</div>;
 
-  const sortedExperience = [...profile.profileData?.professionalExperience].sort((a, b) => new Date(b.endDate) - new Date(a.endDate));
-
-  const sortedEducation = [...profile.profileData?.education].sort(
+  const sortedExperience = [...(profile.profileData?.professionalExperience || [])].sort(
+    (a, b) => new Date(b.endDate) - new Date(a.endDate)
+  );
+  
+  const sortedEducation = [...(profile.profileData?.education || [])].sort(
     (a, b) => new Date(b.duration.split(" - ")[1]) - new Date(a.duration.split(" - ")[1])
   );
 

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { EDUCATION } from "../../Redux/ResumeReducer/ResumeTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { view_resume, updateResume } from "../../Api/apiService";
+import { view_resume} from "../../Api/apiService";
 
 function Education() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const location = useLocation();
   const savedEducationData = useSelector((state) => state.resume.profileData.education);
 
   const [educationFields, setEducationFields] = useState([{ institutionName: "", course: "", startDate: "", endDate: "", collapsed: false }]);
