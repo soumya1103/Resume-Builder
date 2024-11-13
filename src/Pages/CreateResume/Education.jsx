@@ -97,8 +97,14 @@ function Education() {
         payload: allEducationData,
       });
     }
+const urlParams = new URLSearchParams(window.location.search);
+  const profileId = urlParams.get('profileId');
 
+  if (profileId) {
+    navigate(`/professionalExperience?profileId=${profileId}`);
+  } else {
     navigate("/professionalExperience");
+  }
   };
 
   const handlePlusClick = () => {
