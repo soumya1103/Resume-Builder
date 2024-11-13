@@ -7,32 +7,66 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { EDUCATION } from "../../Redux/ResumeReducer/ResumeTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { view_resume} from "../../Api/apiService";
+import { view_resume } from "../../Api/apiService";
 
 function Education() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const profileId = new URLSearchParams(location.search).get("profileId");
+  const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
   const savedEducationData = useSelector((state) => state.resume.profileData.education);
 
-  const [educationFields, setEducationFields] = useState([{ institutionName: "", course: "", startDate: "", endDate: "", collapsed: false }]);
-
+  const [educationFields, setEducationFields] = useState([
+    { institutionName: "", course: "", startDate: "", endDate: "", collapsed: false },
+  ]);
+ 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+ 
   useEffect(() => {
-    if (savedEducationData && savedEducationData.length > 0) {
-      const formattedFields = savedEducationData.map((edu) => {
-        const [startDate, endDate] = edu.duration.split(" - ");
-        return {
-          institutionName: edu.collegeName,
-          course: edu.course,
-          startDate: startDate.trim(),
-          endDate: endDate.trim(),
-          collapsed: false,
-        };
-      });
-      setEducationFields(formattedFields);
-    }
-  }, [savedEducationData]);
-
+    const fetchProfile = async () => {
+      setLoading(true);
+      try {
+        const response = await view_resume(user.userId);
+        console.log("API Response:", response);  // Inspect the array of profiles
+  
+        const profiles = response.data;
+  
+        // Check if we have profiles and pick the most recent or relevant one with contact info
+     const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
+  
+        if (selectedProfile && selectedProfile.profileData && selectedProfile.profileData.education.length > 0) {
+          const educationData = selectedProfile.profileData.education;
+  
+          // Map the education data to match the expected format in educationFields
+          const formattedFields = educationData.map((edu) => {
+            const [startDate, endDate] = edu.duration ? edu.duration.split(" - ") : ["", ""];
+            return {
+              institutionName: edu.collegeName || "",
+              course: edu.course || "",
+              startDate: startDate.trim(),
+              endDate: endDate.trim(),
+              collapsed: false,
+            };
+          });
+  
+          setEducationFields(formattedFields.length > 0 ? formattedFields : educationFields);
+        } else {
+          setError("Profile or education data not found");
+        }
+      } catch (err) {
+        console.error("Fetch Error:", err);
+        setError("Error fetching profile data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    if (profileId) fetchProfile();
+  }, [profileId, user.userId]);
+  
+  
   const handlePrevClick = () => {
     navigate("/personalInfo");
   };
@@ -85,6 +119,8 @@ function Education() {
     <div className="resume-form">
       <div>
         <h1 className="resume-form-title">Education</h1>
+        {loading && <p>Loading...</p>}
+        {error && <p className="error">{error}</p>}
         <div className="resume-professional-experience">
           <div className="resume-form-header">
             <FontAwesomeIcon icon={faPlus} className="resume-plus-icon" onClick={handlePlusClick} />

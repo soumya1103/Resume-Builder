@@ -56,8 +56,10 @@ function PersonalInfo() {
   }, [profileId]);
   
   const handleNextClick = () => {
+    
     const updatedProfile = {
       userId: user.userId,
+      profileId,
       profileName: `${firstName} ${lastName}`,
       contactNo,
       objective,
@@ -66,8 +68,11 @@ function PersonalInfo() {
 
     dispatch(savePersonalInfo(updatedProfile));
   
-
-    navigate("/education");
+    if (!profileId) {
+      navigate('/education');
+    } else {
+      navigate(`/education/?profileId=${updatedProfile.profileId}`);
+    }
   };
   
 
