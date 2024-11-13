@@ -100,8 +100,11 @@ function Education() {
         payload: allEducationData,
       });
     }
-
-    navigate("/professionalExperience");
+    if (profileId) {
+      navigate(`/professionalExperience?profileId=${profileId}`);
+    } else {
+      navigate("/professionalExperience");
+    }
   };
 
   const handlePlusClick = () => {

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,25 +7,69 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
 import { saveProfessionalExperience } from "../../Redux/ResumeReducer/ResumeAction";
+import { view_resume } from "../../Api/apiService"; // Importing API service to fetch resume data
 
 function ProfessionalExperience() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const professionalExperience = useSelector((state) => state.resume.profileData.professionalExperience || []);
+  const location = useLocation();
+  const profileId = new URLSearchParams(location.search).get("profileId");
+  const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
+  const savedProfessionalExperience = useSelector(
+    (state) => state.resume.profileData.professionalExperience || []
+  );
 
   const [experienceFields, setExperienceFields] = useState([
     { jobTitle: "", companyName: "", projectName: "", startDate: "", endDate: "", techStack: "", details: "" },
   ]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if (professionalExperience.length > 0) {
-      setExperienceFields(professionalExperience);
-    }
-  }, [professionalExperience]);
+    const fetchProfessionalExperience = async () => {
+      setLoading(true);
+      try {
+        const response = await view_resume(user.userId);
+        console.log("API Response:", response); // Inspect the array of profiles
+
+        const profiles = response.data;
+        const selectedProfile = profiles.find((profile) => profile.id === parseInt(profileId));
+
+        if (selectedProfile && selectedProfile.profileData && selectedProfile.profileData.professionalExperience) {
+          const professionalExperienceData = selectedProfile.profileData.professionalExperience;
+
+          // Map the professional experience data to match the expected format
+          const formattedFields = professionalExperienceData.map((exp) => ({
+            jobTitle: exp.jobTitle || "",
+            companyName: exp.companyName || "",
+            projectName: exp.projectName || "",
+            startDate: exp.startDate || "",
+            endDate: exp.endDate || "",
+            techStack: exp.techStack || "",
+            details: exp.details || "",
+          }));
+
+          setExperienceFields(formattedFields.length > 0 ? formattedFields : experienceFields);
+        } else {
+          setError("Profile or professional experience data not found");
+        }
+      } catch (err) {
+        console.error("Fetch Error:", err);
+        setError("Error fetching profile data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (profileId) fetchProfessionalExperience();
+  }, [profileId, user.userId]);
 
   const handlePrevClick = () => {
-    navigate("/education");
+    if (!profileId) {
+      navigate("/education");
+    } else {
+      navigate(`/education?profileId=${profileId}`);
+    }
   };
 
   const handleNextClick = () => {
@@ -65,6 +109,8 @@ function ProfessionalExperience() {
     <div className="resume-form">
       <div>
         <h1 className="resume-form-title">Professional Experience</h1>
+        {loading && <p>Loading...</p>}
+        {error && <p className="error">{error}</p>}
         <div className="resume-professional-experience">
           <div className="resume-form-header">
             <FontAwesomeIcon icon={faPlus} className="resume-plus-icon" onClick={handlePlusClick} />
