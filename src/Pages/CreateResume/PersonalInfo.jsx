@@ -6,7 +6,7 @@ import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { savePersonalInfo } from "../../Redux/ResumeReducer/ResumeAction";
-import { getUserById } from "../../Api/apiService";
+import { getCandidateProfileById, getUserById } from "../../Api/apiService";
 import { ToastContainer, toast } from "react-toastify";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,6 +29,19 @@ function PersonalInfo() {
   const user = JSON.parse(localStorage.getItem("selectedEmployeeId")) || { userId: "" };
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   const candidateId = localStorage.getItem("profileId") || { profileId: "" };
+
+  const getCandidateDetails = async () => {
+    try {
+      const response = await getCandidateProfileById(candidateId);
+      if (response?.status === 200 || response?.status === 201) {
+        setCandidateDetails(response.data);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
+        autoClose: 2000,
+      });
+    }
+  };
 
   const getUserDetails = async () => {
     if (role === "employee") {
@@ -99,6 +112,8 @@ function PersonalInfo() {
   useEffect(() => {
     if (role !== "candidate") {
       getUserDetails();
+    } else {
+      getCandidateDetails();
     }
   }, []);
 
@@ -113,8 +128,17 @@ function PersonalInfo() {
         setFirstName(name[0]);
         setLastName("");
       }
+    } else {
+      const name = candidateDetails?.name?.split(" ") || [];
+      if (name?.length > 1) {
+        setFirstName(name[0]);
+        setLastName(name[1]);
+      } else {
+        setFirstName(name[0]);
+        setLastName("");
+      }
     }
-  }, [userDetails]);
+  }, [userDetails, candidateDetails]);
 
   return (
     <div className="resume-form">
