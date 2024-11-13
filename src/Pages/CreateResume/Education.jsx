@@ -4,10 +4,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { EDUCATION } from "../../Redux/ResumeReducer/ResumeTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { view_resume } from "../../Api/apiService";
+import Modal from "../../Components/Modal/Modal";
 
 function Education() {
   const dispatch = useDispatch();
@@ -20,26 +21,29 @@ function Education() {
   const [educationFields, setEducationFields] = useState([
     { institutionName: "", course: "", startDate: "", endDate: "", collapsed: false },
   ]);
- 
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
- 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editedField, setEditedField] = useState({
+    institutionName: "",
+    course: "",
+    startDate: "",
+    endDate: "",
+  });
+
   useEffect(() => {
     const fetchProfile = async () => {
       setLoading(true);
       try {
         const response = await view_resume(user.userId);
-        console.log("API Response:", response);  // Inspect the array of profiles
-  
         const profiles = response.data;
-  
-        // Check if we have profiles and pick the most recent or relevant one with contact info
-     const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
-  
+
+        const selectedProfile = profiles.find((profile) => profile.id === parseInt(profileId));
+
         if (selectedProfile && selectedProfile.profileData && selectedProfile.profileData.education.length > 0) {
           const educationData = selectedProfile.profileData.education;
-  
-          // Map the education data to match the expected format in educationFields
           const formattedFields = educationData.map((edu) => {
             const [startDate, endDate] = edu.duration ? edu.duration.split(" - ") : ["", ""];
             return {
@@ -50,23 +54,20 @@ function Education() {
               collapsed: false,
             };
           });
-  
           setEducationFields(formattedFields.length > 0 ? formattedFields : educationFields);
         } else {
           setError("Profile or education data not found");
         }
       } catch (err) {
-        console.error("Fetch Error:", err);
         setError("Error fetching profile data.");
       } finally {
         setLoading(false);
       }
     };
-  
+
     if (profileId) fetchProfile();
   }, [profileId, user.userId]);
-  
-  
+
   const handlePrevClick = () => {
     if (!profileId) {
       navigate("/personalInfo");
@@ -74,7 +75,6 @@ function Education() {
       navigate(`/personalInfo?profileId=${profileId}`);
     }
   };
-  
 
   const handleNextClick = () => {
     const currentFormData = {
@@ -83,16 +83,13 @@ function Education() {
       duration: `${educationFields[0].startDate} - ${educationFields[0].endDate}`,
     };
 
-    const isCurrentFormDataEmpty =
-      !currentFormData.collegeName && !currentFormData.course && (!educationFields[0].startDate || !educationFields[0].endDate);
-
     const tableData = educationFields.slice(1).map((field) => ({
       collegeName: field.institutionName,
       course: field.course,
       duration: `${field.startDate} - ${field.endDate}`,
     }));
 
-    const allEducationData = isCurrentFormDataEmpty ? tableData : [currentFormData, ...tableData];
+    const allEducationData = currentFormData.collegeName ? [currentFormData, ...tableData] : tableData;
 
     if (allEducationData.length > 0) {
       dispatch({
@@ -115,9 +112,36 @@ function Education() {
     setEducationFields(updatedFields);
   };
 
-  const handleFieldChange = (index, fieldName, value) => {
-    const updatedFields = educationFields.map((field, i) => (i === index ? { ...field, [fieldName]: value } : field));
+  const handleEditClick = (index) => {
+    setEditingIndex(index);
+    setEditedField({
+      institutionName: educationFields[index].institutionName,
+      course: educationFields[index].course,
+      startDate: educationFields[index].startDate,
+      endDate: educationFields[index].endDate,
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleFieldChange = (fieldName, value) => {
+    setEditedField((prevState) => ({
+      ...prevState,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleSaveEdit = () => {
+    const updatedFields = [...educationFields];
+    updatedFields[editingIndex] = {
+      ...updatedFields[editingIndex],
+      ...editedField,
+    };
     setEducationFields(updatedFields);
+    setIsModalOpen(false);
   };
 
   return (
@@ -194,6 +218,7 @@ function Education() {
                       <td>{field.startDate}</td>
                       <td>{field.endDate}</td>
                       <td>
+                        <FontAwesomeIcon icon={faEdit} className="resume-edit-icon" onClick={() => handleEditClick(index + 1)} />
                         <FontAwesomeIcon icon={faTrash} className="resume-delete-icon" onClick={() => handleDeleteClick(index + 1)} />
                       </td>
                     </tr>
@@ -208,6 +233,45 @@ function Education() {
         <Button onClick={handlePrevClick}>Previous</Button>
         <Button onClick={handleNextClick}>Save</Button>
       </div>
+
+      <Modal show={isModalOpen} onClose={handleModalClose} height="auto" width="400px">
+        <h2>Edit Education</h2>
+        <div className="modal-content">
+          <Input
+            label="Institution Name"
+            name="institutionName"
+            type="text"
+            className="modal-input"
+            value={editedField.institutionName}
+            onChange={(e) => handleFieldChange("institutionName", e.target.value)}
+          />
+          <Input
+            label="Course"
+            name="course"
+            type="text"
+            className="modal-input"
+            value={editedField.course}
+            onChange={(e) => handleFieldChange("course", e.target.value)}
+          />
+          <Input
+            label="Start Year"
+            name="startYear"
+            type="number"
+            className="modal-input"
+            value={editedField.startDate}
+            onChange={(e) => handleFieldChange("startDate", e.target.value)}
+          />
+          <Input
+            label="End Year"
+            name="endYear"
+            type="number"
+            className="modal-input"
+            value={editedField.endDate}
+            onChange={(e) => handleFieldChange("endDate", e.target.value)}
+          />
+          <Button onClick={handleSaveEdit}>Save</Button>
+        </div>
+      </Modal>
     </div>
   );
 }
