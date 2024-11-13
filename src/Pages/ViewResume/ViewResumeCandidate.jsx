@@ -156,9 +156,7 @@ const ViewResumeCandidate = () => {
             <h3 className="experience-heading">
               {education.course || "Course"} from {education.collegeName || "Institution"}
             </h3>
-            <p>
-              Duration: {formatDate(education.duration.split(" - ")[0])} - {formatDate(education.duration.split(" - ")[1])}
-            </p>
+            <p>Duration: {education.duration}</p>
           </div>
         ))}
 
