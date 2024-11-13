@@ -6,6 +6,9 @@ import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { savePersonalInfo } from "../../Redux/ResumeReducer/ResumeAction";
+import { getUserById } from "../../Api/apiService";
+import { ToastContainer, toast } from "react-toastify";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 function PersonalInfo() {
   const resume = useSelector((state) => state.resume);
@@ -15,17 +18,76 @@ function PersonalInfo() {
   const [email, setEmail] = useState(resume.email || "");
   const [contactNo, setContactNo] = useState(resume.contactNo || "");
   const [objective, setObjective] = useState(resume.objective || "");
+  const [userDetails, setUserDetails] = useState();
+  const [candidateDetails, setCandidateDetails] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const user = JSON.parse(localStorage.getItem("auth")) || { name: "", email: "", userId: "" };
+  const userDet = useSelector((state) => state.auth);
+  const { userId } = userDet;
+  const user = JSON.parse(localStorage.getItem("selectedEmployeeId")) || { userId: "" };
+  const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
+  const candidateId = localStorage.getItem("profileId") || { profileId: "" };
+
+  const getUserDetails = async () => {
+    if (role === "employee") {
+      const response = await getUserById(user);
+      try {
+        if (response?.status === 200 || response?.status === 201) {
+          setUserDetails(response.data);
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong.", {
+          autoClose: 2000,
+        });
+      }
+    } else {
+      const response = await getUserById(userId);
+      try {
+        if (response?.status === 200 || response?.status === 201) {
+          setUserDetails(response.data);
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong.", {
+          autoClose: 2000,
+        });
+      }
+    }
+  };
 
   const handleNextClick = () => {
     const obj = {
       ...resume,
-      userId: user.userId,
-      profileName: user.name,
+      userId: userId,
+      profileName: userDet?.name,
+      contactNo: contactNo,
+      objective: objective,
+    };
+
+    dispatch(savePersonalInfo(obj));
+    navigate("/education");
+  };
+
+  const handleNextClickEmployee = () => {
+    const obj = {
+      ...resume,
+      userId: user,
+      profileName: userDetails?.name,
+      contactNo: contactNo,
+      objective: objective,
+    };
+
+    dispatch(savePersonalInfo(obj));
+    navigate("/education");
+  };
+
+  const handleNextClickCandidate = () => {
+    const obj = {
+      ...resume,
+      id: candidateId,
+      email: email,
+      name: candidateDetails?.name,
       contactNo: contactNo,
       objective: objective,
     };
@@ -35,16 +97,24 @@ function PersonalInfo() {
   };
 
   useEffect(() => {
-    if (user.email) setEmail(user.email);
-    const name = user.name.split(" ");
-    if (name.length > 1) {
-      setFirstName(name[0]);
-      setLastName(name[1]);
-    } else {
-      setFirstName(name[0]);
-      setLastName(""); // If there is no last name
+    if (role !== "candidate") {
+      getUserDetails();
     }
-  }, [user]);
+  }, []);
+
+  useEffect(() => {
+    if (role !== "candidate") {
+      if (userDetails?.email) setEmail(userDetails?.email);
+      const name = userDetails?.name?.split(" ") || [];
+      if (name?.length > 1) {
+        setFirstName(name[0]);
+        setLastName(name[1]);
+      } else {
+        setFirstName(name[0]);
+        setLastName("");
+      }
+    }
+  }, [userDetails]);
 
   return (
     <div className="resume-form">
@@ -65,18 +135,19 @@ function PersonalInfo() {
           name="lastName"
           type="text"
           className="resume-form-input-field"
-          onChange={(e) => setLastName(e.target.value)}
           disabled="true"
+          onChange={(e) => setLastName(e.target.value)}
         />
       </div>
       <div className="grid-container-2-col">
         <Input
           label="Email"
           value={email}
+          candidate
           name="email"
+          disabled={role === "candidate" ? false : true}
           type="email"
           className="resume-form-input-field"
-          disabled="true"
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
@@ -99,9 +170,13 @@ function PersonalInfo() {
           onChange={(e) => setObjective(e.target.value)}
         />
       </div>
-      <Button className="resume-form-btn-single" onClick={handleNextClick}>
+      <Button
+        className="resume-form-btn-single"
+        onClick={role !== "candidate" ? (role === "employee" ? handleNextClickEmployee : handleNextClick) : handleNextClickCandidate}
+      >
         Save
       </Button>
+      <ToastContainer />
     </div>
   );
 }
