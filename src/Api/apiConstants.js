@@ -1,5 +1,7 @@
 export const LOGIN = "/users/login";
 
+export const REGISTER_USER = "/users/register";
+
 export const VIEW_RESUME = (userId) => `/api/user-profiles/user/${userId}`;
 
 export const GET_USER_BY_ID = "/users";
@@ -22,4 +24,14 @@ export const GET_PROFILE_DETAILS = "/users/profile";
 
 export const PY_INTERGRATION = "/upload";
 
-export const UPDATE_RESUME = "/api/user-profiles/update"
+export const GET_ALL_PROFILES = "/api/user-profiles/getAllProfile";
+
+export const GET_USER_BY_ROLE = "/users/employees";
+
+export const SAVE_CANDIDATE_NAME = "/api/candidate-profiles/createName";
+
+export const ADD_CANDIDATE = "/api/candidate-profiles/create";
+
+export const GET_ALL_CANDIDATE = "/api/candidate-profiles/getAllProfile";
+
+export const GET_CANDIDATE_PROFILE_BY_ID = "/api/candidate-profiles";

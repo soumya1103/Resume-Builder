@@ -18,6 +18,11 @@ const authReducer = (state = initialState, action) => {
 
     case LOGOUT:
       localStorage.removeItem("auth");
+      localStorage.removeItem("authtoken");
+      localStorage.removeItem("resume");
+      localStorage.removeItem("profileId");
+      localStorage.removeItem("selectedEmployeeId");
+      localStorage.removeItem("selectedRole");
       return {
         name: "",
         email: "",

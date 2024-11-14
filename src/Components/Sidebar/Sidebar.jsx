@@ -4,7 +4,7 @@ import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faUserGraduate, faUserTie, faWindowRestore, faList, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button/Button";
-import { addUser } from "../../Api/apiService";
+import { addCandidate, addUser } from "../../Api/apiService";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
@@ -13,23 +13,45 @@ function Sidebar() {
 
   const userData = useSelector((state) => state.resume);
 
+  const role = useSelector((state) => state.auth);
+
+  const selectedRole = localStorage.getItem("selectedRole") || { selectedRole: "" };
+
   const profileId = JSON.parse(localStorage.getItem("profileId"));
 
   const handleSubmit = async () => {
-    try {
-      const response = await addUser(profileId, userData);
-      if (response.status === 200 || response.status === 201) {
-        toast.success(response?.data?.message, {
+    if (selectedRole === "candidate") {
+      try {
+        const response = await addCandidate(profileId, userData);
+        if (response.status === 200 || response.status === 201) {
+          toast.success(response?.data?.message, {
+            autoClose: 2000,
+          });
+        }
+        setTimeout(() => {
+          window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
+        }, 3000);
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong.", {
           autoClose: 2000,
         });
       }
-      setTimeout(() => {
-        window.location.href = "/dashboard";
-      }, 3000);
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Something went wrong.", {
-        autoClose: 2000,
-      });
+    } else {
+      try {
+        const response = await addUser(profileId, userData);
+        if (response.status === 200 || response.status === 201) {
+          toast.success(response?.data?.message, {
+            autoClose: 2000,
+          });
+        }
+        setTimeout(() => {
+          window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
+        }, 3000);
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong.", {
+          autoClose: 2000,
+        });
+      }
     }
   };
 
@@ -37,7 +59,7 @@ function Sidebar() {
     <div className="sidebar-container">
       <div className="sidebar-inner-container">
         <div style={{ marginLeft: "3%" }}>
-          <button className="sidebar" onClick={() => (window.location.href = "/dashboard")}>
+          <button className="sidebar" onClick={() => (window.location.href = role.role === "ROLE_HR" ? "/dashboardHr" : "/dashboard")}>
             <FontAwesomeIcon icon={faArrowLeft} className="sidebar-back-icon" />
           </button>
           <div style={{ marginTop: "11%" }}>

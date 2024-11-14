@@ -1,13 +1,20 @@
 import { app, upload } from "./apiClient";
 import {
+  ADD_CANDIDATE,
   CHANGE_PASSWORD,
   CREATE_USER,
+  GET_ALL_CANDIDATE,
+  GET_ALL_PROFILES,
+  GET_CANDIDATE_PROFILE_BY_ID,
   GET_PROFILE_DETAILS,
   GET_USER_BY_ID,
+  GET_USER_BY_ROLE,
   LOGIN,
   PY_INTERGRATION,
+  REGISTER_USER,
   RESET_PASSWORD,
   RESUME_TITLE,
+  SAVE_CANDIDATE_NAME,
   SEND_OTP,
   UPDATE_PROFILE,
   UPDATE_RESUME
@@ -46,8 +53,8 @@ export const resetPassword = async (email, otp, password) => {
   return await app.post(`${RESET_PASSWORD}?email=${email}&otp=${otp}&newPassword=${password}`);
 };
 
-export const saveResumeTitle = async (title) => {
-  return await app.post(RESUME_TITLE, { title });
+export const saveResumeTitle = async (title, userId) => {
+  return await app.post(RESUME_TITLE, { title, userId });
 };
 
 export const deleteResume = async (resumeId) => {
@@ -68,6 +75,34 @@ export const uploadResume = (formData) => {
       "Content-Type": "multipart/form-data",
     },
   });
+};
+
+export const getAllProfiles = async () => {
+  return await app.get(GET_ALL_PROFILES);
+};
+
+export const getUserByRole = async () => {
+  return await app.get(GET_USER_BY_ROLE);
+};
+
+export const registerUser = async (name, email, password, role) => {
+  return await app.post(REGISTER_USER, { name, email, password, role });
+};
+
+export const saveCandidateName = async (name) => {
+  return await app.post(SAVE_CANDIDATE_NAME, { name });
+};
+
+export const addCandidate = async (id, data) => {
+  return await app.put(`${ADD_CANDIDATE}/${id}`, data);
+};
+
+export const getAllCandidates = async () => {
+  return await app.get(GET_ALL_CANDIDATE);
+};
+
+export const getCandidateProfileById = async (id) => {
+  return await app.get(`${GET_CANDIDATE_PROFILE_BY_ID}/${id}`);
 };
 
 export const updateResume = async (profileId, updatedProfile) => {
