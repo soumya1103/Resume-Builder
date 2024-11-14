@@ -28,12 +28,10 @@ function PersonalInfo() {
   const [userDetails, setUserDetails] = useState();
   const [candidateDetails, setCandidateDetails] = useState();
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const userDet = useSelector((state) => state.auth);
   const { userId } = userDet;
-  const user = JSON.parse(localStorage.getItem("selectedEmployeeId")) || { userId: "" };
+
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   const candidateId = localStorage.getItem("profileId") || { profileId: "" };
 
