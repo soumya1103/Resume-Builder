@@ -46,7 +46,7 @@ const ResumesList = ({ isOpen, onClose }) => {
   
 
   const handleEdit = (profile) => {
-    navigate(`/editResume/${profile.id}`);
+    navigate(`/personalInfo/?profileId=${profile.id}`);
   };
 
   const openDeleteModal = (resumeId) => {
@@ -61,7 +61,7 @@ const ResumesList = ({ isOpen, onClose }) => {
       if (deleteResponse.data.isDeleted) {
         setShowDeleteModal(false);
         fetchProfiles();
-        toast.success("Resume deleted successfully!");
+        toast.success("Resume deleted successfully!",{ autoClose: 1500, });
       }
     } catch (error) {
       setError("Failed to delete resume");
@@ -102,7 +102,7 @@ const ResumesList = ({ isOpen, onClose }) => {
         </div>
       )}
 
-      <Modal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} height="130px" width="347px">
+      <Modal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} height="150px" width="400px">
         <p className="modal-heading">Are you sure you want to delete this resume?</p>
         <div className="modal-buttons">
           <Button onClick={confirmDelete}>Yes</Button>

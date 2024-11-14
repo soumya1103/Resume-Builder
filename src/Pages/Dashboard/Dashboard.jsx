@@ -10,31 +10,42 @@ import Card from "../../Components/Cards/Card";
 import Navbar from "../../Components/Navbar/Navbar.jsx";
 import ResumesList from "../../Components/ResumeList/ResumeList.jsx";
 import { useNavigate } from "react-router-dom";
-import { saveResumeTitle } from "../../Api/apiService.js";
+import { saveResumeTitle, uploadResume } from "../../Api/apiService.js";
 
 function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [titleModal, setTitleModal] = useState(false);
   const [resumeTitle, setResumeTitle] = useState("");
-  const [file, setFile] = useState(null);
   const navigate = useNavigate();
 
   const handleResumeClick = () => {
     setTitleModal(true);
   };
 
-  const handleUploadResume = (e) => {
+  const handleUploadResume = async (e) => {
     e.preventDefault();
     const selectedFile = e.target.files[0];
 
-    if (selectedFile && selectedFile.type === "application/pdf") {
-      setFile(selectedFile);
-      toast.success("PDF Resume selected successfully!", {
+    if (!selectedFile) {
+      toast.error("Please select a file to upload.", {
         autoClose: 2000,
       });
-    } else {
-      setFile(null);
-      toast.error("Please select a valid PDF file.", {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("resume", selectedFile);
+
+    try {
+      const response = await uploadResume(formData);
+
+      if (response?.status === 200 || response?.status === 201) {
+        toast.success(response?.data?.message || "PDF Resume uploaded successfully!", {
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
         autoClose: 2000,
       });
     }
@@ -54,8 +65,6 @@ function Dashboard() {
 
   const handleTitleSave = async () => {
     try {
-      console.log(resumeTitle);
-
       const response = await saveResumeTitle(resumeTitle);
       if (response?.status === 200 || response?.status === 201) {
         toast.success(response?.data?.message || "Resume Title Saved", {
@@ -80,10 +89,10 @@ function Dashboard() {
         <Card icon={<FontAwesomeIcon icon={faFile} />} label="Create Resume" onClick={handleResumeClick} />
         <Card icon={<FontAwesomeIcon icon={faEye} />} label="View Resume" onClick={handleViewResume} />
         <Card icon={<FontAwesomeIcon icon={faChartColumn} />} label="ATS" />
-        <Card icon={<FontAwesomeIcon icon={faUpload} />} label="Upload Resume" onClick={() => document.getElementById("file-input").click()} />
+        <Card icon={<FontAwesomeIcon icon={faUpload} />} label="Upload Resume" onClick={() => document.getElementById("resume").click()} />
       </div>
 
-      <input id="file-input" type="file" accept="application/pdf" style={{ display: "none" }} onChange={handleUploadResume} />
+      <input id="resume" type="file" accept="application/pdf" style={{ display: "none" }} onChange={handleUploadResume} />
 
       <ResumesList isOpen={isModalOpen} onClose={closeModal} />
       <Modal show={titleModal} onClose={onCloseTitleModal} height="100px" width="310px">

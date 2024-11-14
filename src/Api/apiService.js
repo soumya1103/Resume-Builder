@@ -1,14 +1,16 @@
-import app from "./apiClient";
+import { app, upload } from "./apiClient";
 import {
   CHANGE_PASSWORD,
   CREATE_USER,
   GET_PROFILE_DETAILS,
   GET_USER_BY_ID,
   LOGIN,
+  PY_INTERGRATION,
   RESET_PASSWORD,
   RESUME_TITLE,
   SEND_OTP,
   UPDATE_PROFILE,
+  UPDATE_RESUME
 } from "./apiConstants";
 import { VIEW_RESUME, DELETE_RESUME } from "./apiConstants";
 
@@ -59,3 +61,15 @@ export const getUserProfile = async (profileId) => {
 export const changePassword = async (userId, data) => {
   return await app.post(`${CHANGE_PASSWORD}/${userId}/change-password`, data);
 };
+
+export const uploadResume = (formData) => {
+  return upload.post(PY_INTERGRATION, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export const updateResume = async (profileId, updatedProfile) => {
+  return await app.put(`${UPDATE_RESUME}/${profileId}`, updatedProfile);
+}

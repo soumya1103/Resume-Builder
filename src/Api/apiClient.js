@@ -2,8 +2,14 @@ import axios from "axios";
 
 const baseUrl = "http://localhost:8080";
 
-const app = axios.create({
+const pyUrl = "http://localhost:5000";
+
+export const app = axios.create({
   baseURL: baseUrl,
+});
+
+export const upload = axios.create({
+  baseURL: pyUrl,
 });
 
 app.interceptors.response.use(
@@ -18,8 +24,6 @@ app.interceptors.response.use(
   }
 );
 
-export default app;
-
 app.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("authtoken");
@@ -29,4 +33,21 @@ app.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error)
+);
+
+upload.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+upload.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      window.location.href = "/";
+    }
+    return Promise.reject(error);
+  }
 );
