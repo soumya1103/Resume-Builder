@@ -35,3 +35,5 @@ export const ADD_CANDIDATE = "/api/candidate-profiles/create";
 export const GET_ALL_CANDIDATE = "/api/candidate-profiles/getAllProfile";
 
 export const GET_CANDIDATE_PROFILE_BY_ID = "/api/candidate-profiles";
+
+export const UPDATE_RESUME = "/api/user-profiles/update"
