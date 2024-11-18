@@ -38,7 +38,12 @@ function Login() {
       if (auth.role === "ROLE_EMPLOYEE") {
         setTimeout(() => {
           navigate("/dashboard");
-        }, 3000);
+        }, 2000);
+      } else if (auth.role === "ROLE_HR") {
+        setSelectedRole("ROLE_HR");
+        setTimeout(() => {
+          navigate("/dashboardHr");
+        }, 2000);
       }
     }
   }, [auth]);
@@ -52,7 +57,7 @@ function Login() {
     e.preventDefault();
     const isCredentialEmailValid = validateCredentialEmail();
     const isPasswordValid = validatePassword();
-    if (selectedRole === "ROLE_EMPLOYEE" && isCredentialEmailValid && isPasswordValid) {
+    if ((selectedRole === "ROLE_EMPLOYEE" || selectedRole === "ROLE_HR") && isCredentialEmailValid && isPasswordValid) {
       try {
         const encodedPassword = btoa(password);
         const response = await login(email, encodedPassword);

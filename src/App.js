@@ -12,7 +12,11 @@ import Education from "./Pages/CreateResume/Education";
 import ProfessionalExperience from "./Pages/CreateResume/ProfessionalExperience";
 import Skills from "./Pages/CreateResume/Skills";
 import ProfessionalSummary from "./Pages/CreateResume/ProfessionalSummary";
+import DashboardHr from "./Pages/Dashboard/DashboardHr";
 import "react-toastify/dist/ReactToastify.css";
+import EmployeeResumeList from "./Components/ResumeList/EmployeeResumeList";
+import CandidateResumeList from "./Components/ResumeList/CandidateResumeList";
+import ViewResumeCandidate from "./Pages/ViewResume/ViewResumeCandidate";
 
 function App() {
   return (
@@ -27,9 +31,12 @@ function App() {
         <Route path="/professionalSummary" element={<ProfessionalSummary />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-
+        <Route path="/dashboardHr" element={<DashboardHr />} />
         <Route path="/resumes" element={<ResumesList />} />
+        <Route path="/employeeResumeList" element={<EmployeeResumeList />} />
+        <Route path="/candidateResumeList" element={<CandidateResumeList />} />
         <Route path="/viewResume/:userId" element={<ViewResume />} />
+        <Route path="/viewResumeCandidate/:candidateId" element={<ViewResumeCandidate />} />
       </Routes>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile, faUpload, faEye, faChartColumn } from "@fortawesome/free-solid-svg-icons";
+import { faFile, faUser, faEye, faChartColumn } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../Components/Modal/Modal.jsx";
 import Input from "../../Components/Input/Input.jsx";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,12 +11,15 @@ import Navbar from "../../Components/Navbar/Navbar.jsx";
 import ResumesList from "../../Components/ResumeList/ResumeList.jsx";
 import { useNavigate } from "react-router-dom";
 import { saveResumeTitle, uploadResume } from "../../Api/apiService.js";
+import { useSelector } from "react-redux";
 
 function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [titleModal, setTitleModal] = useState(false);
   const [resumeTitle, setResumeTitle] = useState("");
   const navigate = useNavigate();
+
+  const userId = useSelector((state) => state.auth);
 
   const handleResumeClick = () => {
     setTitleModal(true);
@@ -65,7 +68,7 @@ function Dashboard() {
 
   const handleTitleSave = async () => {
     try {
-      const response = await saveResumeTitle(resumeTitle);
+      const response = await saveResumeTitle(resumeTitle, userId.userId);
       if (response?.status === 200 || response?.status === 201) {
         toast.success(response?.data?.message || "Resume Title Saved", {
           autoClose: 2000,
@@ -82,6 +85,10 @@ function Dashboard() {
     }
   };
 
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
   return (
     <div className="dashboard-container-outer">
       <Navbar />
@@ -89,7 +96,7 @@ function Dashboard() {
         <Card icon={<FontAwesomeIcon icon={faFile} />} label="Create Resume" onClick={handleResumeClick} />
         <Card icon={<FontAwesomeIcon icon={faEye} />} label="View Resume" onClick={handleViewResume} />
         <Card icon={<FontAwesomeIcon icon={faChartColumn} />} label="ATS" />
-        <Card icon={<FontAwesomeIcon icon={faUpload} />} label="Upload Resume" onClick={() => document.getElementById("resume").click()} />
+        <Card icon={<FontAwesomeIcon icon={faUser} />} label="Profile" onClick={handleProfile} />
       </div>
 
       <input id="resume" type="file" accept="application/pdf" style={{ display: "none" }} onChange={handleUploadResume} />
