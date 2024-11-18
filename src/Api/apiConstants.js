@@ -22,4 +22,4 @@ export const GET_PROFILE_DETAILS = "/users/profile";
 
 export const PY_INTERGRATION = "/upload";
 
-export const UPDATE_RESUME = "/api/user-profiles/update"
+export const UPDATE_RESUME = "/api/user-profiles/update6"

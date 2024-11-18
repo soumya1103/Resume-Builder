@@ -26,7 +26,7 @@ const ResumesList = ({ isOpen, onClose }) => {
       setProfiles(activeProfiles);
       setLoading(false);
     } catch (error) {
-      setError("Error fetching profiles");
+      // setError("Error fetching profiles");
       setLoading(false);
     }
   };
