@@ -17,8 +17,8 @@ function Sidebar() {
 
   const selectedRole = localStorage.getItem("selectedRole") || { selectedRole: "" };
 
-  const profileId = JSON.parse(localStorage.getItem("profileId"));
-
+  const profileId = localStorage.getItem("profileId"); 
+  
   const handleSubmit = async () => {
     if (selectedRole === "candidate") {
       try {
@@ -39,6 +39,7 @@ function Sidebar() {
     } else {
       try {
         const response = await addUser(profileId, userData);
+        console.log(response)
         if (response.status === 200 || response.status === 201) {
           toast.success(response?.data?.message, {
             autoClose: 2000,

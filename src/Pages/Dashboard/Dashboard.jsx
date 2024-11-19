@@ -66,24 +66,48 @@ function Dashboard() {
     setTitleModal(false);
   };
 
+  // const handleTitleSave = async () => {
+  //   try {
+  //     const response = await saveResumeTitle(resumeTitle, userId.userId);
+  //     if (response?.status === 200 || response?.status === 201) {
+  //       toast.success(response?.data?.message || "Resume Title Saved", {
+  //         autoClose: 2000,
+  //       });
+  //       setTimeout(() => {
+  //         navigate("/personalInfo");
+  //       }, 3000);
+  //     }
+  //     window.localStorage.setItem("profileId", response.data.id);
+  //   } catch (error) {
+  //     toast.error(error?.response?.data?.message || "Something went wrong.", {
+  //       autoClose: 2000,
+  //     });
+  //   }
+  // };
+
   const handleTitleSave = async () => {
     try {
       const response = await saveResumeTitle(resumeTitle, userId.userId);
       if (response?.status === 200 || response?.status === 201) {
+        // Save the profile ID first
+        window.localStorage.setItem("profileId", response.data.id);
+  
         toast.success(response?.data?.message || "Resume Title Saved", {
           autoClose: 2000,
         });
+  
+        // Navigate after confirming the save
         setTimeout(() => {
           navigate("/personalInfo");
         }, 3000);
       }
-      window.localStorage.setItem("profileId", response.data.id);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {
         autoClose: 2000,
       });
     }
   };
+  
 
   const handleProfile = () => {
     navigate("/profile");
