@@ -76,19 +76,6 @@ function PersonalInfo() {
     }
   };
 
-  // const handleNextClick = () => {
-  //   const obj = {
-  //     ...resume,
-  //     userId: userId,
-  //     profileName: userDet?.name,
-  //     contactNo: contactNo,
-  //     objective: objective,
-  //   };
-
-  //   dispatch(savePersonalInfo(obj));
-  //   navigate("/education");
-  // };
-
   // avanti
   const handleNextClick = () => {
     const updatedProfile = {
@@ -165,18 +152,19 @@ function PersonalInfo() {
       }
     }
   }, [userDetails, candidateDetails]);
+
 // avanti
   useEffect(() => {
     const fetchProfile = async () => {
       setLoading(true);
       try {
         const response = await view_resume(user.userId);
+        console.log(response.data);
         const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
 
         if (selectedProfile) {
           const [first, last] = (selectedProfile.profileName || "").split(" ");
 
-          // Set state only if not already set (to prevent overwriting)
           setFirstName((prev) => prev || first || "");
           setLastName((prev) => prev || last || "");
           setEmail((prev) => prev || selectedProfile.email || user.email || "");

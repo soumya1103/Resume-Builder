@@ -38,11 +38,15 @@ function Education() {
       setLoading(true);
       try {
         const response = await view_resume(user.userId);
-        const profiles = response.data;
-        const selectedProfile = profiles.find((profile) => profile.id === parseInt(profileId));
-
+        console.log("API Response:", response); 
+  
+        const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
+  
         if (selectedProfile && selectedProfile.profileData && selectedProfile.profileData.education.length > 0) {
-          const educationData = selectedProfile.profileData.education.map((edu) => {
+          const educationData = selectedProfile.profileData.education;
+  
+        
+          const formattedFields = educationData.map((edu) => {
             const [startDate, endDate] = edu.duration ? edu.duration.split(" - ") : ["", ""];
             return {
               institutionName: edu.collegeName || "",
