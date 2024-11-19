@@ -28,6 +28,8 @@ function PersonalInfo() {
   const [userDetails, setUserDetails] = useState();
   const [candidateDetails, setCandidateDetails] = useState();
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const userDet = useSelector((state) => state.auth);
   const { userId } = userDet;
@@ -74,19 +76,38 @@ function PersonalInfo() {
     }
   };
 
+  // const handleNextClick = () => {
+  //   const obj = {
+  //     ...resume,
+  //     userId: userId,
+  //     profileName: userDet?.name,
+  //     contactNo: contactNo,
+  //     objective: objective,
+  //   };
+
+  //   dispatch(savePersonalInfo(obj));
+  //   navigate("/education");
+  // };
+
+  // avanti
   const handleNextClick = () => {
-    const obj = {
+    const updatedProfile = {
       ...resume,
       userId: userId,
+      profileId,
       profileName: userDet?.name,
       contactNo: contactNo,
       objective: objective,
     };
 
-    dispatch(savePersonalInfo(obj));
-    navigate("/education");
-  };
+    dispatch(savePersonalInfo(updatedProfile));
 
+    if (!profileId) {
+      navigate("/education");
+    } else {
+      navigate(`/education/?profileId=${updatedProfile.profileId}`);
+    }
+  };
   const handleNextClickEmployee = () => {
     const obj = {
       ...resume,
@@ -144,6 +165,35 @@ function PersonalInfo() {
       }
     }
   }, [userDetails, candidateDetails]);
+// avanti
+  useEffect(() => {
+    const fetchProfile = async () => {
+      setLoading(true);
+      try {
+        const response = await view_resume(user.userId);
+        const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
+
+        if (selectedProfile) {
+          const [first, last] = (selectedProfile.profileName || "").split(" ");
+
+          // Set state only if not already set (to prevent overwriting)
+          setFirstName((prev) => prev || first || "");
+          setLastName((prev) => prev || last || "");
+          setEmail((prev) => prev || selectedProfile.email || user.email || "");
+          setContactNo((prev) => prev || selectedProfile.contactNo || "");
+          setObjective((prev) => prev || selectedProfile.objective || "");
+        } else {
+          setError("Profile not found");
+        }
+      } catch (error) {
+        setError("Error fetching profile data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (profileId) fetchProfile();
+  }, [profileId]);
 
   return (
     <div className="resume-form">
