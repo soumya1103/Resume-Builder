@@ -7,28 +7,65 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { saveProfessionalSummary, saveCertificates } from "../../Redux/ResumeReducer/ResumeAction";
+import { view_resume } from "../../Api/apiService";
 
 function ProfessionalSummary() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
+  const profileId = new URLSearchParams(window.location.search).get("profileId");
 
   const { professionalSummary, certificates } = useSelector((state) => state.resume.profileData);
 
   const [summary, setSummary] = useState(professionalSummary || "");
   const [certification, setCertification] = useState(
-    certificates.length > 0 ? certificates.map((cert) => ({ certification: cert, collapsed: false })) : [{ certification: "", collapsed: false }]
+    certificates?.length > 0 ? certificates.map((cert) => ({ certification: cert, collapsed: false })) : [{ certification: "", collapsed: false }]
   );
 
   useEffect(() => {
-    if (certificates.length > 0) {
-      setCertification(certificates.map((cert) => ({ certification: cert, collapsed: false })));
+    const fetchProfileData = async () => {
+      try {
+        const response = await view_resume(user.userId);
+        console.log("API Response:", response.data);
+        const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
+        if (selectedProfile) {
+          const { professionalSummary, certificates } = selectedProfile.profileData || {};
+    
+          setSummary(professionalSummary || "");
+          setCertification(
+            certificates?.length > 0
+              ? certificates.map((cert) => ({ certification: cert, collapsed: false }))
+              : [{ certification: "", collapsed: false }]
+          );
+        } else {
+          console.error("Profile with the specified ID not found");
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+  
+    if (profileId) {
+      fetchProfileData();
     }
-  }, [certificates]);
+  }, [profileId, user.userId]);
+  
+
+
+  useEffect(() => {
+    setSummary(professionalSummary || "");
+    setCertification(
+      certificates?.length > 0 ? certificates.map((cert) => ({ certification: cert, collapsed: false })) : [{ certification: "", collapsed: false }]
+    );
+  }, [professionalSummary, certificates]);
 
   const handlePrevClick = () => {
-    navigate("/skills");
+    if (!profileId) {
+      navigate("/skills");
+    } else {
+      navigate(`/skills?profileId=${profileId}`);
+    }
   };
-
   const handleSaveClick = async () => {
     const filteredCertifications = certification
       .filter((certField) => certField.certification.trim() !== "")
@@ -39,13 +76,13 @@ function ProfessionalSummary() {
   };
 
   const handlePlusClick = () => {
-    const updatedFields = certification.map((field, index) => (index === 0 ? { ...field, collapsed: true } : field));
+    const updatedFields = certification.map((field) => ({ ...field, collapsed: true }));
     setCertification([{ certification: "", collapsed: false }, ...updatedFields]);
   };
 
   const handleDeleteClick = (index) => {
     const updatedFields = certification.filter((_, i) => i !== index);
-    setCertification(updatedFields.length > 0 ? updatedFields : [{ certification: "", collapsed: false }]); // Ensure there's always at least one field
+    setCertification(updatedFields.length > 0 ? updatedFields : [{ certification: "", collapsed: false }]);
   };
 
   const handleFieldChange = (index, value) => {

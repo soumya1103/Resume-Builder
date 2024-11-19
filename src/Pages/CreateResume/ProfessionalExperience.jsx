@@ -7,7 +7,7 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
 import { saveProfessionalExperience } from "../../Redux/ResumeReducer/ResumeAction";
-import { view_resume } from "../../Api/apiService"; // Importing API service to fetch resume data
+import { view_resume } from "../../Api/apiService";
 
 function ProfessionalExperience() {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ function ProfessionalExperience() {
       setLoading(true);
       try {
         const response = await view_resume(user.userId);
-        console.log("API Response:", response); // Inspect the array of profiles
+        console.log("API Response:", response); 
 
         const profiles = response.data;
         const selectedProfile = profiles.find((profile) => profile.id === parseInt(profileId));
@@ -38,7 +38,7 @@ function ProfessionalExperience() {
         if (selectedProfile && selectedProfile.profileData && selectedProfile.profileData.professionalExperience) {
           const professionalExperienceData = selectedProfile.profileData.professionalExperience;
 
-          // Map the professional experience data to match the expected format
+         
           const formattedFields = professionalExperienceData.map((exp) => ({
             jobTitle: exp.jobTitle || "",
             companyName: exp.companyName || "",
@@ -85,7 +85,7 @@ function ProfessionalExperience() {
       dispatch(saveProfessionalExperience(allExperienceData));
     }
 
-    navigate("/skills");
+    navigate(`/skills?profileId=${profileId}`);
   };
 
   const handlePlusClick = () => {
