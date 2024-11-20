@@ -83,7 +83,11 @@ function Skills() {
         tools,
       },
     });
-    navigate(`/professionalSummary?profileId=${profileId}`);
+    if (profileId) {
+      navigate(`/professionalSummary?profileId=${profileId}`);
+    } else {
+      navigate("/professionalSummary");
+    }
   };
 
   const handleKeyDown = (e, type) => {
