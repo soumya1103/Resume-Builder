@@ -85,7 +85,11 @@ function ProfessionalExperience() {
       dispatch(saveProfessionalExperience(allExperienceData));
     }
 
-    navigate(`/skills?profileId=${profileId}`);
+    if (profileId) {
+      navigate(`/skills?profileId=${profileId}`);
+    } else {
+      navigate("/skills");
+    }
   };
 
   const handlePlusClick = () => {
