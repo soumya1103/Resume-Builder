@@ -16,3 +16,21 @@
 .btn h4 {
   margin: 0%;
 }
+
+
+
+.modal-button-container {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  margin-top: 20px; /* Adds some spacing above the button */
+}
+
+.modal-save-button {
+  padding: 10px 20px;
+
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
