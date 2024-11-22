@@ -1,24 +1,62 @@
+
+
 import React, { useState, useEffect } from "react";
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../Components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { SKILLS } from "../../Redux/ResumeReducer/ResumeTypes";
+import { view_resume } from "../../Api/apiService";
 import "./Skills.css";
 
 function Skills() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const { technicalSkills } = useSelector((state) => state.resume.profileData);
 
   const [technology, setTechnology] = useState(technicalSkills.technology || []);
   const [programmingLanguage, setProgrammingLanguage] = useState(technicalSkills.programming || []);
   const [tools, setTools] = useState(technicalSkills.tools || []);
+  const user = JSON.parse(localStorage.getItem("auth")) || { name: "", email: "", userId: "" };
+  const profileId = new URLSearchParams(location.search).get("profileId");
 
   const [inputTechnologyValue, setInputTechnologyValue] = useState("");
   const [inputProgrammingLanguageValue, setInputProgrammingLanguageValue] = useState("");
   const [inputToolsValue, setInputToolsValue] = useState("");
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+        try {
+            const response = await view_resume(user.userId);
+            console.log("Fetched profiles:", response.data);
+            const profiles = response.data || [];
+            const selectedProfile = profiles.find((profile) => profile.id === parseInt(profileId));
+            console.log("Selected profile:", selectedProfile);
+
+            if (selectedProfile) {
+                const { technicalSkills } = selectedProfile.profileData || {};
+                setTechnology(technicalSkills?.technology || []);
+                setProgrammingLanguage(technicalSkills?.programming || []);
+                setTools(technicalSkills?.tools || []);
+                
+         
+                dispatch({
+                    type: "UPDATE_PROFILE_DATA",
+                    payload: selectedProfile.profileData,
+                });
+            } else {
+                console.error("Profile not found for profileId:", profileId);
+            }
+        } catch (error) {
+            console.error("Error fetching profile data:", error);
+        }
+    };
+
+    if (profileId) fetchProfile();
+}, [profileId, user.userId, dispatch]);
+
 
   useEffect(() => {
     if (technicalSkills) {
@@ -29,7 +67,11 @@ function Skills() {
   }, [technicalSkills]);
 
   const handlePrevClick = () => {
-    navigate("/professionalExperience");
+    if (!profileId) {
+      navigate("/professionalExperience");
+    } else {
+      navigate(`/professionalExperience?profileId=${profileId}`);
+    }
   };
 
   const handleNextClick = () => {
@@ -41,7 +83,11 @@ function Skills() {
         tools,
       },
     });
-    navigate("/professionalSummary");
+    if (profileId) {
+      navigate(`/professionalSummary?profileId=${profileId}`);
+    } else {
+      navigate("/professionalSummary");
+    }
   };
 
   const handleKeyDown = (e, type) => {
@@ -159,3 +205,5 @@ function Skills() {
 }
 
 export default ResumeHoc(Skills);
+
+

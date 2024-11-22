@@ -29,17 +29,14 @@ function Education() {
       setLoading(true);
       try {
         const response = await view_resume(user.userId);
-        console.log("API Response:", response);  // Inspect the array of profiles
+        console.log("API Response:", response); 
   
-        const profiles = response.data;
-  
-        // Check if we have profiles and pick the most recent or relevant one with contact info
-     const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
+        const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
   
         if (selectedProfile && selectedProfile.profileData && selectedProfile.profileData.education.length > 0) {
           const educationData = selectedProfile.profileData.education;
   
-          // Map the education data to match the expected format in educationFields
+        
           const formattedFields = educationData.map((edu) => {
             const [startDate, endDate] = edu.duration ? edu.duration.split(" - ") : ["", ""];
             return {

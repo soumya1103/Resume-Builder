@@ -26,7 +26,7 @@ const ResumesList = ({ isOpen, onClose }) => {
       setProfiles(activeProfiles);
       setLoading(false);
     } catch (error) {
-      setError("Error fetching profiles");
+      // setError("Error fetching profiles");
       setLoading(false);
     }
   };
@@ -47,6 +47,9 @@ const ResumesList = ({ isOpen, onClose }) => {
 
   const handleEdit = (profile) => {
     navigate(`/personalInfo/?profileId=${profile.id}`);
+    window.localStorage.removeItem("profileId");
+    window.localStorage.setItem("profileId", profile.id);
+    
   };
 
   const openDeleteModal = (resumeId) => {

@@ -47,12 +47,16 @@ function Navbar() {
     navigate("/profile");
   };
 
+  const handleNewEmployee = () => {
+    navigate("/register");
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-logo">
         <img src={NT} alt="Logo" />
       </div>
-      <h2 className="heading">Welcome {name} !</h2>
+      {user.role === "ROLE_HR" ? <h2 className="heading">Welcome to HR Portal {name}</h2> : <h2 className="heading">Welcome {name}</h2>}
       <div className="navbar-button" onMouseLeave={closeDropdown}>
         <button className="btn" onMouseEnter={toggleDropdown}>
           {getInitials(name)}
@@ -62,6 +66,13 @@ function Navbar() {
             <button className="dropdown-item" onClick={handleProfile}>
               Profile
             </button>
+            {user.role === "ROLE_HR" ? (
+              <button className="dropdown-item" onClick={handleNewEmployee}>
+                Register New Employee
+              </button>
+            ) : (
+              ""
+            )}
             <button className="dropdown-item" onClick={handleLogout}>
               Logout
             </button>
