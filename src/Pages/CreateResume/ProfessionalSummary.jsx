@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {useLocation} from 'react-router-dom'
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import { addCandidate, addUser } from "../../Api/apiService";
 import { saveProfessionalSummary, saveCertificates } from "../../Redux/ResumeReducer/ResumeAction";
 import { view_resume } from "../../Api/apiService";
 
 function ProfessionalSummary() {
+  const location = useLocation();
+
+  const userData = useSelector((state) => state.resume);
+
+  const role = useSelector((state) => state.auth);
+
+  const selectedRole = localStorage.getItem("selectedRole") || { selectedRole: "" };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
-  const profileId = new URLSearchParams(window.location.search).get("profileId");
+  const profileId = localStorage.getItem("profileId") || new URLSearchParams(window.location.search).get("profileId");
 
   const { professionalSummary, certificates } = useSelector((state) => state.resume.profileData);
 
@@ -21,6 +32,8 @@ function ProfessionalSummary() {
   const [certification, setCertification] = useState(
     certificates?.length > 0 ? certificates.map((cert) => ({ certification: cert, collapsed: false })) : [{ certification: "", collapsed: false }]
   );
+
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -73,6 +86,7 @@ function ProfessionalSummary() {
 
     dispatch(saveProfessionalSummary(summary));
     dispatch(saveCertificates(filteredCertifications));
+    setIsSaved(true);
   };
 
   const handlePlusClick = () => {
@@ -88,6 +102,43 @@ function ProfessionalSummary() {
   const handleFieldChange = (index, value) => {
     const updatedFields = certification.map((field, i) => (i === index ? { ...field, certification: value } : field));
     setCertification(updatedFields);
+  };
+
+  const handleSubmit = async () => {
+    if (selectedRole === "candidate") {
+      try {
+        const response = await addCandidate(profileId, userData);
+        if (response.status === 200 || response.status === 201) {
+          toast.success(response?.data?.message, {
+            autoClose: 2000,
+          });
+        }
+        setTimeout(() => {
+          window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
+        }, 3000);
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong.", {
+          autoClose: 2000,
+        });
+      }
+    } else {
+      try {
+        const response = await addUser(profileId, userData);
+        console.log(response)
+        if (response.status === 200 || response.status === 201) {
+          toast.success(response?.data?.message, {
+            autoClose: 2000,
+          });
+        }
+        setTimeout(() => {
+          window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
+        }, 3000);
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong.", {
+          autoClose: 2000,
+        });
+      }
+    }
   };
 
   return (
@@ -147,7 +198,13 @@ function ProfessionalSummary() {
       <div className="professional-summary-container">
         <div className="resume-form-btn">
           <Button onClick={handlePrevClick}>Previous</Button>
-          <Button onClick={handleSaveClick}>Save</Button>
+          {!isSaved ? (
+            <Button onClick={handleSaveClick}>Save</Button>
+          ) : (
+            <Button className="sidebar-submit-btn" onClick={handleSubmit}>
+              <h4>Submit</h4>
+            </Button>
+          )}
         </div>
       </div>
     </div>
