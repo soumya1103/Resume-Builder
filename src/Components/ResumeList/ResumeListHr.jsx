@@ -41,7 +41,9 @@ const ResumesListHr = ({ isOpen, onClose, userId }) => {
   };
 
   const handleEdit = (profile) => {
-    navigate(`/editResume/${profile.id}`);
+    navigate(`/personalInfo/?profileId=${profile.id}`);
+    window.localStorage.removeItem("profileId");
+    window.localStorage.setItem("profileId", profile.id);
   };
 
   const openDeleteModal = (resumeId) => {

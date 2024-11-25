@@ -36,6 +36,8 @@ function PersonalInfo() {
 
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   const candidateId = localStorage.getItem("profileId") || { profileId: "" };
+  const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
+  let [id, setId] = useState("");
 
   const getCandidateDetails = async () => {
     try {
@@ -52,7 +54,7 @@ function PersonalInfo() {
 
   const getUserDetails = async () => {
     if (role === "employee") {
-      const response = await getUserById(user);
+      const response = await getUserById(user.userId);
       try {
         if (response?.status === 200 || response?.status === 201) {
           setUserDetails(response.data);
@@ -156,9 +158,14 @@ function PersonalInfo() {
 // avanti
   useEffect(() => {
     const fetchProfile = async () => {
+      if(role === "employee"){
+        id = employeeId;
+      }else{
+        id = user.userId;
+      }
       setLoading(true);
       try {
-        const response = await view_resume(user.userId);
+        const response = await view_resume(id);
         console.log(response.data);
         const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
 
