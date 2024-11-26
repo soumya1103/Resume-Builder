@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
-import Modal from "../../Components/Modal/Modal"; // Assuming you have a reusable Modal component
+import Modal from "../../Components/Modal/Modal"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ function ProfessionalExperience() {
   const savedProfessionalExperience = useSelector(
     (state) => state.resume.profileData.professionalExperience || []
   );
-
+  
   const [experienceFields, setExperienceFields] = useState([
     { jobTitle: "", companyName: "", projectName: "", startDate: "", endDate: "", techStack: "", details: "" },
   ]);
@@ -143,7 +143,7 @@ function ProfessionalExperience() {
           </div>
 
           <div className="resume-entry">
-  {/* New Entry Form */}
+
   <div className="grid-container-2-col">
     <Input
       label="Job Title"
@@ -230,7 +230,7 @@ function ProfessionalExperience() {
                       <td>{field.startDate}</td>
                       <td>{field.endDate}</td>
                       <td>{field.techStack}</td>
-                      <td>
+                      <td className="table-icons">
                         <FontAwesomeIcon icon={faEdit} className="resume-edit-icon" onClick={() => handleEditClick(index + 1)} />
                         <FontAwesomeIcon icon={faTrash} className="resume-delete-icon" onClick={() => handleDeleteClick(index + 1)} />
                       </td>
