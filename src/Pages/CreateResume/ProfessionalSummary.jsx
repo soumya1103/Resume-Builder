@@ -22,8 +22,9 @@ function ProfessionalSummary() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
+  const user = JSON.parse(localStorage.getItem("auth")) || { name: "", email: "", userId: "" };
   const profileId = localStorage.getItem("profileId") || new URLSearchParams(window.location.search).get("profileId");
+  const profileName = user.name;
   const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   let [id, setId] = useState("");
@@ -114,7 +115,9 @@ function ProfessionalSummary() {
   const handleSubmit = async () => {
     const updatedUserData = {
         ...userData,
-        userId: userData.userId?.userId, // Extract the actual userId value
+        userId: userData.userId?.userId, 
+        profileId,
+        profileName,
     };
 
     if (selectedRole === "candidate") {
@@ -133,9 +136,9 @@ function ProfessionalSummary() {
                 autoClose: 2000,
             });
         }
-    } else { // Handle employee role
+    } else { 
         try {
-            const response = await addUser(profileId, updatedUserData); // Use updatedUserData
+            const response = await addUser(profileId, updatedUserData); 
             console.log(response);
             if (response.status === 200 || response.status === 201) {
                 toast.success(response?.data?.message, {
