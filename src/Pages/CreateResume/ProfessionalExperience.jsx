@@ -16,6 +16,10 @@ function ProfessionalExperience() {
   const location = useLocation();
   const profileId = new URLSearchParams(location.search).get("profileId");
   const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
+  const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
+  const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
+  let [id, setId] = useState("");
+
   const savedProfessionalExperience = useSelector(
     (state) => state.resume.profileData.professionalExperience || []
   );
@@ -40,9 +44,14 @@ function ProfessionalExperience() {
 
   useEffect(() => {
     const fetchProfessionalExperience = async () => {
+      if(role === "employee"){
+        id = employeeId;
+      }else{
+        id = user.userId;
+      }
       setLoading(true);
       try {
-        const response = await view_resume(user.userId);
+        const response = await view_resume(id);
         const profiles = response.data;
         const selectedProfile = profiles.find((profile) => profile.id === parseInt(profileId));
 

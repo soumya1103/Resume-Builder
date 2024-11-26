@@ -16,8 +16,7 @@ function ProfessionalSummary() {
   const location = useLocation();
 
   const userData = useSelector((state) => state.resume);
-
-  const role = useSelector((state) => state.auth);
+ 
 
   const selectedRole = localStorage.getItem("selectedRole") || { selectedRole: "" };
 
@@ -25,6 +24,9 @@ function ProfessionalSummary() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
   const profileId = localStorage.getItem("profileId") || new URLSearchParams(window.location.search).get("profileId");
+  const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
+  const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
+  let [id, setId] = useState("");
 
   const { professionalSummary, certificates } = useSelector((state) => state.resume.profileData);
 
@@ -36,9 +38,14 @@ function ProfessionalSummary() {
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
+    if(role === "employee"){
+      id = employeeId;
+    }else{
+      id = user.userId;
+    }
     const fetchProfileData = async () => {
       try {
-        const response = await view_resume(user.userId);
+        const response = await view_resume(id);
         console.log("API Response:", response.data);
         const selectedProfile = response.data.find((profile) => profile.id === parseInt(profileId));
         if (selectedProfile) {
@@ -105,41 +112,47 @@ function ProfessionalSummary() {
   };
 
   const handleSubmit = async () => {
+    const updatedUserData = {
+        ...userData,
+        userId: userData.userId?.userId, // Extract the actual userId value
+    };
+
     if (selectedRole === "candidate") {
-      try {
-        const response = await addCandidate(profileId, userData);
-        if (response.status === 200 || response.status === 201) {
-          toast.success(response?.data?.message, {
-            autoClose: 2000,
-          });
+        try {
+            const response = await addCandidate(profileId, updatedUserData);
+            if (response.status === 200 || response.status === 201) {
+                toast.success(response?.data?.message, {
+                    autoClose: 2000,
+                });
+            }
+            setTimeout(() => {
+                window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
+            }, 3000);
+        } catch (error) {
+            toast.error(error?.response?.data?.message || "Something went wrong.", {
+                autoClose: 2000,
+            });
         }
-        setTimeout(() => {
-          window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
-        }, 3000);
-      } catch (error) {
-        toast.error(error?.response?.data?.message || "Something went wrong.", {
-          autoClose: 2000,
-        });
-      }
-    } else {
-      try {
-        const response = await addUser(profileId, userData);
-        console.log(response)
-        if (response.status === 200 || response.status === 201) {
-          toast.success(response?.data?.message, {
-            autoClose: 2000,
-          });
+    } else { // Handle employee role
+        try {
+            const response = await addUser(profileId, updatedUserData); // Use updatedUserData
+            console.log(response);
+            if (response.status === 200 || response.status === 201) {
+                toast.success(response?.data?.message, {
+                    autoClose: 2000,
+                });
+            }
+            setTimeout(() => {
+                window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
+            }, 3000);
+        } catch (error) {
+            toast.error(error?.response?.data?.message || "Something went wrong.", {
+                autoClose: 2000,
+            });
         }
-        setTimeout(() => {
-          window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
-        }, 3000);
-      } catch (error) {
-        toast.error(error?.response?.data?.message || "Something went wrong.", {
-          autoClose: 2000,
-        });
-      }
     }
-  };
+};
+
 
   return (
     <div className="resume-form">

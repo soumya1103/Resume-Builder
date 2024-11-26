@@ -25,11 +25,20 @@ function Skills() {
   const [inputTechnologyValue, setInputTechnologyValue] = useState("");
   const [inputProgrammingLanguageValue, setInputProgrammingLanguageValue] = useState("");
   const [inputToolsValue, setInputToolsValue] = useState("");
+  const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
+  const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
+  let [id, setId] = useState("");
+
 
   useEffect(() => {
     const fetchProfile = async () => {
+      if(role === "employee"){
+        id = employeeId;
+      }else{
+        id = user.userId;
+      }
         try {
-            const response = await view_resume(user.userId);
+            const response = await view_resume(id);
             console.log("Fetched profiles:", response.data);
             const profiles = response.data || [];
             const selectedProfile = profiles.find((profile) => profile.id === parseInt(profileId));

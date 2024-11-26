@@ -101,13 +101,18 @@ function PersonalInfo() {
     const obj = {
       ...resume,
       userId: user,
+      profileId,
       profileName: userDetails?.name,
       contactNo: contactNo,
       objective: objective,
     };
 
     dispatch(savePersonalInfo(obj));
-    navigate("/education");
+    if (!profileId) {
+      navigate("/education");
+    } else {
+      navigate(`/education/?profileId=${obj.profileId}`);
+    }
   };
 
   const handleNextClickCandidate = () => {
