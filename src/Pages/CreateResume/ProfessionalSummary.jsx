@@ -214,7 +214,7 @@ function ProfessionalSummary() {
           {!isSaved ? (
             <Button onClick={handleSaveClick}>Save</Button>
           ) : (
-            <Button className="sidebar-submit-btn" onClick={handleSubmit}>
+            <Button onClick={handleSubmit}>
               <h4>Submit</h4>
             </Button>
           )}

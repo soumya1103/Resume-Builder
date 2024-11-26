@@ -63,13 +63,18 @@
   color: #243c76;
 }
 
-.resume-delete-icon {
+.table-icons{
+display: flex;
+gap: 12px;
+}
+
+.resume-delete-icon, .resume-edit-icon {
   color: #e74860;
   cursor: pointer;
   font-size: 1.2rem;
 }
 
-.resume-delete-icon:hover {
+.resume-delete-icon:hover, .resume-edit-icon:hover {
   color: #243c76;
 }
 

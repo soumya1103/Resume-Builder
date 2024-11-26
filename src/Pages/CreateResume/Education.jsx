@@ -208,6 +208,7 @@ function Education() {
                       <td>{field.startDate}</td>
                       <td>{field.endDate}</td>
                       <td>
+                        <div className="table-icons">
                         <FontAwesomeIcon
                           icon={faEdit}
                           className="resume-edit-icon"
@@ -218,6 +219,7 @@ function Education() {
                           className="resume-delete-icon"
                           onClick={() => handleDeleteClick(index + 1)}
                         />
+                        </div>
                       </td>
                     </tr>
                   ))}
