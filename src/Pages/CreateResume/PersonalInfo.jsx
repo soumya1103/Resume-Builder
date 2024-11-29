@@ -165,6 +165,8 @@ function PersonalInfo() {
     const fetchProfile = async () => {
       if(role === "employee"){
         id = employeeId;
+      }else if(role=== "candidate"){
+        id= candidateId;
       }else{
         id = user.userId;
       }

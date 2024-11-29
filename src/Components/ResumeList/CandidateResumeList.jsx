@@ -4,13 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
 import "./ResumeList.css";
 import Navbar from "../Navbar/Navbar";
 
 const CandidateResumeList = () => {
   const [profiles, setProfiles] = useState([]);
-  const [selectedUserId, setSelectedUserId] = useState(null);
   const navigate = useNavigate();
 
   const getProfiles = async () => {
@@ -43,6 +42,13 @@ const CandidateResumeList = () => {
     navigate(`/viewResumeCandidate/${userId}`);
   };
 
+  const handleEdit = (profile) => {
+    navigate(`/personalInfo/?profileId=${profile.id}`);
+    window.localStorage.removeItem("profileId");
+    window.localStorage.setItem("profileId", profile.id);
+    
+  };
+
   return (
     <>
       <Navbar />
@@ -69,8 +75,11 @@ const CandidateResumeList = () => {
                 <td>
                   <button className="resume-list-delete-button" onClick={() => handleViewClick(profile.id)}>
                     <FontAwesomeIcon className="resume-eye" icon={faEye} />
-                    <span>View</span>
                   </button>
+                  <button className="resume-list-delete-button" onClick={() => handleEdit(profile)}>
+                    <FontAwesomeIcon className="resume-eye" icon={faEdit}/>
+                  </button>
+
                 </td>
               </tr>
             ))}
