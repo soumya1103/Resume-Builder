@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { savePersonalInfo } from "../../Redux/ResumeReducer/ResumeAction";
 import { getCandidateProfileById, getUserById } from "../../Api/apiService";
 import { ToastContainer, toast } from "react-toastify";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 import { view_resume } from "../../Api/apiService";
 import "./CreateResume.css";
 
@@ -43,7 +42,15 @@ function PersonalInfo() {
     try {
       const response = await getCandidateProfileById(candidateId);
       if (response?.status === 200 || response?.status === 201) {
-        setCandidateDetails(response.data);
+        //setCandidateDetails(response.data);
+        const profile = response.data;
+
+        const nameParts = (profile?.name || "").split(" ");
+        setFirstName(nameParts[0] || ""); // First part of the name
+        setLastName(nameParts.slice(1).join(" ") || ""); // Remaining parts of the name  
+        setEmail(profile?.email || "");
+        setContactNo(profile?.contactNo || "");
+        setObjective(profile?.objective || "");
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.", {

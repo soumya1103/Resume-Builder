@@ -47,10 +47,10 @@ const CandidateResumeList = () => {
     navigate(`/viewResumeCandidate/${userId}`);
   };
 
-  const handleEdit = (profile) => {
-    navigate(`/personalInfo/?profileId=${profile.id}`);
+  const handleEdit = (userId) => {
+    navigate(`/personalInfo/?profileId=${userId}`);
     window.localStorage.removeItem("profileId");
-    window.localStorage.setItem("profileId", profile.id);
+    window.localStorage.setItem("profileId", userId);
   };
 
   const openDeleteModal = (resumeId) => {
@@ -106,7 +106,7 @@ const CandidateResumeList = () => {
                   </button>
                   <button
                     className="resume-list-delete-button"
-                    onClick={() => handleEdit(profile)}
+                    onClick={() => handleEdit(profile.id)}
                   >
                     <FontAwesomeIcon className="resume-eye" icon={faEdit} />
                   </button>
