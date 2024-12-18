@@ -104,15 +104,15 @@ const ViewResume = (candidateId) => {
         </div>
         <div className="personal-info">
           <h1>{profile.profileName}</h1>
-          {profile.contactNo && <div className="contact">📞 {profile.contactNo}</div>}
-          {profile.email && <div className="contact">✉️ {profile.email}</div>}
+          {/* {profile.contactNo && <div className="contact">📞 {profile.contactNo}</div>}
+          {profile.email && <div className="contact">✉️ {profile.email}</div>} */}
         </div>
 
-        <h2 className="section-title">Objective</h2>
-        <p>{profile.objective}</p>
+        {/* <h2 className="section-title">Objective</h2>
+        <p>{profile.objective}</p> */}
 
-        <h2 className="section-title">Professional Summary</h2>
-        <p>{profile.profileData?.professionalSummary}</p>
+        {/* <h2 className="section-title">Professional Summary</h2> */}
+        {/* <p>{profile.profileData?.professionalSummary}</p> */}
 
         <h2 className="section-title">Technical Skills</h2>
         {profile.profileData?.technicalSkills?.technology?.length > 0 && (
@@ -148,7 +148,7 @@ const ViewResume = (candidateId) => {
           </>
         )}
 
-        <h2 className="section-title">Professional Experience</h2>
+<h2 className="section-title">Professional Experience</h2>
         {sortedExperience.map((experience, index) => (
           <div key={index} className="professional-experience">
             <h3 className="experience-heading">
@@ -167,7 +167,10 @@ const ViewResume = (candidateId) => {
           </div>
         ))}
 
-        <h2 className="section-title">Education</h2>
+
+       
+
+<h2 className="section-title">Education</h2>
         {sortedEducation.map((education, index) => (
           <div key={index} className="education">
             <h3 className="experience-heading">
@@ -179,12 +182,15 @@ const ViewResume = (candidateId) => {
           </div>
         ))}
 
-        <h2 className="section-title">Certificates</h2>
+    
+       
+
+        {/* <h2 className="section-title">Certificates</h2>
         <ul className="bullet-section">
           {profile.profileData?.certificates?.map((certificate, index) => (
             <li key={index}>{certificate}</li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </>
   );
