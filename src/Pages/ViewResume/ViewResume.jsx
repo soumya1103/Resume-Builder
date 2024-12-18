@@ -82,7 +82,7 @@ const ViewResume = (candidateId) => {
   const sortedExperience = [...(profile.profileData?.professionalExperience || [])].sort(
     (a, b) => new Date(b.endDate) - new Date(a.endDate)
   );
-  
+
   const sortedEducation = [...(profile.profileData?.education || [])].sort(
     (a, b) => new Date(b.duration.split(" - ")[1]) - new Date(a.duration.split(" - ")[1])
   );
@@ -104,93 +104,96 @@ const ViewResume = (candidateId) => {
         </div>
         <div className="personal-info">
           <h1>{profile.profileName}</h1>
-          {/* {profile.contactNo && <div className="contact">📞 {profile.contactNo}</div>}
-          {profile.email && <div className="contact">✉️ {profile.email}</div>} */}
         </div>
 
-        {/* <h2 className="section-title">Objective</h2>
-        <p>{profile.objective}</p> */}
-
-        {/* <h2 className="section-title">Professional Summary</h2> */}
-        {/* <p>{profile.profileData?.professionalSummary}</p> */}
-
-        <h2 className="section-title">Technical Skills</h2>
-        {profile.profileData?.technicalSkills?.technology?.length > 0 && (
+        {profile.objective && (
           <>
-            <h3 className="sub-section-title">Technology</h3>
-            <ul className="bullet-section">
-              {profile.profileData.technicalSkills.technology.map((tech, index) => (
-                <li key={index}>{tech}</li>
-              ))}
-            </ul>
+            <h2 className="section-title">Objective</h2>
+            <p>{profile.objective}</p>
           </>
         )}
 
-        {profile.profileData?.technicalSkills?.programming?.length > 0 && (
+        {profile.profileData?.professionalSummary && (
           <>
-            <h3 className="sub-section-title">Programming</h3>
-            <ul className="bullet-section">
-              {profile.profileData.technicalSkills.programming.map((prog, index) => (
-                <li key={index}>{prog}</li>
-              ))}
-            </ul>
+            <h2 className="section-title">Professional Summary</h2>
+            <p>{profile.profileData.professionalSummary}</p>
           </>
         )}
 
-        {profile.profileData?.technicalSkills?.tools?.length > 0 && (
+        {profile.profileData?.technicalSkills && (
           <>
-            <h3 className="sub-section-title">Tools</h3>
-            <ul className="bullet-section">
-              {profile.profileData.technicalSkills.tools.map((tool, index) => (
-                <li key={index}>{tool}</li>
-              ))}
-            </ul>
+            <h2 className="section-title">Technical Skills</h2>
+            {profile.profileData.technicalSkills.technology?.length > 0 && (
+              <>
+                <h3 className="sub-section-title">Technology</h3>
+                <ul className="bullet-section">
+                  {profile.profileData.technicalSkills.technology.map((tech, index) => (
+                    <li key={index}>{tech}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {profile.profileData.technicalSkills.programming?.length > 0 && (
+              <>
+                <h3 className="sub-section-title">Programming</h3>
+                <ul className="bullet-section">
+                  {profile.profileData.technicalSkills.programming.map((prog, index) => (
+                    <li key={index}>{prog}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {profile.profileData.technicalSkills.tools?.length > 0 && (
+              <>
+                <h3 className="sub-section-title">Tools</h3>
+                <ul className="bullet-section">
+                  {profile.profileData.technicalSkills.tools.map((tool, index) => (
+                    <li key={index}>{tool}</li>
+                  ))}
+                </ul>
+              </>
+            )}
           </>
         )}
 
-<h2 className="section-title">Professional Experience</h2>
-        {sortedExperience.map((experience, index) => (
-          <div key={index} className="professional-experience">
-            <h3 className="experience-heading">
-              {experience.jobTitle} at {experience.companyName}
-              <span className="experience-dates">
-                ({formatDate(experience.startDate)} - {formatDate(experience.endDate)})
-              </span>
-            </h3>
-            <p>
-              <strong>Project:</strong> {experience.projectName}
-            </p>
-            <p>
-              <strong>Technologies Used:</strong> {experience.techStack}
-            </p>
-            <ul className="bullet-section">{formatExperienceDetails(experience.details)}</ul>
-          </div>
-        ))}
+        {sortedExperience.length > 0 && (
+          <>
+            <h2 className="section-title">Professional Experience</h2>
+            {sortedExperience.map((experience, index) => (
+              <div key={index} className="professional-experience">
+                <h3 className="experience-heading">
+                  {experience.jobTitle} at {experience.companyName}
+                  <span className="experience-dates">
+                    ({formatDate(experience.startDate)} - {formatDate(experience.endDate)})
+                  </span>
+                </h3>
+                <p>
+                  <strong>Project:</strong> {experience.projectName}
+                </p>
+                <p>
+                  <strong>Technologies Used:</strong> {experience.techStack}
+                </p>
+                <ul className="bullet-section">{formatExperienceDetails(experience.details)}</ul>
+              </div>
+            ))}
+          </>
+        )}
 
-
-       
-
-<h2 className="section-title">Education</h2>
-        {sortedEducation.map((education, index) => (
-          <div key={index} className="education">
-            <h3 className="experience-heading">
-              {education.course} from {education.collegeName}
-            </h3>
-            <p>
-              Duration: {formatDate(education.duration.split(" - ")[0])} - {formatDate(education.duration.split(" - ")[1])}
-            </p>
-          </div>
-        ))}
-
-    
-       
-
-        {/* <h2 className="section-title">Certificates</h2>
-        <ul className="bullet-section">
-          {profile.profileData?.certificates?.map((certificate, index) => (
-            <li key={index}>{certificate}</li>
-          ))}
-        </ul> */}
+        {sortedEducation.length > 0 && (
+          <>
+            <h2 className="section-title">Education</h2>
+            {sortedEducation.map((education, index) => (
+              <div key={index} className="education">
+                <h3 className="experience-heading">
+                  {education.course} from {education.collegeName}
+                </h3>
+                <p>
+                  Duration: {formatDate(education.duration.split(" - ")[0])} - {formatDate(education.duration.split(" - ")[1])}
+                </p>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </>
   );
