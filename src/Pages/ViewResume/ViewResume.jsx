@@ -46,6 +46,10 @@ const ViewResume = (candidateId) => {
   }, [userId, profileId]);
 
   const downloadPDF = () => {
+
+
+    
+
     const element = document.getElementById("resume-content");
     const opt = {
       margin: 0,
@@ -116,7 +120,7 @@ const ViewResume = (candidateId) => {
         {profile.profileData?.professionalSummary && (
           <>
             <h2 className="section-title">Professional Summary</h2>
-            <p>{profile.profileData.professionalSummary}</p>
+            <p className="section-para">{profile.profileData.professionalSummary}</p>
           </>
         )}
 
@@ -126,7 +130,7 @@ const ViewResume = (candidateId) => {
             {profile.profileData.technicalSkills.technology?.length > 0 && (
               <>
                 <h3 className="sub-section-title">Technology</h3>
-                <ul className="bullet-section">
+                <ul className="bullet-section-tech">
                   {profile.profileData.technicalSkills.technology.map((tech, index) => (
                     <li key={index}>{tech}</li>
                   ))}
@@ -136,7 +140,7 @@ const ViewResume = (candidateId) => {
             {profile.profileData.technicalSkills.programming?.length > 0 && (
               <>
                 <h3 className="sub-section-title">Programming</h3>
-                <ul className="bullet-section">
+                <ul className="bullet-section-tech">
                   {profile.profileData.technicalSkills.programming.map((prog, index) => (
                     <li key={index}>{prog}</li>
                   ))}
@@ -146,7 +150,7 @@ const ViewResume = (candidateId) => {
             {profile.profileData.technicalSkills.tools?.length > 0 && (
               <>
                 <h3 className="sub-section-title">Tools</h3>
-                <ul className="bullet-section">
+                <ul className="bullet-section-tech">
                   {profile.profileData.technicalSkills.tools.map((tool, index) => (
                     <li key={index}>{tool}</li>
                   ))}

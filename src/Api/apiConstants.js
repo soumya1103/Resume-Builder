@@ -37,3 +37,6 @@ export const GET_ALL_CANDIDATE = "/api/candidate-profiles/getAllProfile";
 export const GET_CANDIDATE_PROFILE_BY_ID = "/api/candidate-profiles";
 
 export const UPDATE_RESUME = "/api/user-profiles/update"
+
+
+export const DELETE_CANDIDATE_PROFILE = (resumeId) => `/api/candidate-profiles/${resumeId}/delete`

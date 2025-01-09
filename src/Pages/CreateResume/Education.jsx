@@ -7,16 +7,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { EDUCATION } from "../../Redux/ResumeReducer/ResumeTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { view_resume } from "../../Api/apiService";
+import { getCandidateProfileById, getUserById, view_resume } from "../../Api/apiService";
 import Modal from "../../Components/Modal/Modal";
+import { toast } from "react-toastify";
 
 function Education() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const profileId = new URLSearchParams(location.search).get("profileId");
+  const candidateUserId = new URLSearchParams(location.search).get("candidateProfileId");
   const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
   const savedEducationData = useSelector((state) => state.resume.profileData.education);
+  const candidateId = localStorage.getItem("profileId") || { profileId: "" };
   const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   let [id, setId] = useState("");
@@ -25,9 +28,12 @@ function Education() {
   const [educationFields, setEducationFields] = useState([
     { institutionName: "", course: "", startDate: "", endDate: "", collapsed: false },
   ]);
-
+ const [userDetails, setUserDetails] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  
+    const userDet = useSelector((state) => state.auth);
+    const { userId } = userDet;
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [editField, setEditField] = useState({
@@ -36,6 +42,80 @@ function Education() {
     startDate: "",
     endDate: "",
   });
+
+  const getCandidateDetails = async () => {
+    try {
+      const response = await getCandidateProfileById(candidateId);
+      console.log(response);
+  
+      if (response?.status === 200 || response?.status === 201) {
+        const profile = response.data.profileData;
+        const educationData = profile?.education || [];
+  
+        if (educationData.length > 0) {
+          const formattedEducationFields = educationData.map((edu) => {
+            let startDate = "";
+            let endDate = "";
+  
+         
+            if (edu.duration) {
+              const duration = edu.duration.replace(/\s+/g, ""); 
+              [startDate, endDate] = duration.split("-"); 
+            }
+  
+            return {
+              institutionName: edu.collegeName || "",
+              course: edu.course || "",
+              startDate: startDate || null,
+              endDate: endDate || startDate || null, 
+              collapsed: false,
+            };
+          });
+  
+          setEducationFields(formattedEducationFields);
+        }
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
+        autoClose: 2000,
+      });
+    }
+  };
+
+    const getUserDetails = async () => {
+      if (role === "employee") {
+        const response = await getUserById(user.userId);
+        try {
+          if (response?.status === 200 || response?.status === 201) {
+            setUserDetails(response.data);
+          }
+        } catch (error) {
+          toast.error(error?.response?.data?.message || "Something went wrong.", {
+            autoClose: 2000,
+          });
+        }
+      } else {
+        const response = await getUserById(userId);
+        try {
+          if (response?.status === 200 || response?.status === 201) {
+            setUserDetails(response.data);
+          }
+        } catch (error) {
+          toast.error(error?.response?.data?.message || "Something went wrong.", {
+            autoClose: 2000,
+          });
+        }
+      }
+    };
+
+   useEffect(() => {
+      if (role !== "candidate") {
+        getUserDetails();
+      } else {
+        getCandidateDetails();
+      }
+    }, []);
+  
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -66,8 +146,6 @@ function Education() {
           });
 
           setEducationFields(formattedFields.length > 0 ? formattedFields : educationFields);
-        } else {
-          setError("Profile or education data not found");
         }
       } catch (err) {
         console.error("Fetch Error:", err);
@@ -80,30 +158,46 @@ function Education() {
     if (profileId) fetchProfile();
   }, [profileId, user.userId]);
 
-  const handlePrevClick = () => {
-    navigate(profileId ? `/personalInfo?profileId=${profileId}` : "/personalInfo");
-  };
-
   const handleNextClick = () => {
     const currentFormData = {
-      collegeName: educationFields[0].institutionName,
-      course: educationFields[0].course,
-      duration: `${educationFields[0].startDate} - ${educationFields[0].endDate}`,
+        collegeName: educationFields[0].institutionName,
+        course: educationFields[0].course,
+        duration: `${educationFields[0].startDate} - ${educationFields[0].endDate}`,
     };
 
     const tableData = educationFields.slice(1).map((field) => ({
-      collegeName: field.institutionName,
-      course: field.course,
-      duration: `${field.startDate} - ${field.endDate}`,
+        collegeName: field.institutionName,
+        course: field.course,
+        duration: `${field.startDate} - ${field.endDate}`,
     }));
 
     const allEducationData = [currentFormData, ...tableData].filter(
-      (data) => data.collegeName || data.course || (data.startDate && data.endDate)
+        (data) => data.collegeName || data.course || (data.startDate && data.endDate)
     );
 
     dispatch({ type: EDUCATION, payload: allEducationData });
-    navigate(profileId ? `/professionalExperience?profileId=${profileId}` : "/professionalExperience");
-  };
+
+
+    if (role === "employee") {
+        navigate(profileId ? `/professionalExperience?profileId=${profileId}` : "/professionalExperience");
+    } else if (role === "candidate") {
+      console.log(role);
+        navigate(`/professionalExperience?candidateProfileId=${candidateId}`);
+    } else {
+        navigate(profileId ? `/professionalExperience?profileId=${profileId}` : "/professionalExperience");
+    }
+};
+
+
+const handlePrevClick = () => {
+    if (role === "employee") {
+        navigate(profileId ? `/personalInfo?profileId=${profileId}` : "/personalInfo");
+    } else if (role === "candidate") {
+        navigate(`/personalInfo?candidateProfileId=${candidateUserId}`);
+    } else {
+        navigate(profileId ? `/personalInfo?profileId=${profileId}` : "/personalInfo");
+    }
+};
 
   const handlePlusClick = () => {
     const updatedFields = educationFields.map((field, index) => (index === 0 ? { ...field, collapsed: true } : field));
@@ -122,6 +216,7 @@ function Education() {
 
   const handleFieldChange = (index, fieldName, value) => {
     const updatedFields = educationFields.map((field, i) => (i === index ? { ...field, [fieldName]: value } : field));
+    console.log(updatedFields);
     setEducationFields(updatedFields);
   };
 
@@ -170,7 +265,7 @@ function Education() {
                   <Input
                     label="Start Year"
                     name="startYear"
-                    type="number"
+                    type="text"
                     className="resume-form-input-field"
                     value={educationFields[0].startDate}
                     onChange={(e) => handleFieldChange(0, "startDate", e.target.value)}
@@ -178,7 +273,7 @@ function Education() {
                   <Input
                     label="End Year"
                     name="endYear"
-                    type="number"
+                    type="text"
                     className="resume-form-input-field"
                     value={educationFields[0].endDate}
                     onChange={(e) => handleFieldChange(0, "endDate", e.target.value)}
@@ -257,7 +352,7 @@ function Education() {
           <Input
             label="Start Year"
             name="startYear"
-            type="number"
+            type="text"
             value={editField.startDate}
             onChange={(e) => setEditField({ ...editField, startDate: e.target.value })}
             className="modal-input"
@@ -265,7 +360,7 @@ function Education() {
           <Input
             label="End Year"
             name="endYear"
-            type="number"
+            type="text"
             value={editField.endDate}
             onChange={(e) => setEditField({ ...editField, endDate: e.target.value })}
             className="modal-input"

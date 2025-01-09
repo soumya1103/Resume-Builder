@@ -16,6 +16,8 @@ function PersonalInfo() {
   const dispatch = useDispatch();
   const resume = useSelector((state) => state.resume);
   const profileId = new URLSearchParams(location.search).get("profileId");
+  const candidateUserId = new URLSearchParams(location.search).get("candidateProfileId");
+  console.log(candidateUserId);
   const user = JSON.parse(localStorage.getItem("auth")) || { name: "", email: "", userId: "" };
 
   const [firstName, setFirstName] = useState(resume.firstName || user.name.split(" ")[0] || "");
@@ -32,6 +34,7 @@ function PersonalInfo() {
 
   const userDet = useSelector((state) => state.auth);
   const { userId } = userDet;
+
 
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   const candidateId = localStorage.getItem("profileId") || { profileId: "" };
@@ -123,6 +126,7 @@ function PersonalInfo() {
   };
 
   const handleNextClickCandidate = () => {
+    console.log("next");
     const obj = {
       ...resume,
       id: candidateId,
@@ -133,7 +137,7 @@ function PersonalInfo() {
     };
 
     dispatch(savePersonalInfo(obj));
-    navigate("/education");
+    navigate(`/education/?candidateProfileId=${candidateId}`);
   };
 
   useEffect(() => {
@@ -167,7 +171,7 @@ function PersonalInfo() {
     }
   }, [userDetails, candidateDetails]);
 
-// avanti
+
   useEffect(() => {
     const fetchProfile = async () => {
       if(role === "employee"){

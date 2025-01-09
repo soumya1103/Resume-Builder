@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllCandidates, deleteResume } from "../../Api/apiService";
+import { getAllCandidates, deleteResume, deleteCandidateResume } from "../../Api/apiService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
@@ -48,7 +48,7 @@ const CandidateResumeList = () => {
   };
 
   const handleEdit = (userId) => {
-    navigate(`/personalInfo/?profileId=${userId}`);
+    navigate(`/personalInfo/?candidateProfileId=${userId}`);
     window.localStorage.removeItem("profileId");
     window.localStorage.setItem("profileId", userId);
   };
@@ -61,7 +61,8 @@ const CandidateResumeList = () => {
   const confirmDelete = async () => {
     if (!selectedResumeId) return;
     try {
-      const deleteResponse = await deleteResume(selectedResumeId);
+      console.log(selectedResumeId);
+      const deleteResponse = await deleteCandidateResume(selectedResumeId);
       if (deleteResponse.data.isDeleted) {
         setProfiles((prevProfiles) =>
           prevProfiles.filter((profile) => profile.id !== selectedResumeId)

@@ -6,8 +6,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../Components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { SKILLS } from "../../Redux/ResumeReducer/ResumeTypes";
-import { view_resume } from "../../Api/apiService";
+import { getCandidateProfileById, getUserById, view_resume } from "../../Api/apiService";
 import "./Skills.css";
+import { toast } from "react-toastify";
 
 function Skills() {
   const navigate = useNavigate();
@@ -19,17 +20,90 @@ function Skills() {
   const [technology, setTechnology] = useState(technicalSkills.technology || []);
   const [programmingLanguage, setProgrammingLanguage] = useState(technicalSkills.programming || []);
   const [tools, setTools] = useState(technicalSkills.tools || []);
-  const user = JSON.parse(localStorage.getItem("auth")) || { name: "", email: "", userId: "" };
-  const profileId = new URLSearchParams(location.search).get("profileId");
 
+  const profileId = new URLSearchParams(location.search).get("profileId");
+  const candidateUserId = new URLSearchParams(location.search).get("candidateProfileId");
   const [inputTechnologyValue, setInputTechnologyValue] = useState("");
   const [inputProgrammingLanguageValue, setInputProgrammingLanguageValue] = useState("");
   const [inputToolsValue, setInputToolsValue] = useState("");
+  const [userDetails, setUserDetails] = useState();
+  const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
+  const candidateId = localStorage.getItem("profileId") || { profileId: "" };
   const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   let [id, setId] = useState("");
+ 
+
+    const userDet = useSelector((state) => state.auth);
+    const { userId } = userDet;
+
+    const getCandidateDetailsForSkills = async () => {
+      try {
+        const response = await getCandidateProfileById(candidateId);
+        console.log("Candidate Skills Response:", response);
+    
+        if (response?.status === 200 || response?.status === 201) {
+          const profile = response.data.profileData;
+          const technicalSkills = profile?.technicalSkills || {};
+    
+          const formattedSkillsFields = {
+            technology: technicalSkills?.technology || [],
+            programmingLanguage: technicalSkills?.programming || [],
+            tools: technicalSkills?.tools || [],
+          };
+    
+          console.log("Formatted Skills Fields:", formattedSkillsFields);
+    
+         
+          setTechnology(formattedSkillsFields.technology);
+          setProgrammingLanguage(formattedSkillsFields.programmingLanguage);
+          setTools(formattedSkillsFields.tools);
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong.", {
+          autoClose: 2000,
+        });
+        console.error("Error fetching candidate skills:", error);
+      }
+    };
 
 
+      const getUserDetails = async () => {
+          if (role === "employee") {
+            const response = await getUserById(user.userId);
+            try {
+              if (response?.status === 200 || response?.status === 201) {
+                setUserDetails(response.data);
+              }
+            } catch (error) {
+              toast.error(error?.response?.data?.message || "Something went wrong.", {
+                autoClose: 2000,
+              });
+            }
+          } else {
+            const response = await getUserById(userId);
+            try {
+              if (response?.status === 200 || response?.status === 201) {
+                setUserDetails(response.data);
+              }
+            } catch (error) {
+              toast.error(error?.response?.data?.message || "Something went wrong.", {
+                autoClose: 2000,
+              });
+            }
+          }
+        };
+
+   useEffect(() => {
+          if (role !== "candidate") {
+            getUserDetails();
+          } else {
+            getCandidateDetailsForSkills();
+          }
+        }, []);
+      
+
+  
   useEffect(() => {
     const fetchProfile = async () => {
       if(role === "employee"){
@@ -76,28 +150,34 @@ function Skills() {
   }, [technicalSkills]);
 
   const handlePrevClick = () => {
-    if (!profileId) {
-      navigate("/professionalExperience");
+    if (role === "employee") {
+        navigate(profileId ? `/professionalExperience?profileId=${profileId}` : "/professionalExperience");
+    } else if (role === "candidate") {
+        navigate(`/professionalExperience?candidateProfileId=${candidateUserId}`);
     } else {
-      navigate(`/professionalExperience?profileId=${profileId}`);
+        navigate(profileId ? `/professionalExperience?profileId=${profileId}` : "/professionalExperience");
     }
-  };
+};
 
-  const handleNextClick = () => {
-    dispatch({
-      type: SKILLS,
-      payload: {
-        technology,
-        programming: programmingLanguage,
-        tools,
-      },
-    });
-    if (profileId) {
-      navigate(`/professionalSummary?profileId=${profileId}`);
-    } else {
-      navigate("/professionalSummary");
-    }
-  };
+const handleNextClick = () => {
+  dispatch({
+    type: SKILLS,
+    payload: {
+      technology,
+      programming: programmingLanguage,
+      tools,
+    },
+  });
+
+  if (role === "employee") {
+    navigate(profileId ? `/professionalSummary?profileId=${profileId}` : "/professionalSummary");
+  } else if (role === "candidate") {
+    navigate(candidateId ? `/professionalSummary?candidateProfileId=${candidateId}` : "/professionalSummary");
+  } else {
+    navigate(profileId ? `/professionalSummary?profileId=${profileId}` : "/professionalSummary");
+  }
+};
+
 
   const handleKeyDown = (e, type) => {
     if (e.key === "Enter") {

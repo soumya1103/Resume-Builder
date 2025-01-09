@@ -8,14 +8,19 @@ import { faPlus, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ResumeHoc from "../../Components/Hoc/ResumeHoc";
 import { saveProfessionalExperience } from "../../Redux/ResumeReducer/ResumeAction";
-import { view_resume } from "../../Api/apiService";
+import { getCandidateProfileById, getUserById, view_resume } from "../../Api/apiService";
+import { toast } from "react-toastify";
+import { formatDate } from "../../Utils/formatDate";
 
 function ProfessionalExperience() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const profileId = new URLSearchParams(location.search).get("profileId");
+  const candidateUserId = new URLSearchParams(location.search).get("candidateProfileId");
+
   const user = JSON.parse(localStorage.getItem("auth")) || { userId: "" };
+  const candidateId = localStorage.getItem("profileId") || { profileId: "" };
   const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   let [id, setId] = useState("");
@@ -29,7 +34,9 @@ function ProfessionalExperience() {
   ]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+   const userDet = useSelector((state) => state.auth);
+  const { userId } = userDet;
+ const [userDetails, setUserDetails] = useState();
   const [showModal, setShowModal] = useState(false);
   const [editFieldIndex, setEditFieldIndex] = useState(null);
   const [editField, setEditField] = useState({
@@ -41,6 +48,74 @@ function ProfessionalExperience() {
     techStack: "",
     details: "",
   });
+
+  const getCandidateDetailsForExperience = async () => {
+    try {
+      const response = await getCandidateProfileById(candidateId);
+      console.log(response);
+  
+      if (response?.status === 200 || response?.status === 201) {
+        const profile = response.data.profileData;
+        const professionalExperienceData = profile?.professionalExperience || [];
+  
+        if (professionalExperienceData.length > 0) {
+          const formattedExperienceFields = professionalExperienceData.map((exp) => ({
+            jobTitle: exp.jobTitle || "",
+            companyName: exp.companyName || "",
+            projectName: exp.projectName || "",
+            startDate: formatDate(exp.startDate) || "",
+            endDate: formatDate(exp.endDate) || "",
+            techStack: exp.techStack || "",
+            details: exp.details || "",
+          }));
+
+          console.log(formattedExperienceFields);
+  
+          setExperienceFields(formattedExperienceFields);
+        }
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
+        autoClose: 2000,
+      });
+    }
+  };
+
+     const getUserDetails = async () => {
+        if (role === "employee") {
+          const response = await getUserById(user.userId);
+          try {
+            if (response?.status === 200 || response?.status === 201) {
+              setUserDetails(response.data);
+            }
+          } catch (error) {
+            toast.error(error?.response?.data?.message || "Something went wrong.", {
+              autoClose: 2000,
+            });
+          }
+        } else {
+          const response = await getUserById(userId);
+          try {
+            if (response?.status === 200 || response?.status === 201) {
+              setUserDetails(response.data);
+            }
+          } catch (error) {
+            toast.error(error?.response?.data?.message || "Something went wrong.", {
+              autoClose: 2000,
+            });
+          }
+        }
+      };
+  
+
+   useEffect(() => {
+        if (role !== "candidate") {
+          getUserDetails();
+        } else {
+          getCandidateDetailsForExperience();
+        }
+      }, []);
+  
 
   useEffect(() => {
     const fetchProfessionalExperience = async () => {
@@ -83,32 +158,42 @@ function ProfessionalExperience() {
   }, [profileId, user.userId]);
 
   const handlePrevClick = () => {
-    if (!profileId) {
-      navigate("/education");
+    if (role === "employee") {
+        navigate(profileId ? `/education?profileId=${profileId}` : "/education");
+    } else if (role === "candidate") {
+        navigate(`/education?candidateProfileId=${candidateUserId}`);
     } else {
-      navigate(`/education?profileId=${profileId}`);
+        navigate(profileId ? `/education?profileId=${profileId}` : "/education");
     }
-  };
+};
 
-  const handleNextClick = () => {
-    const currentFormData = { ...experienceFields[0] };
 
-    const isCurrentFormDataEmpty = Object.values(currentFormData).every((val) => val === "");
+const handleNextClick = () => {
 
-    const tableData = experienceFields.slice(1);
+  const currentFormData = { ...experienceFields[0] };
 
-    const allExperienceData = isCurrentFormDataEmpty ? tableData : [currentFormData, ...tableData];
 
-    if (allExperienceData.length > 0) {
-      dispatch(saveProfessionalExperience(allExperienceData));
-    }
+  const isCurrentFormDataEmpty = Object.values(currentFormData).every((val) => val === "");
 
-    if (profileId) {
-      navigate(`/skills?profileId=${profileId}`);
-    } else {
-      navigate("/skills");
-    }
-  };
+  
+  const tableData = experienceFields.slice(1);
+
+ 
+  const allExperienceData = isCurrentFormDataEmpty ? tableData : [currentFormData, ...tableData];
+
+  
+  if (allExperienceData.length > 0) {
+    dispatch(saveProfessionalExperience(allExperienceData));
+  }
+
+  if (role === "employee") {
+    navigate(profileId ? `/skills?profileId=${profileId}` : "/skills");
+  } else if (role === "candidate") {
+    navigate(candidateId ? `/skills?candidateProfileId=${candidateId}` : "/skills");
+  } else {
+    navigate(profileId ? `/skills?profileId=${profileId}` : "/skills");
+  }
+};
 
   const handlePlusClick = () => {
     setExperienceFields([

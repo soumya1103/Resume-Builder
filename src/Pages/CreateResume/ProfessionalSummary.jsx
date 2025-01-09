@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
-import { addCandidate, addUser } from "../../Api/apiService";
+import { addCandidate, addUser, getCandidateProfileById, getUserById } from "../../Api/apiService";
 import { saveProfessionalSummary, saveCertificates } from "../../Redux/ResumeReducer/ResumeAction";
 import { view_resume } from "../../Api/apiService";
 
@@ -23,12 +23,16 @@ function ProfessionalSummary() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("auth")) || { name: "", email: "", userId: "" };
+  const candidateUserId = new URLSearchParams(location.search).get("candidateProfileId");
   const profileId = localStorage.getItem("profileId") || new URLSearchParams(window.location.search).get("profileId");
+  const candidateId = localStorage.getItem("profileId") || { profileId: "" };
   const profileName = user.name;
   const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   let [id, setId] = useState("");
-
+   const userDet = useSelector((state) => state.auth);
+    const { userId } = userDet;
+ const [userDetails, setUserDetails] = useState();
   const { professionalSummary, certificates } = useSelector((state) => state.resume.profileData);
 
   const [summary, setSummary] = useState(professionalSummary || "");
@@ -37,6 +41,69 @@ function ProfessionalSummary() {
   );
 
   const [isSaved, setIsSaved] = useState(false);
+
+  const getCandidateDetailsForSummary = async () => {
+    try {
+      const response = await getCandidateProfileById(candidateId);
+      console.log("Candidate Profile Response:", response);
+  
+      if (response?.status === 200 || response?.status === 201) {
+        const profile = response.data.profileData;
+        
+        const professionalSummary = profile?.professionalSummary || "";
+        const certificates = profile?.certificates || [];
+  
+        setSummary(professionalSummary);
+        setCertification(
+          certificates.length > 0
+            ? certificates.map((cert) => ({ certification: cert, collapsed: false }))
+            : [{ certification: "", collapsed: false }]
+        );
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
+        autoClose: 2000,
+      });
+      console.error("Error fetching candidate summary and certificates:", error);
+    }
+  };
+
+   const getUserDetails = async () => {
+          if (role === "employee") {
+            const response = await getUserById(user.userId);
+            try {
+              if (response?.status === 200 || response?.status === 201) {
+                setUserDetails(response.data);
+              }
+            } catch (error) {
+              toast.error(error?.response?.data?.message || "Something went wrong.", {
+                autoClose: 2000,
+              });
+            }
+          } else {
+            const response = await getUserById(userId);
+            try {
+              if (response?.status === 200 || response?.status === 201) {
+                setUserDetails(response.data);
+              }
+            } catch (error) {
+              toast.error(error?.response?.data?.message || "Something went wrong.", {
+                autoClose: 2000,
+              });
+            }
+          }
+        };
+    
+
+   useEffect(() => {
+          if (role !== "candidate") {
+            getUserDetails();
+          } else {
+            getCandidateDetailsForSummary();
+          }
+        }, []);
+    
+  
 
   useEffect(() => {
     if(role === "employee"){
@@ -81,10 +148,12 @@ function ProfessionalSummary() {
   }, [professionalSummary, certificates]);
 
   const handlePrevClick = () => {
-    if (!profileId) {
-      navigate("/skills");
+    if (role === "employee") {
+      navigate(profileId ? `/skills?profileId=${profileId}` : "/skills");
+    } else if (role === "candidate") {
+      navigate(candidateUserId ? `/skills?candidateProfileId=${candidateUserId}` : "/skills");
     } else {
-      navigate(`/skills?profileId=${profileId}`);
+      navigate(profileId ? `/skills?profileId=${profileId}` : "/skills");
     }
   };
   const handleSaveClick = async () => {
@@ -122,14 +191,17 @@ function ProfessionalSummary() {
 
     if (selectedRole === "candidate") {
         try {
-            const response = await addCandidate(profileId, updatedUserData);
+          console.log(profileId);
+          const response = await addCandidate(profileId, updatedUserData);
+            
             if (response.status === 200 || response.status === 201) {
                 toast.success(response?.data?.message, {
                     autoClose: 2000,
                 });
             }
             setTimeout(() => {
-                window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
+              
+                window.location.href ="/dashboardHr";
             }, 3000);
         } catch (error) {
             toast.error(error?.response?.data?.message || "Something went wrong.", {
@@ -146,7 +218,7 @@ function ProfessionalSummary() {
                 });
             }
             setTimeout(() => {
-                window.location.href = role.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
+                window.location.href =  "/dashboard";
             }, 3000);
         } catch (error) {
             toast.error(error?.response?.data?.message || "Something went wrong.", {

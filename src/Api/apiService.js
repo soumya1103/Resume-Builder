@@ -3,6 +3,7 @@ import {
   ADD_CANDIDATE,
   CHANGE_PASSWORD,
   CREATE_USER,
+  DELETE_CANDIDATE_PROFILE,
   GET_ALL_CANDIDATE,
   GET_ALL_PROFILES,
   GET_CANDIDATE_PROFILE_BY_ID,
@@ -60,6 +61,11 @@ export const saveResumeTitle = async (title, userId) => {
 export const deleteResume = async (resumeId) => {
   return await app.put(DELETE_RESUME(resumeId));
 };
+
+export const deleteCandidateResume = async (resumeId) => {
+  return await app.put(DELETE_CANDIDATE_PROFILE(resumeId));
+};
+
 
 export const getUserProfile = async (profileId) => {
   return await app.get(`${GET_PROFILE_DETAILS}/${profileId}`);
