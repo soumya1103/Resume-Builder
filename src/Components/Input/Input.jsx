@@ -1,7 +1,7 @@
 import React from "react";
 import "./Input.css";
 
-function Input({ label, name, min, max, type, value, onChange, className, maxLength, disabled, readOnly, margin = "3%" }) {
+function Input({ placeholder,label, name, min, max, type, value, onChange, className, maxLength, disabled, readOnly, margin = "3%" }) {
   return (
     <div className="form-content" style={{ marginTop: margin }}>
       <label htmlFor={name} className="form-field-label">
@@ -19,7 +19,7 @@ function Input({ label, name, min, max, type, value, onChange, className, maxLen
           autoComplete="on"
           min={min}
           max={max}
-          placeholder={label}
+          placeholder={placeholder || label}
           maxLength={maxLength}
           readOnly={readOnly}
           rows={label === "Objective" ? 11 : label === "Summary" ? 5 : label === "Bio" ? 5 : 1}
@@ -36,7 +36,7 @@ function Input({ label, name, min, max, type, value, onChange, className, maxLen
           autoComplete="on"
           min={min}
           max={max}
-          placeholder={label}
+          placeholder={placeholder || label}
           maxLength={maxLength}
           readOnly={readOnly}
           disabled={disabled}

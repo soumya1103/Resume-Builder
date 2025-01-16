@@ -168,7 +168,7 @@ const ViewResume = (candidateId) => {
                 <h3 className="experience-heading">
                   {experience.jobTitle} at {experience.companyName}
                   <span className="experience-dates">
-                    ({formatDate(experience.startDate)} - {formatDate(experience.endDate)})
+                    ({experience.startDate} - {experience.endDate})
                   </span>
                 </h3>
                 <p>

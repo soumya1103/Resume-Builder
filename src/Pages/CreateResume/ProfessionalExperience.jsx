@@ -65,8 +65,8 @@ function ProfessionalExperience() {
             jobTitle: exp.jobTitle || "",
             companyName: exp.companyName || "",
             projectName: exp.projectName || "",
-            startDate: formatDate(exp.startDate) || "",
-            endDate: formatDate(exp.endDate) || "",
+            startDate: exp.startDate || "",
+            endDate: exp.endDate || "",
             techStack: exp.techStack || "",
             details: exp.details || "",
           }));
@@ -217,27 +217,6 @@ const handleNextClick = () => {
     setShowModal(true);
   };
 
-  // const handleEditClick = (index) => {
-  //   const selectedExperience = experienceFields[index];
-    
-  //   let targetUrl = `/edit-professional-experience`;
-  
-  //   if (role === "employee") {
-  //     targetUrl = profileId
-  //       ? `${targetUrl}?profileId=${profileId}`
-  //       : targetUrl;
-  //   } else if (role === "candidate") {
-  //     targetUrl = candidateId
-  //       ? `${targetUrl}?candidateProfileId=${candidateId}`
-  //       : targetUrl;
-  //   } else {
-  //     targetUrl = profileId
-  //       ? `${targetUrl}?profileId=${profileId}`
-  //       : targetUrl;
-  //   }
-  
-  //   navigate(targetUrl, { state: selectedExperience });
-  // };
   
 
   const handleFieldChange = (index, fieldName, value) => {
@@ -293,7 +272,8 @@ const handleNextClick = () => {
     <Input
       label="Start Date"
       name="startDate"
-      type="date"
+      placeholder="yyyy-mm-dd"
+      type="text"
       className="resume-form-input-field"
       value={experienceFields[0].startDate}
       onChange={(e) => handleFieldChange(0, "startDate", e.target.value)}
@@ -301,7 +281,8 @@ const handleNextClick = () => {
     <Input
       label="End Date"
       name="endDate"
-      type="date"
+      placeholder="yyyy-mm-dd"
+      type="text"
       className="resume-form-input-field"
       value={experienceFields[0].endDate}
       onChange={(e) => handleFieldChange(0, "endDate", e.target.value)}
@@ -319,7 +300,7 @@ const handleNextClick = () => {
       label="Details"
       name="details"
       type="textarea"
-      className="resume-form-input-field"
+      className="edit-professional-field-details"
       value={experienceFields[0].details}
       onChange={(e) => handleFieldChange(0, "details", e.target.value)}
     />

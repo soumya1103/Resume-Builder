@@ -123,7 +123,9 @@ function DashboardHr() {
 
   const handleEmployeeSelect = (event) => {
     const selectedId = event.target.value;
+    console.log(selectedId);
     setSelectedEmployeeId(selectedId);
+    
     window.localStorage.setItem("selectedEmployeeId", selectedId);
   };
 
@@ -175,7 +177,7 @@ function DashboardHr() {
             </select>
           </div>
           <div>
-            {role === "employee" ? (
+            {role === "employee"? (
               <div style={{ marginTop: "2%" }}>
                 <label htmlFor="employeeSelect" className="form-field-label">
                   Select Employee

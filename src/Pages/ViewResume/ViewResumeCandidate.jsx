@@ -134,7 +134,7 @@ const ViewResumeCandidate = () => {
           <div>
             <h2 className="section-title">Technical Skills</h2>
 
-            {/* Technology Section */}
+            
             {resume.profileData?.technicalSkills?.technology?.length > 0 && (
               <>
                 <h3 className="sub-section-title">Technology</h3>
