@@ -204,7 +204,7 @@ const ViewResumeCandidate = () => {
         <h3 className="experience-heading">
           {education.course || "Course"} from {education.collegeName || "Institution"}
         </h3>
-        {education.duration && education.duration.trim().length > 0 && ( // Conditional rendering for duration
+        {education.duration && education.duration.trim().length > 0 && ( 
           <p
             className={
               education.duration.includes("%") || education.duration.includes("CGPA")

@@ -92,7 +92,7 @@ export const getUserByRole = async () => {
 };
 
 export const registerUser = async (name, email, password, role) => {
-  return await app.post(REGISTER_USER, { name, email, password, role });
+  return await app.post(REGISTER_USER, [{ name, email, password, role }]);
 };
 
 export const saveCandidateName = async (name) => {

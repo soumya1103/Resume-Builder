@@ -45,12 +45,12 @@ function PersonalInfo() {
     try {
       const response = await getCandidateProfileById(candidateId);
       if (response?.status === 200 || response?.status === 201) {
-        //setCandidateDetails(response.data);
+      
         const profile = response.data;
 
         const nameParts = (profile?.name || "").split(" ");
-        setFirstName(nameParts[0] || ""); // First part of the name
-        setLastName(nameParts.slice(1).join(" ") || ""); // Remaining parts of the name  
+        setFirstName(nameParts[0] || ""); 
+        setLastName(nameParts.slice(1).join(" ") || "");  
         setEmail(profile?.email || "");
         setContactNo(profile?.contactNo || "");
         setObjective(profile?.objective || "");
@@ -88,7 +88,7 @@ function PersonalInfo() {
     }
   };
 
-  // avanti
+ 
   const handleNextClick = () => {
     const updatedProfile = {
       ...resume,

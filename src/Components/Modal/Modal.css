@@ -11,17 +11,47 @@
   z-index: 1000;
 }
 
-.modal-content {
-  background-color: #f5f5f7;
+/* .modal-content {
+
   padding: 2%;
-  border-radius: 5px;
+
   position: relative;
   overflow-y: scroll;
+
+
+  overflow-x: hidden; 
+
+  font-family: "Roboto Slab", system-ui;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 45%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+} */
+
+.edit-modal-content {
+
+  padding: 2%;
+
+  position: relative;
+  overflow-y: scroll;
+
+
+  overflow-x: hidden; 
+
+  font-family: "Roboto Slab", system-ui;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 45%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+
 }
 
-.modal-content::-webkit-scrollbar {
-  display: none;
-}
 
 .modal-close {
   position: absolute;

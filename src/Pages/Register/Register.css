@@ -9,9 +9,24 @@
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
+
+.register-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .register-btn {
-  position: absolute;
-  left: 20.5%;
-  bottom: 14%;
-  padding: 0.5% 3%;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.left-btn {
+  margin-right: auto;
+}
+
+.right-btn {
+  margin-left: auto;
 }

@@ -34,9 +34,9 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 400px;
+  width: 30%;
   max-height: 80vh;
-  overflow-y: auto;
+ 
   position: relative;
 }
 

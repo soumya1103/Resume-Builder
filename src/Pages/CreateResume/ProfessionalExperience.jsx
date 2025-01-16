@@ -11,6 +11,8 @@ import { saveProfessionalExperience } from "../../Redux/ResumeReducer/ResumeActi
 import { getCandidateProfileById, getUserById, view_resume } from "../../Api/apiService";
 import { toast } from "react-toastify";
 import { formatDate } from "../../Utils/formatDate";
+import "./CreateResume.css";
+import "./ProfessionalExperience.css";
 
 function ProfessionalExperience() {
   const dispatch = useDispatch();
@@ -118,6 +120,8 @@ function ProfessionalExperience() {
   
 
   useEffect(() => {
+
+   
     const fetchProfessionalExperience = async () => {
       if(role === "employee"){
         id = employeeId;
@@ -212,6 +216,29 @@ const handleNextClick = () => {
     setEditFieldIndex(index);
     setShowModal(true);
   };
+
+  // const handleEditClick = (index) => {
+  //   const selectedExperience = experienceFields[index];
+    
+  //   let targetUrl = `/edit-professional-experience`;
+  
+  //   if (role === "employee") {
+  //     targetUrl = profileId
+  //       ? `${targetUrl}?profileId=${profileId}`
+  //       : targetUrl;
+  //   } else if (role === "candidate") {
+  //     targetUrl = candidateId
+  //       ? `${targetUrl}?candidateProfileId=${candidateId}`
+  //       : targetUrl;
+  //   } else {
+  //     targetUrl = profileId
+  //       ? `${targetUrl}?profileId=${profileId}`
+  //       : targetUrl;
+  //   }
+  
+  //   navigate(targetUrl, { state: selectedExperience });
+  // };
+  
 
   const handleFieldChange = (index, fieldName, value) => {
     const updatedFields = experienceFields.map((field, i) => (i === index ? { ...field, [fieldName]: value } : field));
@@ -343,43 +370,55 @@ const handleNextClick = () => {
 
       {/* Edit Modal */}
       {showModal && (
-        <Modal show={showModal} onClose={() => setShowModal(false)}>
+        <Modal className ="edit-modal-content" show={showModal} onClose={() => setShowModal(false)}>
           <h2>Edit Professional Experience</h2>
+          <div className="professionalExperience-modal-edit">
           <Input
+            className="edit-professional-field"
             label="Job Title"
             value={editField.jobTitle}
             onChange={(e) => setEditField({ ...editField, jobTitle: e.target.value })}
           />
           <Input
+          className="edit-professional-field"
             label="Company Name"
             value={editField.companyName}
             onChange={(e) => setEditField({ ...editField, companyName: e.target.value })}
           />
           <Input
+          className="edit-professional-field"
             label="Project Name"
             value={editField.projectName}
             onChange={(e) => setEditField({ ...editField, projectName: e.target.value })}
           />
           <Input
+          className="edit-professional-field"
             label="Start Date"
             value={editField.startDate}
             onChange={(e) => setEditField({ ...editField, startDate: e.target.value })}
           />
           <Input
+          className="edit-professional-field"
             label="End Date"
             value={editField.endDate}
             onChange={(e) => setEditField({ ...editField, endDate: e.target.value })}
           />
           <Input
+          className="edit-professional-field"
             label="Tech Stack"
             value={editField.techStack}
             onChange={(e) => setEditField({ ...editField, techStack: e.target.value })}
           />
           <Input
+          type="textarea"
+          
+          className="edit-professional-field-details"
             label="Details"
             value={editField.details}
             onChange={(e) => setEditField({ ...editField, details: e.target.value })}
           />
+
+          </div>
           <Button onClick={handleModalSave}>Save</Button>
         </Modal>
       )}

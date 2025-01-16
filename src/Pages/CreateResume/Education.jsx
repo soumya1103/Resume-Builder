@@ -329,7 +329,7 @@ const handlePrevClick = () => {
         <Button onClick={handleNextClick}>Save</Button>
       </div>
 
-      {/* Modal for Editing */}
+   
       <Modal show={showModal} onClose={() => setShowModal(false)} width="400px" height="400px">
         <h2>Edit Education</h2>
         <Input

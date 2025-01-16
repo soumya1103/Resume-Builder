@@ -36,6 +36,7 @@ const resumeReducer = (state = initialState, action) => {
       };
 
     case PROFESSIONAL_EXPERIENCE:
+      console.log('Payload:', action.payload);
       return {
         ...state,
         profileData: {

@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EmployeeResumeList from "./Components/ResumeList/EmployeeResumeList";
 import CandidateResumeList from "./Components/ResumeList/CandidateResumeList";
 import ViewResumeCandidate from "./Pages/ViewResume/ViewResumeCandidate";
+import EditProfessionalExperience from "./Pages/CreateResume/EditProfessionalExperience";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/personalInfo" element={<PersonalInfo />} />
         <Route path="/education" element={<Education />} />
         <Route path="/professionalExperience" element={<ProfessionalExperience />} />
+        <Route path="/edit-professional-experience" element={<EditProfessionalExperience />} />
         <Route path="/skills" element={<Skills />} />
         <Route path="/professionalSummary" element={<ProfessionalSummary />} />
         <Route path="/register" element={<Register />} />

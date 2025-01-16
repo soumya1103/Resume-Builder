@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { registerUser } from "../../Api/apiService";
 import { toast, ToastContainer } from "react-toastify";
+import * as XLSX from "xlsx";
 
 function Register() {
   const [name, setName] = useState("");
@@ -15,9 +16,39 @@ function Register() {
   const [password, setPassword] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
 
+
   const handleChange = (event) => {
     setSelectedRole(event.target.value);
   };
+
+
+  const handleAllRegistration = () => {
+    document.getElementById("upload-excel").click();
+  };
+
+  const handleExcelUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+      toast.error("No file selected.");
+      return;
+    }
+
+    try {
+      const data = await file.arrayBuffer();
+      const workbook = XLSX.read(data, { type: "array" });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+      
+      console.log("Parsed Excel Data:", jsonData);
+     
+    } catch (error) {
+      toast.error("Failed to process the Excel file.");
+    }
+  };
+ 
+
 
   const handleRegister = async () => {
     try {
@@ -38,6 +69,7 @@ function Register() {
     }
   };
 
+  
   return (
     <>
       <Navbar />
@@ -83,9 +115,22 @@ function Register() {
           <option value="ROLE_HR">HR</option>
           <option value="ROLE_EMPLOYEE">Employee</option>
         </select>
-        <Button className="register-btn" onClick={handleRegister}>
-          Register User
-        </Button>
+        <div className="register-bottom">
+          <Button className="register-btn left-btn" onClick={handleRegister}>
+            Register Employee
+          </Button>
+          <Button className="register-btn right-btn" onClick={handleAllRegistration}>
+            Register All Employees
+          </Button>
+          <input
+            id="upload-excel"
+            type="file"
+            accept=".xlsx, .xls"
+            style={{ display: "none" }}
+            onChange={handleExcelUpload}
+          />
+        </div>
+      
       </div>
       <ToastContainer />
     </>
