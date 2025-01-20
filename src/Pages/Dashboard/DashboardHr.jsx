@@ -65,6 +65,7 @@ function DashboardHr() {
   const handleTitleSave = async () => {
     if (role === "employee") {
       try {
+        console.log(selectedEmployeeId);
         const response = await saveResumeTitle(resumeTitle, selectedEmployeeId);
         if (response?.status === 200 || response?.status === 201) {
           toast.success(response?.data?.message || "Resume Title Saved", {

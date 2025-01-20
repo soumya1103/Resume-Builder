@@ -33,7 +33,9 @@ const EmployeeResumeList = () => {
 
   const groupedProfiles = profiles.reduce((acc, profile) => {
     const userId = profile.userId;
-    window.localStorage.setItem("employeeId", userId)
+    
+   
+   // window.localStorage.setItem("employeeId", userId)
 
     if (!acc[userId]) {
       acc[userId] = profile;
@@ -42,6 +44,8 @@ const EmployeeResumeList = () => {
   }, {});
 
   const handleViewClick = (userId) => {
+    window.localStorage.setItem("selectedEmployeeId", userId);
+
     setSelectedUserId(userId);
     setIsModalOpen(true);
   };

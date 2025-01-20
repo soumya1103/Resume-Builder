@@ -19,6 +19,7 @@ function PersonalInfo() {
   const candidateUserId = new URLSearchParams(location.search).get("candidateProfileId");
   console.log(candidateUserId);
   const user = JSON.parse(localStorage.getItem("auth")) || { name: "", email: "", userId: "" };
+  const userEmp = JSON.parse(localStorage.getItem("selectedEmployeeId")) || { userId: "" };
 
   const [firstName, setFirstName] = useState(resume.firstName || user.name.split(" ")[0] || "");
   const [lastName, setLastName] = useState(resume.lastName || user.name.split(" ")[1] || "");
@@ -38,8 +39,12 @@ function PersonalInfo() {
 
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
   const candidateId = localStorage.getItem("profileId") || { profileId: "" };
-  const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
+  const selectedEmployeeId = localStorage.getItem("selectedEmployeeId") || {selectedEmployeeId: ""};
   let [id, setId] = useState("");
+
+  console.log(userEmp);
+  console.log(userDetails?.name)
+  console.log(resume);
 
   const getCandidateDetails = async () => {
     try {
@@ -64,7 +69,8 @@ function PersonalInfo() {
 
   const getUserDetails = async () => {
     if (role === "employee") {
-      const response = await getUserById(user.userId);
+      const response = await getUserById(selectedEmployeeId);
+      console.log(response);
       try {
         if (response?.status === 200 || response?.status === 201) {
           setUserDetails(response.data);
@@ -108,21 +114,19 @@ function PersonalInfo() {
     }
   };
   const handleNextClickEmployee = () => {
+
+   
     const obj = {
       ...resume,
-      userId: user,
-      profileId,
+      userId: userEmp,
       profileName: userDetails?.name,
       contactNo: contactNo,
       objective: objective,
     };
-
+   
+    console.log(obj);
     dispatch(savePersonalInfo(obj));
-    if (!profileId) {
-      navigate("/education");
-    } else {
-      navigate(`/education/?profileId=${obj.profileId}`);
-    }
+    navigate("/education");
   };
 
   const handleNextClickCandidate = () => {
@@ -175,7 +179,7 @@ function PersonalInfo() {
   useEffect(() => {
     const fetchProfile = async () => {
       if(role === "employee"){
-        id = employeeId;
+        id = selectedEmployeeId;
       }else if(role=== "candidate"){
         id= candidateId;
       }else{

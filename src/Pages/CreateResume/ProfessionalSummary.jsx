@@ -18,7 +18,7 @@ function ProfessionalSummary() {
   const userData = useSelector((state) => state.resume);
  
 
-  const selectedRole = localStorage.getItem("selectedRole") || { selectedRole: "" };
+  const selectedRole = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,8 +27,9 @@ function ProfessionalSummary() {
   const profileId = localStorage.getItem("profileId") || new URLSearchParams(window.location.search).get("profileId");
   const candidateId = localStorage.getItem("profileId") || { profileId: "" };
   const profileName = user.name;
-  const employeeId = localStorage.getItem("employeeId") || {employeeId: ""};
+  const employeeId = localStorage.getItem("selectedEmployeeId") || {employeeId: ""};
   const role = localStorage.getItem("selectedRole") || { selectedRole: "" };
+  
   let [id, setId] = useState("");
    const userDet = useSelector((state) => state.auth);
     const { userId } = userDet;
@@ -189,7 +190,10 @@ function ProfessionalSummary() {
         profileName,
     };
 
-    if (selectedRole === "candidate") {
+
+    
+
+    if (role=== "candidate") {
         try {
           console.log(profileId);
           const response = await addCandidate(profileId, updatedUserData);
@@ -200,17 +204,18 @@ function ProfessionalSummary() {
                 });
             }
             setTimeout(() => {
-              
-                window.location.href ="/dashboardHr";
+              window.location.href = selectedRole.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
             }, 3000);
         } catch (error) {
             toast.error(error?.response?.data?.message || "Something went wrong.", {
                 autoClose: 2000,
             });
         }
-    } else { 
+    }
+    
+    else { 
         try {
-            const response = await addUser(profileId, updatedUserData); 
+            const response = await addUser(profileId, userData); 
             console.log(response);
             if (response.status === 200 || response.status === 201) {
                 toast.success(response?.data?.message, {
@@ -218,7 +223,8 @@ function ProfessionalSummary() {
                 });
             }
             setTimeout(() => {
-                window.location.href =  "/dashboard";
+              
+              window.location.href = selectedRole.role === "ROLE_HR" ? "dashboardHr" : "/dashboard";
             }, 3000);
         } catch (error) {
             toast.error(error?.response?.data?.message || "Something went wrong.", {
